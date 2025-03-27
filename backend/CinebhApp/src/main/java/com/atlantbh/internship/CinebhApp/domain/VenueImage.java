@@ -1,13 +1,9 @@
 package com.atlantbh.internship.CinebhApp.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -17,5 +13,6 @@ public class VenueImage {
     private Long id;
     private String url;
     @ManyToOne
+    @JoinColumn(name = "venue_id")
     private Venue venue;
 }

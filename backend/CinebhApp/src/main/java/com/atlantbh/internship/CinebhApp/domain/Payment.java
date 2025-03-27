@@ -1,15 +1,11 @@
 package com.atlantbh.internship.CinebhApp.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Date;
+import java.time.Instant;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -17,9 +13,11 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date date;
+    private Instant date;
     @ManyToOne
+    @JoinColumn(name = "cinebh_user_id")
     private User user;
     @OneToOne
+    @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 }

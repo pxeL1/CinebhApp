@@ -1,13 +1,9 @@
 package com.atlantbh.internship.CinebhApp.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -16,7 +12,9 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
+    @JoinColumn(name = "cinebh_user_id")
     private User user;
     @ManyToOne
+    @JoinColumn(name = "role_id")
     private Role role;
 }

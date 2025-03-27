@@ -1,13 +1,9 @@
 package com.atlantbh.internship.CinebhApp.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -17,7 +13,9 @@ public class Projection {
     private Long id;
     private String projectionTime;
     @ManyToOne
+    @JoinColumn(name = "movie_id")
     private Movie movie;
     @ManyToOne
+    @JoinColumn(name = "hall_id")
     private Hall hall;
 }

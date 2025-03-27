@@ -1,13 +1,9 @@
 package com.atlantbh.internship.CinebhApp.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -19,5 +15,6 @@ public class Personnel {
     private String actorRoleName;
     private PersonnelRole role;
     @ManyToOne
+    @JoinColumn(name = "movie_id")
     private Movie movie;
 }

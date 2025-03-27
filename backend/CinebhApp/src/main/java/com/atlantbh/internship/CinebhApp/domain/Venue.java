@@ -1,16 +1,12 @@
 package com.atlantbh.internship.CinebhApp.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Getter
-@Setter
+import java.util.List;
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -22,4 +18,7 @@ public class Venue {
     private String phone;
     private String streetAddress;
     private String city;
+    @OneToMany
+    @JsonIgnore
+    private List<VenueImage> images;
 }

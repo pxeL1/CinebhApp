@@ -1,18 +1,13 @@
 package com.atlantbh.internship.CinebhApp.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.Date;
+import java.time.Instant;
+import java.util.List;
 
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -24,10 +19,16 @@ public class Movie {
     private String pgRating;
     private String language;
     private String duration;
-    private Date startDate;
-    private Date endDate;
+    private Instant startDate;
+    private Instant endDate;
     private String trailer;
     private String director;
     private String synopsis;
     private MovieStatus status;
+    @OneToMany
+    @JsonIgnore
+    private List<MovieGenre> genres;
+    @OneToMany
+    @JsonIgnore
+    private List<MovieImage> images;
 }

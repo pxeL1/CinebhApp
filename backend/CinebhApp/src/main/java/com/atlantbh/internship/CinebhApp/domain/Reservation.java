@@ -1,13 +1,9 @@
 package com.atlantbh.internship.CinebhApp.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -17,9 +13,12 @@ public class Reservation {
     private Long id;
     private Double price;
     @ManyToOne
+    @JoinColumn(name = "cinebh_user_id")
     private User user;
     @ManyToOne
+    @JoinColumn(name = "projection_id")
     private Projection projection;
     @OneToOne
+    @JoinColumn(name = "payment_id")
     private Payment payment;
 }
