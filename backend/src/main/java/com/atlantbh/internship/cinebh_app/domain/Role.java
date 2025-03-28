@@ -1,4 +1,4 @@
-package com.atlantbh.internship.CinebhApp.domain;
+package com.atlantbh.internship.cinebh_app.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,9 +7,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Genre {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false, unique = true)
     private String name;
 }

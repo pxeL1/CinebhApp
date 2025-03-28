@@ -1,4 +1,4 @@
-package com.atlantbh.internship.CinebhApp.domain;
+package com.atlantbh.internship.cinebh_app.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,12 +7,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class VenueImage {
+public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String url;
-    @ManyToOne
-    @JoinColumn(name = "venue_id")
-    private Venue venue;
+    @Column(nullable = false, unique = true)
+    private String name;
 }

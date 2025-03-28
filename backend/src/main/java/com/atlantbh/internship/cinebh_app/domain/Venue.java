@@ -1,4 +1,4 @@
-package com.atlantbh.internship.CinebhApp.domain;
+package com.atlantbh.internship.cinebh_app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -14,11 +14,14 @@ public class Venue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String phone;
+    @Column(nullable = false)
     private String streetAddress;
+    @Column(nullable = false)
     private String city;
-    @OneToMany
-    @JsonIgnore
-    private List<VenueImage> images;
+    @OneToOne
+    private VenueImage images;
 }

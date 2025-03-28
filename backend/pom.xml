@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.atlantbh.internship</groupId>
-	<artifactId>CinebhApp</artifactId>
+	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CinebhApp</name>
 	<description>CinemaApp is a web-based ticketing application that allows online movie ticket purchases for a specific movie company with multiple subsidiaries across the country/world.</description>

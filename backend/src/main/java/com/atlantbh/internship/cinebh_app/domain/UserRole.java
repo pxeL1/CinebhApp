@@ -1,23 +1,22 @@
-package com.atlantbh.internship.CinebhApp.domain;
+package com.atlantbh.internship.cinebh_app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.Instant;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Payment {
+public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Instant date;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "cinebh_user_id")
     private User user;
-    @OneToOne
-    @JoinColumn(name = "reservation_id")
-    private Reservation reservation;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 }

@@ -1,24 +1,24 @@
-package com.atlantbh.internship.CinebhApp.domain;
+package com.atlantbh.internship.cinebh_app.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.Instant;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Reservation {
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Double price;
+    @Column(nullable = false)
+    private Instant date;
     @ManyToOne
     @JoinColumn(name = "cinebh_user_id")
     private User user;
-    @ManyToOne
-    @JoinColumn(name = "projection_id")
-    private Projection projection;
     @OneToOne
-    @JoinColumn(name = "payment_id")
-    private Payment payment;
+    @JoinColumn(name = "reservation_id")
+    private Reservation reservation;
 }

@@ -1,4 +1,4 @@
-package com.atlantbh.internship.CinebhApp.domain;
+package com.atlantbh.internship.cinebh_app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -23,11 +23,10 @@ public class Movie {
     private Instant endDate;
     private String trailer;
     private String synopsis;
+    @Column(nullable = false)
     private MovieStatus status;
     @OneToMany
-    @JsonIgnore
     private List<MovieGenre> genres;
     @OneToMany
-    @JsonIgnore
     private List<MovieImage> images;
 }

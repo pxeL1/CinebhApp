@@ -1,5 +1,6 @@
-package com.atlantbh.internship.CinebhApp.domain;
+package com.atlantbh.internship.cinebh_app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,14 +8,15 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Personnel {
+public class MovieGenre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String actorRoleName;
-    private PersonnelRole role;
     @ManyToOne
     @JoinColumn(name = "movie_id")
+    @JsonIgnore
     private Movie movie;
+    @ManyToOne
+    @JoinColumn(name = "genre_id")
+    private Genre genre;
 }

@@ -1,4 +1,4 @@
-package com.atlantbh.internship.CinebhApp.domain;
+package com.atlantbh.internship.cinebh_app.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,15 +7,16 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Projection {
+public class Personnel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String projectionTime;
+    @Column(nullable = false)
+    private String name;
+    private String actorRoleName;
+    @Column(nullable = false)
+    private PersonnelRole role;
     @ManyToOne
     @JoinColumn(name = "movie_id")
     private Movie movie;
-    @ManyToOne
-    @JoinColumn(name = "hall_id")
-    private Hall hall;
 }

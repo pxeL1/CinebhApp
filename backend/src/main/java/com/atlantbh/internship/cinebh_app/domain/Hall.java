@@ -1,4 +1,4 @@
-package com.atlantbh.internship.CinebhApp.domain;
+package com.atlantbh.internship.cinebh_app.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,13 +7,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Seat {
+public class Hall {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String seatNumber;
-    private String seatType;
+    @Column(nullable = false)
+    private String name;
     @ManyToOne
-    @JoinColumn(name = "hall_id")
-    private Hall hall;
+    @JoinColumn(name = "venue_id")
+    private Venue venue;
 }

@@ -1,5 +1,6 @@
-package com.atlantbh.internship.CinebhApp.domain;
+package com.atlantbh.internship.cinebh_app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,14 +8,16 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class MovieGenre {
+public class MovieImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
+    private String url;
+    @Column(nullable = false)
+    private boolean coverPhoto;
     @ManyToOne
     @JoinColumn(name = "movie_id")
+    @JsonIgnore
     private Movie movie;
-    @ManyToOne
-    @JoinColumn(name = "genre_id")
-    private Genre genre;
 }

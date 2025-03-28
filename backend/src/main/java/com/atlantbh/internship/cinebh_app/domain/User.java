@@ -1,4 +1,4 @@
-package com.atlantbh.internship.CinebhApp.domain;
+package com.atlantbh.internship.cinebh_app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -29,12 +29,11 @@ public class User implements UserDetails {
     private String city;
     private String country;
     @OneToMany
-    @JsonIgnore
     private List<UserRole> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(userRole -> new SimpleGrantedAuthority(userRole.getRole().getRoleName())).toList();
+        return roles.stream().map(userRole -> new SimpleGrantedAuthority(userRole.getRole().getName())).toList();
     }
 
     @Override
