@@ -22,7 +22,6 @@ public class Movie {
     private Instant startDate;
     private Instant endDate;
     private String trailer;
-    private String director;
     private String synopsis;
     private MovieStatus status;
     @OneToMany
