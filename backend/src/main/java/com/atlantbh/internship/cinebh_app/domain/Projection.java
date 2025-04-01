@@ -14,7 +14,7 @@ public class Projection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private LocalTime projectionTime;
+    private LocalTime time;
     @ManyToOne
     @JoinColumn(name = "movie_id")
     private Movie movie;
