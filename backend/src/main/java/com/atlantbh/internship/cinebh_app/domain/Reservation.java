@@ -1,6 +1,5 @@
 package com.atlantbh.internship.cinebh_app.domain;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +11,6 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
     private double price;
     @ManyToOne
     @JoinColumn(name = "cinebh_user_id")

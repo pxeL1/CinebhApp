@@ -1,10 +1,7 @@
 package com.atlantbh.internship.cinebh_app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,5 +20,5 @@ public class Venue {
     @Column(nullable = false)
     private String city;
     @OneToOne
-    private VenueImage images;
+    private VenueImage image;
 }

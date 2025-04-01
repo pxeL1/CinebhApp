@@ -28,7 +28,7 @@ public class User implements UserDetails {
     private String phoneNumber;
     private String city;
     private String country;
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<UserRole> roles;
 
     @Override

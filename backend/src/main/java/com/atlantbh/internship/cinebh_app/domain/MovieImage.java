@@ -14,8 +14,7 @@ public class MovieImage {
     private Long id;
     @Column(nullable = false)
     private String url;
-    @Column(nullable = false)
-    private boolean coverPhoto;
+    private boolean isCoverPhoto;
     @ManyToOne
     @JoinColumn(name = "movie_id")
     @JsonIgnore

@@ -1,6 +1,5 @@
 package com.atlantbh.internship.cinebh_app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,11 +21,12 @@ public class Movie {
     private Instant startDate;
     private Instant endDate;
     private String trailer;
+    @Column(length = 1024)
     private String synopsis;
     @Column(nullable = false)
     private MovieStatus status;
-    @OneToMany
+    @OneToMany(mappedBy = "movie")
     private List<MovieGenre> genres;
-    @OneToMany
+    @OneToMany(mappedBy = "movie")
     private List<MovieImage> images;
 }

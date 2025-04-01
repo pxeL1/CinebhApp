@@ -8,5 +8,9 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+    hibernate:
+      ddl-auto: create
+  flyway:
+    enabled: false
 server:
   port: 8080
