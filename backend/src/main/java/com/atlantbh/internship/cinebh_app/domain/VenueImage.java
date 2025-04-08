@@ -1,5 +1,6 @@
 package com.atlantbh.internship.cinebh_app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,5 +16,6 @@ public class VenueImage {
     private String url;
     @OneToOne
     @JoinColumn(name = "venue_id")
+    @JsonIgnore
     private Venue venue;
 }

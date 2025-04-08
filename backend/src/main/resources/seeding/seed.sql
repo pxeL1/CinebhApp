@@ -48,12 +48,42 @@ INSERT INTO movie_genre (genre_id, movie_id) VALUES
     (1, 19), (3, 19), (11, 19),
     (4, 20), (11, 20), (6, 20);
 
+INSERT INTO movie_image (is_cover_photo, url, movie_id) VALUES
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FThe%20Electric%20State%2Fthe_electric_state.jpg?alt=media&token=9d540bf3-25f4-453b-9320-3dcfb49170fa', 1),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FAnora%2Fanora.jpg?alt=media&token=f152eb94-c352-486f-bbd1-1f074ee1e742', 2),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FMickey%2017%2Fmickey17.jpg?alt=media&token=69265c2e-fc9e-4bb8-bd0e-b70fd4814d5e', 3),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FWicked%2Fwicked.jpg?alt=media&token=938be25c-852a-4f45-820a-0428d879d8fe', 4),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FBlack%20Bag%2Fblack%20bag.jpg?alt=media&token=20b2117c-11eb-40ae-b679-2e9c9df1caa5', 5),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FOne%20Battle%20After%20Another%2Foneafteranother.jpg?alt=media&token=d5037911-e943-4bdd-9dfb-ecca9386eaad', 6),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FFinal%20Destination%3A%20Bloodline%2Ffinaldestination.jpg?alt=media&token=b78ef964-027d-4d74-9085-602726363acd', 7),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FNovocaine%2Fnovocaine.jpg?alt=media&token=d68e54d2-0552-46af-bc91-0c5db29a2680', 8),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FA%20Minecraft%20Movie%2Faminecraftmovie.jpg?alt=media&token=2bb060f8-eee2-46fc-85b4-79056b6ac2df', 9),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FHolland%2Fholland.jpg?alt=media&token=f61b4b07-8a1f-4285-9ea7-308e7fb66081', 10),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FA%20Working%20Man%2Faworkingman.jpg?alt=media&token=aa4093fa-8cad-4324-9b01-653f8c514d65', 11),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FMufasa%3A%20The%20Lion%20King%2Fmufasa.jpg?alt=media&token=28e62d48-69bb-4720-a371-b793624345cb', 12),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FThe%20Monkey%2Fthemonkey.jpg?alt=media&token=7344b87a-f332-46d8-a1ce-4f43ab25cf69', 13),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FDeath%20of%20a%20Unicorn%2Fdeathofaunicorn.jpg?alt=media&token=858dad1b-44a2-45d0-a15c-cb7830430a9f', 14),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FThe%20Alto%20Knights%2Fthealtoknights.jpg?alt=media&token=614eee1f-1ca1-428c-a1a5-94d33adee5ee', 15),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FMoana%202%2Fmoana2.jpg?alt=media&token=6575866d-64d0-4c5d-97af-87ca29298320', 16),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FA%20Complete%20Unkown%2Facompleteunkown.jpg?alt=media&token=761f426d-54ff-45d1-8a90-0405212abef0', 17),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FLast%20Breath%2Flastbreath.jpg?alt=media&token=9070c284-2999-4294-8160-59f8285ae309', 18),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FThe%20Gorge%2Fthegorge.jpg?alt=media&token=07d9ab14-e02b-4f91-b8ca-5bebfb513b83', 19),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FThe%20Substance%2Fthesubstance.jpg?alt=media&token=d92ea2ff-2db2-4253-9cb9-64ee41777a08' ,20),
+    (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FCompanion%2Fcompanion.jpg?alt=media&token=2c8d3418-e253-4c48-874a-48d9e5e4f13c', 21);
+
 INSERT INTO venue (name, city, phone, street_address, image_id) VALUES
-    ('CineStar 4DX Sarajevo', 'Sarajevo', '036 333-340', 'Dzemala Bijedica St 160n', null),
-    ('Cineplexx Sarajevo', 'Sarajevo', '033 745-055', 'Zmaja od Bosne 4', null),
-    ('CineStar Mostar', 'Mostar', '036 333-340', 'Kardinala Stepinca bb', null),
-    ('CineStar 4DX Banja Luka', 'Banja Luka', '036 333-340', 'Bulevar srpske vojske 8', null),
-    ('CineStar Tuzla', 'Tuzla', '036 333-340', 'Mitra Trifunovića Uče 2', null);
+    ('CineStar 4DX Sarajevo', 'Sarajevo', '036 333-340', 'Dzemala Bijedica St 160n', 1),
+    ('Cineplexx Sarajevo', 'Sarajevo', '033 745-055', 'Zmaja od Bosne 4', 2),
+    ('CineStar Mostar', 'Mostar', '036 333-340', 'Kardinala Stepinca bb', 3),
+    ('CineStar 4DX Banja Luka', 'Banja Luka', '036 333-340', 'Bulevar srpske vojske 8', 4),
+    ('CineStar Tuzla', 'Tuzla', '036 333-340', 'Mitra Trifunovića Uče 2', 5);
+
+INSERT INTO venue_image (url, venue_id) VALUES
+    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineStar%204DX%20Sarajevo%2Fcinestarsarajevo.jpeg?alt=media&token=657a32a5-fa47-4ea4-a100-17637a7c69b7', 1),
+    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineplexx%20Sarajevo%2Fcineplexxsarajevo.jpg?alt=media&token=7c488cb4-9704-4cfb-9b43-6bde30f8578a', 2),
+    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineStar%20Mostar%2Fcinestarmostar.jfif?alt=media&token=24703e91-3462-42e0-a1ca-0c237955f586', 3),
+    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineStar%204DX%20Banja%20Luka%2Fcinestarbanjaluka.jpg?alt=media&token=089d1e5f-9ff5-4871-808b-44d2b70dcb39', 4),
+    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineStar%20Tuzla%2Fcinestartuzla.jpg?alt=media&token=5828de4f-5065-4d38-8049-3cf95220dc97', 5);
 
 INSERT INTO hall (name, venue_id) VALUES
     ('Hall 1', 1), ('Hall 1', 2), ('Hall 1', 3), ('Hall 1', 4), ('Hall 1', 5);
