@@ -7,6 +7,8 @@
     --color-atlantcarbon: #1A1A1A;
     --color-atlantpale: #E4E7EC;
     --color-atlantash: #98A2B3;
+    --color-atlantshadow: #34405414;
+    --color-atlantneutral: #FCFCFD;
 }
 
 #root {
@@ -16,4 +18,6 @@
 body {
     margin: 0;
     min-width: 230px;
+    background-color: #FCFCFD;
+    width: fit-content;
 }

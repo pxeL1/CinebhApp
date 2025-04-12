@@ -13,7 +13,7 @@ export default function Pricing() {
                     adventure like never before!
                 </div>
             </div>
-            <div className='flex items-center justify-center h-[800px] w-screen'>
+            <div className='flex items-center justify-center h-[800px] w-full'>
                 <PricingCard type={'Regular Seats'} price={'7 KM'} list={['Comfortable seating', 'Affordable pricing', 'Wide selection', 'Accessible locations', 'Suitable for everyone']}/>
                 <PricingCard type={'Love Seats'} price={'24 KM'} list={['Side-by-side design', 'Comfortable padding', 'Adjustable armrests', 'Cup holders', 'Reserved for couples']}/>
                 <PricingCard type={'Vip Seats'} price={'10 KM'} list={['Enhanced comfort', 'Priority seating', 'Prime viewing', 'Personal space', 'Luxury extras']}/>
