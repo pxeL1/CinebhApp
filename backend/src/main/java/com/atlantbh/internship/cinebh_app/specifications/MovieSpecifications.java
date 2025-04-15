@@ -7,30 +7,18 @@ import java.time.Instant;
 
 public class MovieSpecifications {
     public static Specification<Movie> startDateLessThanNow() {
-        return (root, query, builder) -> {
-            Instant now = Instant.now();
-            return builder.lessThanOrEqualTo(root.get("startDate"), now);
-        };
+        return (root, query, builder) -> builder.lessThanOrEqualTo(root.get("startDate"), Instant.now());
     }
 
     public static Specification<Movie> startDateGreaterThanNow() {
-        return (root, query, builder) -> {
-            Instant now = Instant.now();
-            return builder.greaterThanOrEqualTo(root.get("startDate"), now);
-        };
+        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get("startDate"), Instant.now());
     }
 
     public static Specification<Movie> endDateGreaterThanNow() {
-        return (root, query, builder) -> {
-            Instant now = Instant.now();
-            return builder.greaterThanOrEqualTo(root.get("endDate"), now);
-        };
+        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get("endDate"), Instant.now());
     }
 
     public static Specification<Movie> endDateLessThanNow() {
-        return (root, query, builder) -> {
-            Instant now = Instant.now();
-            return builder.lessThanOrEqualTo(root.get("endDate"), now);
-        };
+        return (root, query, builder) -> builder.lessThanOrEqualTo(root.get("endDate"), Instant.now());
     }
 }
