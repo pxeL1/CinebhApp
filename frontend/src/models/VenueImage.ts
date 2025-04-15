@@ -1,4 +1,4 @@
 export type VenueImage = {
-    id: number;
-    url: string;
-}
+  id: number;
+  url: string;
+};

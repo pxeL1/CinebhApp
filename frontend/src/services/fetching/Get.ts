@@ -1,14 +1,13 @@
-export default async function get<T>(url: string) {
-    url = import.meta.env.VITE_BASE_URL + url;
-    const res = await fetch(url, {
-        method: 'GET',
-        headers: new Headers({'Content-Type': 'application/json'})
-    })
+export default async function get<T>(
+  url: string,
+  queryParams?: URLSearchParams,
+) {
+  const completeUrl: string =
+    import.meta.env.VITE_BASE_URL + url + "?" + queryParams?.toString();
+  const res = await fetch(completeUrl, {
+    method: "GET",
+    headers: new Headers({ "Content-Type": "application/json" }),
+  });
 
-    if(res.ok) {
-        const resJson: T = await res.json();
-        return {data: resJson, status: res.ok};
-    } else {
-        return {data: {}, status: res.ok};
-    }
+  return (await res.json()) as T;
 }

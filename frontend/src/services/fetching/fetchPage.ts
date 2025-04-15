@@ -1,8 +1,13 @@
-import get from "./Get.ts";
-import {Page} from "../../models/Page.ts";
+import get from "./Get";
+import { Page } from "models/Page";
 
-export default async function fetchPage<T>(url: string, page: number, size: number) {
-    url = url + "?page=" + page + "&size=" + size;
-
-    return await get<Page<T>>(url).then((res) => res);
+export default async function fetchPage<T>(
+  url: string,
+  page: number,
+  size: number,
+) {
+  return await get<Page<T>>(
+    url,
+    new URLSearchParams({ page: page.toString(), size: size.toString() }),
+  );
 }
