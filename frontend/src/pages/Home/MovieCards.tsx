@@ -5,7 +5,11 @@ import {
 } from "defaultValues";
 import Card from "components/common/Card/Card";
 
-export default function getMovieCards(page: Page<Movie> | undefined) {
+export interface MovieCardsProps {
+  page: Page<Movie>
+}
+
+export default function MovieCards({ page }: MovieCardsProps) {
   return page?.content.map((movie) => {
     const coverImage = movie.images.find((image) => image.coverPhoto);
     const coverImageUrl: string = coverImage?.url ?? defaultImage;

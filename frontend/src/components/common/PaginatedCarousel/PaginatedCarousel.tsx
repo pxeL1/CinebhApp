@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { PropsWithChildren } from "react";
-import CarouselPagination from "components/common/CarouselPagination/CarouselPagination";
+import CarouselPagination from "components/common/PaginatedCarousel/CarouselPagination";
 import { Page } from "models/Page";
 
-export interface MediaCarouselProps<T> {
+export interface PaginatedCarouselProps<T> {
   title: string;
   page: Page<T>;
   nextPage: () => void;
@@ -11,7 +11,7 @@ export interface MediaCarouselProps<T> {
 }
 
 export default function PaginatedCarousel<T>(
-  {title, page, nextPage, prevPage, children}: PropsWithChildren<MediaCarouselProps<T>>,
+  {title, page, nextPage, prevPage, children}: PropsWithChildren<PaginatedCarouselProps<T>>,
 ) {
   return (
     <div className="flex flex-col w-full">

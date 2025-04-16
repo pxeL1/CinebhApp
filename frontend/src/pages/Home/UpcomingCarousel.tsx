@@ -2,8 +2,8 @@ import PaginatedCarousel from "components/common/PaginatedCarousel/PaginatedCaro
 import useFetchPage from "hooks/useFetchPage";
 import { Movie } from "models/Movie";
 import { getUpcomingMoviesRequest } from "services/fetching/API";
-import getMovieCards from "pages/Home/getMovieCards";
 import usePagination from "hooks/usePagination";
+import MovieCards from "pages/Home/MovieCards";
 
 export default function UpcomingCarousel() {
   const { pageNumber, pageSize, nextPage, previousPage } = usePagination(4);
@@ -37,7 +37,7 @@ export default function UpcomingCarousel() {
         prevPage={previousPage}
         page={page}
       >
-        {getMovieCards(page)}
+        <MovieCards page={page}/>
       </PaginatedCarousel>
     </div>
   );

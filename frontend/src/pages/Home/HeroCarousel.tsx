@@ -1,7 +1,7 @@
 import { Movie } from "models/Movie";
 import { useState } from "react";
 import Button, { ButtonType } from "components/common/Button/Button";
-import CarouselControl from "components/unique/CarouselControl/CarouselControl";
+import HeroControl from "pages/Home/HeroControl";
 import useFetchPage from "hooks/useFetchPage";
 import { getCurrentMoviesRequest } from "services/fetching/API";
 
@@ -51,7 +51,7 @@ export default function HeroCarousel() {
         </div>
       </div>
       <div className="w-full flex justify-center items-center p-8">
-        <CarouselControl
+        <HeroControl
           numberOfItems={page.numberOfElements}
           selectedIndex={index}
           onIndexChange={setIndex}

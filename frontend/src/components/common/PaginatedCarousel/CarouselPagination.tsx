@@ -21,24 +21,19 @@ export default function CarouselPagination({
   nextPage,
   previousPage,
 }: CarouselPaginationProps) {
+  const totalElementsOnPage = numberOfElements - 1;
+  const rangeCoefficient = pageNumber * pageSize - pageNumber;
+  const rangeFrom = pageNumber + 1 + rangeCoefficient;
+  const rangeTo = pageNumber + 1 + rangeCoefficient + totalElementsOnPage;
+  const range = (rangeFrom + " - " + rangeTo);
 
-  function calculateRange(){
-    return pageNumber +
-      1 +
-      (pageNumber * pageSize - pageNumber) +
-      " - " +
-      (pageNumber +
-        1 +
-        (pageNumber * pageSize - pageNumber) +
-        (numberOfElements - 1));
-  }
 
   return (
     <div className="flex">
       <div className="flex items-center mr-4">
         Showing
         <div className="font-semibold mx-1">
-          {calculateRange()}
+          {range}
         </div>
         out of
         <div className="font-semibold mx-1">{totalElements}</div>

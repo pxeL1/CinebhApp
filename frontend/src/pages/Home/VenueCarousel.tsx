@@ -42,6 +42,10 @@ export default function VenueCarousel() {
           const coverImage = venue.image;
           const coverImageUrl: string = coverImage?.url ?? defaultImage;
 
+          function getVenueAddress(): string{
+            return (`${venue.streetAddress}, ${venue.city}`);
+          }
+
           return (
             <Card
               key={venue.id}
@@ -49,7 +53,7 @@ export default function VenueCarousel() {
               title={venue.name}
               description={
                 <div className="text-cinebhlightgray text-sm h-5 flex ml-1">
-                  {venue.streetAddress}, {venue.city}
+                  {getVenueAddress()}
                 </div>
               }
             />

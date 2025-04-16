@@ -1,5 +1,5 @@
-import PricingCard from "components/unique/PricingCard/PricingCard";
-import Footer from "components/unique/Footer/Footer";
+import PricingCard from "pages/Pricing/PricingCard";
+import Footer from "components/Footer/Footer";
 
 const regularList = [
   "Comfortable seating",

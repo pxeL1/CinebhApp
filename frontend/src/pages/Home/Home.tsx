@@ -1,4 +1,4 @@
-import Footer from "components/unique/Footer/Footer";
+import Footer from "components/Footer/Footer";
 import CurrentlyShowingCarousel from "pages/Home/CurrentlyShowingCarousel";
 import UpcomingCarousel from "./UpcomingCarousel";
 import VenueCarousel from "./VenueCarousel";
@@ -10,7 +10,7 @@ export default function Home() {
     <div>
       <HeroCarousel />
       <HeroVenues />
-      <div className="max-w-[1440px] w-full px-24 mx-auto">
+      <div className="max-w-360 w-full px-24 mx-auto">
         <CurrentlyShowingCarousel />
         <UpcomingCarousel />
         <VenueCarousel />

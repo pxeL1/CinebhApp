@@ -1,14 +1,14 @@
-export interface CarouselControlProps {
+export interface HeroControlProps {
   numberOfItems: number;
   selectedIndex: number;
   onIndexChange: (index: number) => void;
 }
 
-export default function CarouselControl({
+export default function HeroControl({
   numberOfItems,
   selectedIndex,
   onIndexChange,
-}: CarouselControlProps) {
+}: HeroControlProps) {
   const buttons = [];
   for (let i = 0; i < numberOfItems; i++) {
     buttons.push(
@@ -20,5 +20,5 @@ export default function CarouselControl({
     );
   }
 
-  return <div className="flex justify-between w-36">{buttons}</div>;
+  return <div className="flex gap-6 w-fit">{buttons}</div>;
 }

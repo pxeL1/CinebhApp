@@ -1,15 +1,10 @@
-import getAllHeaders from "services/fetching/getAllHeaders";
-import getCompleteUrl from "services/fetching/getCompleteUrl";
+import fetchData from "services/fetching/fetchData";
 
 export default async function get<T>(
   url: string,
   queryParams?: URLSearchParams,
 ) {
-  const completeUrl: string = getCompleteUrl(url, queryParams);
-  const res = await fetch(completeUrl, {
-    method: "GET",
-    headers: getAllHeaders(),
-  });
+  const res = await fetchData(url, "GET", queryParams);
 
   if(!res.ok) {
     throw new Error();

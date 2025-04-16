@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <div className="min-w-[1440px] w-screen p-14 bg-gradient-to-r from-cinebhcarbon to-cinebhdarkred flex flex-col justify-center items-center text-white">
+    <div className="min-w-360 w-screen p-14 bg-gradient-to-r from-cinebhcarbon to-cinebhdarkred flex flex-col justify-center items-center text-white">
       <img className="w-32 h-8 mb-4" src={whiteLogo} />
       <div className="mb-4 h-4 flex tracking-wider">
         <Link to="/about" className="text-xs font-bold mr-4">

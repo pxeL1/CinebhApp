@@ -1,5 +1,5 @@
 import redseats from "assets/images/redseats.jpg";
-import Footer from "components/unique/Footer/Footer";
+import Footer from "components/Footer/Footer";
 
 export default function About() {
   return (
