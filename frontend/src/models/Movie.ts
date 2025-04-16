@@ -1,5 +1,5 @@
-import { MovieGenre } from "./MovieGenre";
-import { MovieImage } from "./MovieImage";
+import { MovieGenre } from "models/MovieGenre";
+import { MovieImage } from "models/MovieImage";
 import { MovieStatus } from "models/MovieStatus";
 
 export type Movie = {

@@ -11,7 +11,7 @@ export default function HeroVenues() {
 
   if (error) {
     return (
-      <div className="h-[620px] flex justify-center items-center text-2xl text-atlantdarkred">
+      <div className="p-96 flex justify-center items-center text-2xl text-cinebhdarkred">
         Error while loading content
       </div>
     );
@@ -19,7 +19,7 @@ export default function HeroVenues() {
 
   if (loading) {
     return (
-      <div className="h-[620px] flex justify-center items-center text-2xl">
+      <div className="p-96 flex justify-center items-center text-2xl">
         Loading...
       </div>
     );
@@ -31,7 +31,7 @@ export default function HeroVenues() {
         return (
           <div
             key={venue.id}
-            className="h-16 border border-atlantpale rounded-lg flex justify-center items-center p-4 text-atlantash text-2xl font-bold"
+            className="h-16 border border-cinebhpale rounded-lg flex justify-center items-center p-4 text-cinebhash text-2xl font-bold"
           >
             {venue.name}
           </div>

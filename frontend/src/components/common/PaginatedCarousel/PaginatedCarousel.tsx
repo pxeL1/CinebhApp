@@ -10,30 +10,30 @@ export interface MediaCarouselProps<T> {
   prevPage: () => void;
 }
 
-export default function MediaCarousel<T>(
-  props: PropsWithChildren<MediaCarouselProps<T>>,
+export default function PaginatedCarousel<T>(
+  {title, page, nextPage, prevPage, children}: PropsWithChildren<MediaCarouselProps<T>>,
 ) {
   return (
     <div className="flex flex-col w-full">
       <div className="flex justify-between items-center h-10 mb-8">
-        <div className="font-bold text-4xl">{props.title}</div>
+        <div className="font-bold text-4xl">{title}</div>
         <Link
           to="/"
-          className="font-semibold tracking-[.015em] text-atlantdarkred hover:underline hidden"
+          className="font-semibold tracking-[.015em] text-cinebhdarkred hover:underline hidden"
         >
           See All
         </Link>
       </div>
-      <div className="flex gap-4 mb-6">{props.children}</div>
+      <div className="grid grid-rows-1 grid-cols-4 gap-4 mb-6">{children}</div>
       <div className="flex justify-end">
         <CarouselPagination
-          pageNumber={props.page.number}
-          pageSize={props.page.size}
-          numberOfElements={props.page.numberOfElements}
-          totalElements={props.page.totalElements}
-          totalPages={props.page.totalPages}
-          nextPage={props.nextPage}
-          previousPage={props.prevPage}
+          pageNumber={page.number}
+          pageSize={page.size}
+          numberOfElements={page.numberOfElements}
+          totalElements={page.totalElements}
+          totalPages={page.totalPages}
+          nextPage={nextPage}
+          previousPage={prevPage}
         />
       </div>
     </div>

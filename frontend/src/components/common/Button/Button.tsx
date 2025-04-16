@@ -1,24 +1,29 @@
 import { PropsWithChildren } from "react";
-import { ButtonType } from "models/ButtonType";
-
 export interface ButtonProps {
-  onClick?: () => void;
-  isActive?: boolean;
+  onClick: () => void;
+  disabled?: boolean;
   variant: ButtonType;
 }
 
-export default function Button(props: PropsWithChildren<ButtonProps>) {
-  const buttonVariant: Record<ButtonType, string> = {
-    [ButtonType.PRIMARY]:
-      "w-28 h-12 rounded-lg bg-atlantdarkred text-atlantneutral cursor-pointer hover:bg-atlantlightred flex justify-center items-center",
-    [ButtonType.SECONDARY]: `flex items-center justify-center h-12 w-12 bg-white border border-atlantpale rounded-lg hover:bg-atlantpale ${!props.isActive ? "text-atlantpale hover:bg-white" : ""}`,
-  };
+export enum ButtonType {
+  PRIMARY,
+  SECONDARY,
+}
+
+const buttonVariant: Record<ButtonType, string> = {
+  [ButtonType.PRIMARY]:
+    "w-28 h-12 rounded-lg bg-cinebhdarkred text-cinebhneutral cursor-pointer hover:bg-cinebhlightred flex justify-center items-center",
+  [ButtonType.SECONDARY]: "flex items-center justify-center h-12 w-12 bg-white border border-cinebhpale rounded-lg hover:bg-cinebhpale disabled:text-cinebhpale disabled:hover:bg-white",
+};
+
+export default function Button({onClick, disabled, variant, children}: PropsWithChildren<ButtonProps>) {
   return (
     <button
-      onClick={props.isActive ? props.onClick : () => {}}
-      className={buttonVariant[props.variant]}
+      onClick={onClick}
+      className={buttonVariant[variant]}
+      disabled={disabled}
     >
-      {props.children}
+      {children}
     </button>
   );
 }

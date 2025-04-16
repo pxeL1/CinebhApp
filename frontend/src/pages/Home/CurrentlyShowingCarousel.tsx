@@ -1,4 +1,4 @@
-import MediaCarousel from "components/common/MediaCarousel/MediaCarousel";
+import PaginatedCarousel from "components/common/PaginatedCarousel/PaginatedCarousel";
 import useFetchPage from "hooks/useFetchPage";
 import { Movie } from "models/Movie";
 import { getCurrentMoviesRequest } from "services/fetching/API";
@@ -15,7 +15,7 @@ export default function CurrentlyShowingCarousel() {
 
   if (error) {
     return (
-      <div className="h-[620px] flex justify-center items-center text-2xl text-atlantdarkred">
+      <div className="flex p-96 justify-center items-center text-2xl text-cinebhdarkred">
         Error while loading content
       </div>
     );
@@ -23,22 +23,22 @@ export default function CurrentlyShowingCarousel() {
 
   if (loading) {
     return (
-      <div className="h-[620px] flex justify-center items-center text-2xl">
+      <div className="flex p-96 justify-center items-center text-2xl">
         Loading...
       </div>
     );
   }
 
   return (
-    <div className="w-[1256px] mb-10">
-      <MediaCarousel
+    <div className="w-full mb-10">
+      <PaginatedCarousel
         title="Currently Showing"
         nextPage={nextPage}
         prevPage={previousPage}
         page={page}
       >
         {getMovieCards(page)}
-      </MediaCarousel>
+      </PaginatedCarousel>
     </div>
   );
 }

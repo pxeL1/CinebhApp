@@ -1,28 +1,29 @@
 import PricingCard from "components/unique/PricingCard/PricingCard";
 import Footer from "components/unique/Footer/Footer";
 
+const regularList = [
+  "Comfortable seating",
+  "Affordable pricing",
+  "Wide selection",
+  "Accessible locations",
+  "Suitable for everyone",
+];
+const loveList = [
+  "Side-by-side design",
+  "Comfortable padding",
+  "Adjustable armrests",
+  "Cup holders",
+  "Reserved for couples",
+];
+const vipList = [
+  "Enhanced comfort",
+  "Priority seating",
+  "Prime viewing",
+  "Personal space",
+  "Luxury extras",
+];
+
 export default function Pricing() {
-  const regularList = [
-    "Comfortable seating",
-    "Affordable pricing",
-    "Wide selection",
-    "Accessible locations",
-    "Suitable for everyone",
-  ];
-  const loveList = [
-    "Side-by-side design",
-    "Comfortable padding",
-    "Adjustable armrests",
-    "Cup holders",
-    "Reserved for couples",
-  ];
-  const vipList = [
-    "Enhanced comfort",
-    "Priority seating",
-    "Prime viewing",
-    "Personal space",
-    "Luxury extras",
-  ];
 
   return (
     <div className="flex flex-col items-center">
@@ -37,9 +38,9 @@ export default function Pricing() {
         </div>
       </div>
       <div className="flex items-center justify-center h-[800px] w-full">
-        <PricingCard type="Regular Seats" price="7 KM" list={regularList} />
-        <PricingCard type="Love Seats" price="24 KM" list={loveList} />
-        <PricingCard type="Vip Seats" price="10 KM" list={vipList} />
+        <PricingCard type="Regular Seats" price="7 KM" descriptions={regularList} />
+        <PricingCard type="Love Seats" price="24 KM" descriptions={loveList} />
+        <PricingCard type="Vip Seats" price="10 KM" descriptions={vipList} />
       </div>
       <Footer />
     </div>

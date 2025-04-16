@@ -1,5 +1,4 @@
-import Button from "components/common/Button/Button";
-import { ButtonType } from "models/ButtonType";
+import Button, { ButtonType } from "components/common/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -22,38 +21,44 @@ export default function CarouselPagination({
   nextPage,
   previousPage,
 }: CarouselPaginationProps) {
+
+  function calculateRange(){
+    return pageNumber +
+      1 +
+      (pageNumber * pageSize - pageNumber) +
+      " - " +
+      (pageNumber +
+        1 +
+        (pageNumber * pageSize - pageNumber) +
+        (numberOfElements - 1));
+  }
+
   return (
     <div className="flex">
       <div className="flex items-center mr-4">
         Showing
         <div className="font-semibold mx-1">
-          {pageNumber +
-            1 +
-            (pageNumber * pageSize - pageNumber) +
-            " - " +
-            (pageNumber +
-              1 +
-              (pageNumber * pageSize - pageNumber) +
-              (numberOfElements - 1))}
+          {calculateRange()}
         </div>
         out of
         <div className="font-semibold mx-1">{totalElements}</div>
       </div>
-      <Button
-        variant={ButtonType.SECONDARY}
-        onClick={previousPage}
-        isActive={pageNumber > 0}
-      >
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </Button>
-      <div className="w-4"></div>
-      <Button
-        variant={ButtonType.SECONDARY}
-        onClick={nextPage}
-        isActive={pageNumber < totalPages - 1}
-      >
-        <FontAwesomeIcon icon={faArrowRight} />
-      </Button>
+      <div className='flex gap-4'>
+        <Button
+          variant={ButtonType.SECONDARY}
+          onClick={previousPage}
+          disabled={pageNumber === 0}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Button>
+        <Button
+          variant={ButtonType.SECONDARY}
+          onClick={nextPage}
+          disabled={pageNumber === totalPages - 1}
+        >
+          <FontAwesomeIcon icon={faArrowRight} />
+        </Button>
+      </div>
     </div>
   );
 }

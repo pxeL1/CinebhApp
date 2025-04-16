@@ -1,4 +1,4 @@
-import { Genre } from "./Genre";
+import { Genre } from "models/Genre";
 
 export type MovieGenre = {
   id: number;

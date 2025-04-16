@@ -1,4 +1,4 @@
-import { VenueImage } from "./VenueImage";
+import { VenueImage } from "models/VenueImage";
 
 export type Venue = {
   id: number;

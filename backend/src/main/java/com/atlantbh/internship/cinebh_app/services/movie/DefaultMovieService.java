@@ -8,7 +8,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import static com.atlantbh.internship.cinebh_app.specifications.MovieSpecifications.*;
-import static org.springframework.data.jpa.domain.Specification.where;
 
 @Service
 public class DefaultMovieService implements MovieService {

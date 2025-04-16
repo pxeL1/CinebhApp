@@ -10,7 +10,7 @@ export default function Home() {
     <div>
       <HeroCarousel />
       <HeroVenues />
-      <div className="w-full flex flex-col justify-center items-center">
+      <div className="max-w-[1440px] w-full px-24 mx-auto">
         <CurrentlyShowingCarousel />
         <UpcomingCarousel />
         <VenueCarousel />

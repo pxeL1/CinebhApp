@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-atlantdarkgray: #1d2939;
-  --color-atlantlightgray: #667085;
-  --color-atlantdarkred: #b22222;
-  --color-atlantcarbon: #1a1a1a;
-  --color-atlantpale: #e4e7ec;
-  --color-atlantash: #98a2b3;
-  --color-atlantshadow: #34405414;
-  --color-atlantneutral: #fcfcfd;
-  --color-atlantlightred: #b44444;
+  --color-cinebhdarkgray: #1d2939;
+  --color-cinebhlightgray: #667085;
+  --color-cinebhdarkred: #b22222;
+  --color-cinebhcarbon: #1a1a1a;
+  --color-cinebhpale: #e4e7ec;
+  --color-cinebhash: #98a2b3;
+  --color-cinebhshadow: #34405414;
+  --color-cinebhneutral: #fcfcfd;
+  --color-cinebhlightred: #b44444;
 }
 
 #root {

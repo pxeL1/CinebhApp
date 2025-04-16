@@ -1,8 +1,8 @@
-import MediaCarousel from "components/common/MediaCarousel/MediaCarousel";
+import PaginatedCarousel from "components/common/PaginatedCarousel/PaginatedCarousel";
 import Card from "components/common/Card/Card";
 import { Venue } from "models/Venue";
 import useFetchPage from "hooks/useFetchPage";
-import { defaultImage } from "assets/default_values/defaultValues";
+import { defaultImage } from "defaultValues";
 import { getVenuesRequest } from "services/fetching/API";
 import usePagination from "hooks/usePagination";
 
@@ -16,7 +16,7 @@ export default function VenueCarousel() {
 
   if (error) {
     return (
-      <div className="h-[620px] flex justify-center items-center text-2xl text-atlantdarkred">
+      <div className="p-96 flex justify-center items-center text-2xl text-cinebhdarkred">
         Error while loading page
       </div>
     );
@@ -24,15 +24,15 @@ export default function VenueCarousel() {
 
   if (loading) {
     return (
-      <div className="h-[620px] flex justify-center items-center text-2xl">
+      <div className="p-96 flex justify-center items-center text-2xl">
         Loading...
       </div>
     );
   }
 
   return (
-    <div className="w-[1256px] mb-10">
-      <MediaCarousel
+    <div className="w-full mb-10">
+      <PaginatedCarousel
         title="Venues"
         nextPage={nextPage}
         prevPage={previousPage}
@@ -48,14 +48,14 @@ export default function VenueCarousel() {
               imageUrl={coverImageUrl}
               title={venue.name}
               description={
-                <div className="text-atlantlightgray text-sm h-5 flex ml-1">
+                <div className="text-cinebhlightgray text-sm h-5 flex ml-1">
                   {venue.streetAddress}, {venue.city}
                 </div>
               }
             />
           );
         })}
-      </MediaCarousel>
+      </PaginatedCarousel>
     </div>
   );
 }

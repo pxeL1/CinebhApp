@@ -4,7 +4,7 @@ import Footer from "components/unique/Footer/Footer";
 export default function About() {
   return (
     <div className="flex flex-col items-center">
-      <div className="flex h-[492px] text-atlantdarkgray">
+      <div className="flex h-[492px] text-cinebhdarkgray">
         <div className="flex flex-col ml-24 mt-44 font-bold text-2xl">
           <div>About Our Dream.</div>
           <div>Our History.</div>
@@ -37,7 +37,7 @@ export default function About() {
           </div>
         </div>
       </div>
-      <img src={redseats} alt="red" className="h-[652px] w-full" />
+      <img src={redseats} alt="red seats" className="h-[652px] w-full" />
       <Footer />
     </div>
   );

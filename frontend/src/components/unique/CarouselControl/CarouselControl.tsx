@@ -1,12 +1,12 @@
 export interface CarouselControlProps {
   numberOfItems: number;
-  index: number;
+  selectedIndex: number;
   onIndexChange: (index: number) => void;
 }
 
 export default function CarouselControl({
   numberOfItems,
-  index,
+  selectedIndex,
   onIndexChange,
 }: CarouselControlProps) {
   const buttons = [];
@@ -14,7 +14,7 @@ export default function CarouselControl({
     buttons.push(
       <button
         onClick={() => onIndexChange(i)}
-        className={`w-8 h-1 p-1 rounded  cursor-pointer ${index === i ? "bg-atlantneutral" : "bg-atlantash"}`}
+        className={`w-8 h-1 p-1 rounded  cursor-pointer ${selectedIndex === i ? "bg-cinebhneutral" : "bg-cinebhash"}`}
         key={i}
       ></button>,
     );
