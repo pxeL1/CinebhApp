@@ -42,8 +42,8 @@ export default function VenueCarousel() {
           const coverImage = venue.image;
           const coverImageUrl: string = coverImage?.url ?? defaultImage;
 
-          function getVenueAddress(): string{
-            return (`${venue.streetAddress}, ${venue.city}`);
+          function getVenueAddress(): string {
+            return `${venue.streetAddress}, ${venue.city}`;
           }
 
           return (

@@ -22,23 +22,20 @@ export default function CarouselPagination({
   previousPage,
 }: CarouselPaginationProps) {
   const totalElementsOnPage = numberOfElements - 1;
-  const rangeCoefficient = pageNumber * pageSize - pageNumber;
-  const rangeFrom = pageNumber + 1 + rangeCoefficient;
-  const rangeTo = pageNumber + 1 + rangeCoefficient + totalElementsOnPage;
-  const range = (rangeFrom + " - " + rangeTo);
-
+  const pageOffset = pageNumber * pageSize - pageNumber;
+  const rangeFrom = pageNumber + 1 + pageOffset;
+  const rangeTo = pageNumber + 1 + pageOffset + totalElementsOnPage;
+  const range = rangeFrom + " - " + rangeTo;
 
   return (
     <div className="flex">
       <div className="flex items-center mr-4">
         Showing
-        <div className="font-semibold mx-1">
-          {range}
-        </div>
+        <div className="font-semibold mx-1">{range}</div>
         out of
         <div className="font-semibold mx-1">{totalElements}</div>
       </div>
-      <div className='flex gap-4'>
+      <div className="flex gap-4">
         <Button
           variant={ButtonType.SECONDARY}
           onClick={previousPage}

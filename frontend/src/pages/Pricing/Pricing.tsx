@@ -24,7 +24,6 @@ const vipList = [
 ];
 
 export default function Pricing() {
-
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-col items-center h-[189px]">
@@ -38,7 +37,11 @@ export default function Pricing() {
         </div>
       </div>
       <div className="flex items-center justify-center h-[800px] w-full">
-        <PricingCard type="Regular Seats" price="7 KM" descriptions={regularList} />
+        <PricingCard
+          type="Regular Seats"
+          price="7 KM"
+          descriptions={regularList}
+        />
         <PricingCard type="Love Seats" price="24 KM" descriptions={loveList} />
         <PricingCard type="Vip Seats" price="10 KM" descriptions={vipList} />
       </div>

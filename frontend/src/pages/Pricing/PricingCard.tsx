@@ -7,7 +7,11 @@ export interface PricingProps {
   descriptions: string[];
 }
 
-export default function PricingCard({ type, price, descriptions }: PricingProps) {
+export default function PricingCard({
+  type,
+  price,
+  descriptions,
+}: PricingProps) {
   return (
     <div className="flex flex-col h-[564px] w-[408px] border border-cinebhpale rounded-xl ml-4 pt-8 hover:h-[644px] hover:pt-[72px] hover:border-cinebhash transition-all duration-300 group">
       <div className="flex justify-center text-xl font-bold mb-6">{type}</div>

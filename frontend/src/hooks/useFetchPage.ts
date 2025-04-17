@@ -14,19 +14,19 @@ const DEFAULT_PAGE = {
   numberOfElements: 0,
   first: false,
   empty: true,
-}
+};
 
-export interface FetchPageHooks<T> {
-  page: Page<T>,
-  loading: boolean,
-  error: Error | null
+export interface FetchPageResult<T> {
+  page: Page<T>;
+  loading: boolean;
+  error: Error | null;
 }
 
 export default function useFetchPage<T>(
   url: string,
   pageNumber: number,
   pageSize: number,
-): FetchPageHooks<T> {
+): FetchPageResult<T> {
   const [page, setPage] = useState<Page<T>>(DEFAULT_PAGE);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);

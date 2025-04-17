@@ -47,7 +47,9 @@ export default function HeroCarousel() {
           {page.content.at(index)?.synopsis ?? ""}
         </div>
         <div className="hidden">
-          <Button variant={ButtonType.PRIMARY} onClick={() => {}}>Buy Ticket</Button>
+          <Button variant={ButtonType.PRIMARY} onClick={() => {}}>
+            Buy Ticket
+          </Button>
         </div>
       </div>
       <div className="w-full flex justify-center items-center p-8">

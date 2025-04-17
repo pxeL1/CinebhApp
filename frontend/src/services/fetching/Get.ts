@@ -6,7 +6,7 @@ export default async function get<T>(
 ) {
   const res = await fetchData(url, "GET", queryParams);
 
-  if(!res.ok) {
+  if (!res.ok) {
     throw new Error();
   }
 

@@ -10,9 +10,13 @@ export interface PaginatedCarouselProps<T> {
   prevPage: () => void;
 }
 
-export default function PaginatedCarousel<T>(
-  {title, page, nextPage, prevPage, children}: PropsWithChildren<PaginatedCarouselProps<T>>,
-) {
+export default function PaginatedCarousel<T>({
+  title,
+  page,
+  nextPage,
+  prevPage,
+  children,
+}: PropsWithChildren<PaginatedCarouselProps<T>>) {
   return (
     <div className="flex flex-col w-full">
       <div className="flex justify-between items-center h-10 mb-8">

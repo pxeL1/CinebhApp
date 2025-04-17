@@ -1,12 +1,10 @@
 import { Page } from "models/Page";
 import { Movie } from "models/Movie";
-import {
-  defaultImage,
-} from "defaultValues";
+import { defaultImage } from "defaultValues";
 import Card from "components/common/Card/Card";
 
 export interface MovieCardsProps {
-  page: Page<Movie>
+  page: Page<Movie>;
 }
 
 export default function MovieCards({ page }: MovieCardsProps) {
@@ -18,7 +16,8 @@ export default function MovieCards({ page }: MovieCardsProps) {
     function getCardDescription() {
       return (
         <div className="text-cinebhlightgray text-sm h-5 flex ml-1">
-          {movie.duration} <div className='w-0 border-l ml-4 mr-3'></div> {genre}
+          {movie.duration} <div className="w-0 border-l ml-4 mr-3"></div>{" "}
+          {genre}
         </div>
       );
     }

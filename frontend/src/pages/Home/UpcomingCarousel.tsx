@@ -37,7 +37,7 @@ export default function UpcomingCarousel() {
         prevPage={previousPage}
         page={page}
       >
-        <MovieCards page={page}/>
+        <MovieCards page={page} />
       </PaginatedCarousel>
     </div>
   );
