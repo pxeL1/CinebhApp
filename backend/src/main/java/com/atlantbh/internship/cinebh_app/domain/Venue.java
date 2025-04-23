@@ -17,8 +17,8 @@ public class Venue {
     private String phone;
     @Column(nullable = false)
     private String streetAddress;
-    @Column(nullable = false)
-    private String city;
+    @ManyToOne
+    private City city;
     @OneToOne
     private VenueImage image;
 }
