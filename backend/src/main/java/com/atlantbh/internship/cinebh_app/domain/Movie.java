@@ -29,4 +29,6 @@ public class Movie {
     private List<MovieGenre> genres;
     @OneToMany(mappedBy = "movie")
     private List<MovieImage> images;
+    @OneToMany(mappedBy = "movie")
+    private List<Projection> projections;
 }

@@ -1,9 +1,12 @@
 package com.atlantbh.internship.cinebh_app.specifications;
 
-import com.atlantbh.internship.cinebh_app.domain.Movie;
+import com.atlantbh.internship.cinebh_app.domain.*;
+import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.Instant;
+import java.time.LocalTime;
+import java.util.List;
 
 public class MovieSpecifications {
     public static Specification<Movie> startDateLessThanNow() {
@@ -20,5 +23,70 @@ public class MovieSpecifications {
 
     public static Specification<Movie> endDateLessThanNow() {
         return (root, query, builder) -> builder.lessThanOrEqualTo(root.get("endDate"), Instant.now());
+    }
+
+    public static Specification<Movie> nameContains(String search) {
+        return (root, query, builder) -> builder.like(builder.lower(root.get("name")), "%" + search.toLowerCase() + "%");
+    }
+
+    public static Specification<Movie> hasProjectionsInCity(String city) {
+        return (root, query, builder) -> {
+            query.distinct(true);
+
+            Join<Movie, Projection> projectionJoin = root.join("projections");
+            Join<Projection, Hall> hallJoin = projectionJoin.join("hall");
+            Join<Hall, Venue> venueJoin = hallJoin.join("venue");
+            Join<Venue, City> cityJoin = venueJoin.join("city");
+
+            return builder.equal(cityJoin.get("name"), city);
+        };
+    }
+
+    public static Specification<Movie> hasProjectionsInVenue(String venue) {
+        return (root, query, builder) -> {
+            query.distinct(true);
+
+            Join<Movie, Projection> projectionJoin = root.join("projections");
+            Join<Projection, Hall> hallJoin = projectionJoin.join("hall");
+            Join<Hall, Venue> venueJoin = hallJoin.join("venue");
+
+            return builder.equal(venueJoin.get("name"), venue);
+        };
+    }
+
+    public static Specification<Movie> hasGenre(List<String> genre) {
+        return (root, query, builder) -> {
+            query.distinct(true);
+
+            Join<Movie, MovieGenre> movieGenreJoin = root.join("genres");
+            Join<MovieGenre, Genre> genreJoin = movieGenreJoin.join("genre");
+
+            return genreJoin.get("name").in(genre);
+        };
+    }
+
+    public static Specification<Movie> hasProjectionOnTime(String time) {
+        return (root, query, builder) -> {
+            query.distinct(true);
+
+            Join<Movie, Projection> projectionJoin = root.join("projections");
+
+            return builder.equal(projectionJoin.get("time"), LocalTime.parse(time));
+        };
+    }
+
+    public static Specification<Movie> hasProjectionOnDate(String date) {
+        return (root, query, builder) -> {
+            query.distinct(true);
+
+            Join<Movie, Projection> projectionJoin = root.join("projections");
+
+            return builder.equal(projectionJoin.get("date"), Instant.parse(date));
+        };
+    }
+
+    public static Specification<Movie> movieIsBetweenDates(String startDate, String endDate) {
+        return (root, query, builder) ->
+                builder.between(root.get("startDate"), Instant.parse(startDate), Instant.parse(endDate));
     }
 }

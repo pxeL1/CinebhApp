@@ -10,6 +10,6 @@ We will be using React with Typescript for the frontend. React allows us to easi
 
 We will use Java and its Spring Boot framework for the backend. Java has proven itself for enterprise-level applications making it the perfect choice for out server-side. Using it we will be building an API to serve our frontend's needs. It will be using our PostgreSQL database for data persistance.
 
-#API Documentation
+## API Documentation
 
 Swagger API documentation can be accessed here: http://localhost:8080/swagger-ui/index.html
