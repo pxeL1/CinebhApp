@@ -16,6 +16,8 @@ export default function CinemaSelect({ selectedCinema, onCinemaChange }: CinemaS
 
   return (
     <div className="h-full w-full">
+      {error ? (<div>Error</div>) : (<></>)}
+      {loading ? (<div>Loading...</div>) : (<></>)}
       <Select placeholder={cinemasPlaceholder} items={data?.map(cinema => cinema.name) ?? []} onItemChange={onCinemaChange} />
     </div>
   )

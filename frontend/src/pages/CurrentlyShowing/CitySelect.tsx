@@ -16,6 +16,8 @@ export default function CitySelect({ selectedCity, onCityChange }: CitySelectPro
 
   return (
     <div className="h-full w-full">
+      {error ? (<div>Error</div>) : (<></>)}
+      {loading ? (<div>Loading...</div>) : (<></>)}
       <Select placeholder={citiesPlaceholder} items={data?.map(city => city.name) ?? []} onItemChange={onCityChange} />
     </div>
   )

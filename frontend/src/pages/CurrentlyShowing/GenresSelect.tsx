@@ -17,6 +17,8 @@ export default function GenresSelect({ selectedGenres, onGenresChange }: GenresS
 
   return (
     <div className="h-full w-full">
+      {error ? (<div>Error</div>) : (<></>)}
+      {loading ? (<div>Loading...</div>) : (<></>)}
       <MultiSelect placeholder={genresPlaceholder} items={data?.map(genre => genre.name) ?? []} onItemChange={onGenresChange} selectedItems={selectedGenres} />
     </div>
   )
