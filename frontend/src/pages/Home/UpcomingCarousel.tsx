@@ -33,6 +33,7 @@ export default function UpcomingCarousel() {
     <div className="w-full mb-10">
       <PaginatedCarousel
         title="Upcoming Movies"
+        seeAllPath="/"
         nextPage={nextPage}
         prevPage={previousPage}
         page={page}

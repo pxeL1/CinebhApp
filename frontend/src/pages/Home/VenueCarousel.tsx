@@ -34,6 +34,7 @@ export default function VenueCarousel() {
     <div className="w-full mb-10">
       <PaginatedCarousel
         title="Venues"
+        seeAllPath="/"
         nextPage={nextPage}
         prevPage={previousPage}
         page={page}

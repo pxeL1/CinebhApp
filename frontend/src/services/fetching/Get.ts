@@ -10,5 +10,5 @@ export default async function get<T>(
     throw new Error();
   }
 
-  return (await res.json()) as T;
+  return (res.data) as T;
 }

@@ -1,6 +1,7 @@
 import { MovieGenre } from "models/MovieGenre";
 import { MovieImage } from "models/MovieImage";
 import { MovieStatus } from "models/MovieStatus";
+import { Projection } from "models/Projection";
 
 export type Movie = {
   id: number;
@@ -15,4 +16,5 @@ export type Movie = {
   status: MovieStatus;
   genres: MovieGenre[];
   images: MovieImage[];
+  projections: Projection[];
 };

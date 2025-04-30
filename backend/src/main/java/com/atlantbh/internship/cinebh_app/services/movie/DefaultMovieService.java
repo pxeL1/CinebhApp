@@ -41,7 +41,7 @@ public class DefaultMovieService implements MovieService {
     public Page<Movie> getFilteredMovies(Pageable pageable, MovieFilterParameters movieFilterParameters) {
         List<Specification<Movie>> specifications = new ArrayList<>();
 
-        if(movieFilterParameters.getType() != null) {
+        if(movieFilterParameters.getType() != null && !movieFilterParameters.getType().isEmpty()) {
             if(movieFilterParameters.getType().equals("current")) {
                 specifications.add(startDateLessThanNow());
             }
@@ -51,31 +51,38 @@ public class DefaultMovieService implements MovieService {
             specifications.add(endDateGreaterThanNow());
         }
 
-        if(movieFilterParameters.getSearch() != null) {
+        if(movieFilterParameters.getSearch() != null && !movieFilterParameters.getSearch().isEmpty()) {
             specifications.add(nameContains(movieFilterParameters.getSearch()));
         }
 
-        if(movieFilterParameters.getCity() != null) {
+        if(movieFilterParameters.getCity() != null && !movieFilterParameters.getCity().isEmpty()) {
             specifications.add(hasProjectionsInCity(movieFilterParameters.getCity()));
         }
 
-        if(movieFilterParameters.getVenue() != null) {
+        if(movieFilterParameters.getVenue() != null && !movieFilterParameters.getVenue().isEmpty()) {
             specifications.add(hasProjectionsInVenue(movieFilterParameters.getVenue()));
         }
 
-        if(movieFilterParameters.getGenres() != null) {
+        if(movieFilterParameters.getGenres() != null && !movieFilterParameters.getGenres().isEmpty()) {
             specifications.add(hasGenre(movieFilterParameters.getGenres()));
         }
 
-        if(movieFilterParameters.getTime() != null) {
-            specifications.add(hasProjectionOnTime(movieFilterParameters.getTime()));
+        if(movieFilterParameters.getFromTime() != null &&
+                movieFilterParameters.getToTime() != null &&
+                !movieFilterParameters.getFromTime().isEmpty() &&
+                !movieFilterParameters.getToTime().isEmpty()) {
+            specifications.add(hasProjectionBetweenTimes(movieFilterParameters.getFromTime(), movieFilterParameters.getToTime()));
         }
 
-        if(movieFilterParameters.getDate() != null) {
+        if(movieFilterParameters.getDate() != null &&
+                !movieFilterParameters.getDate().isEmpty()) {
             specifications.add(hasProjectionOnDate(movieFilterParameters.getDate()));
         }
 
-        if(movieFilterParameters.getStartDate() != null && movieFilterParameters.getEndDate() != null) {
+        if(movieFilterParameters.getStartDate() != null &&
+                movieFilterParameters.getEndDate() != null &&
+                !movieFilterParameters.getStartDate().isEmpty() &&
+                !movieFilterParameters.getEndDate().isEmpty()) {
             specifications.add(movieIsBetweenDates(movieFilterParameters.getStartDate(), movieFilterParameters.getEndDate()));
         }
 

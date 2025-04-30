@@ -7,8 +7,11 @@ export default function Navbar() {
       <Link to="/">
         <img className="h-8 w-32 ml-24" src={logo} alt="logo" />
       </Link>
-      <div className="flex h-6 hidden">
-        <Link to="/" className="no-underline mr-6 hover:text-cinebhdarkred">
+      <div className="flex h-6">
+        <Link
+          to="/currently"
+          className="no-underline mr-6 hover:text-cinebhdarkred"
+        >
           Currently Showing
         </Link>
         <Link to="/" className="no-underline mr-6 hover:text-cinebhdarkred">
@@ -18,7 +21,7 @@ export default function Navbar() {
           Venues
         </Link>
       </div>
-      <button className="mr-24 px-5 py-3 bg-transparent border rounded-lg text-cinebhneutral hover:text-cinebhdarkred cursor-pointer font-semibold hidden">
+      <button className="mr-24 px-5 py-3 bg-transparent border rounded-lg text-cinebhneutral hover:text-cinebhdarkred cursor-pointer font-semibold">
         Sign In
       </button>
     </div>

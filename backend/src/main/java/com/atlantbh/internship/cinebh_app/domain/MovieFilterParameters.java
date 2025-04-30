@@ -14,7 +14,8 @@ public class MovieFilterParameters {
     private String city;
     private String venue;
     private List<String> genres;
-    private String time;
+    private String fromTime;
+    private String toTime;
     private String date;
     private String type;
     private String startDate;

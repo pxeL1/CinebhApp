@@ -12,5 +12,5 @@ export default function usePagination(initialSize: number, initialPage = 0) {
     setPageNumber(pageNumber - 1);
   }
 
-  return { pageNumber, pageSize, nextPage, previousPage, setPageSize };
+  return { pageNumber, pageSize, nextPage, previousPage, setPageSize, setPageNumber };
 }

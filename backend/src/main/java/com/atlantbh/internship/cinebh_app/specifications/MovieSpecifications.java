@@ -65,13 +65,13 @@ public class MovieSpecifications {
         };
     }
 
-    public static Specification<Movie> hasProjectionOnTime(String time) {
+    public static Specification<Movie> hasProjectionBetweenTimes(String fromTime, String toTime) {
         return (root, query, builder) -> {
             query.distinct(true);
 
             Join<Movie, Projection> projectionJoin = root.join("projections");
 
-            return builder.equal(projectionJoin.get("time"), LocalTime.parse(time));
+            return builder.between(projectionJoin.get("time"), LocalTime.parse(fromTime), LocalTime.parse(toTime));
         };
     }
 
