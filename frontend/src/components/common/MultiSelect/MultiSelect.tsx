@@ -20,21 +20,25 @@ export default function MultiSelect({
 
   return (
     <div className="w-full h-full relative">
-      <div className={classNames({
-        "w-full h-full py-3 border flex items-center rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow hover:bg-cinebhpale cursor-pointer text-cinebhlightgray": !isOpen,
-        "w-full h-full py-3 border flex items-center rounded-lg border-cinebhdarkred shadow-md shadow-cinebhlightred hover:bg-cinebhpale cursor-pointer text-cinebhdarkred": isOpen,
-      })}
-           onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className={classNames({
+          "w-full h-full py-3 border flex items-center rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow hover:bg-cinebhpale cursor-pointer text-cinebhlightgray":
+            !isOpen,
+          "w-full h-full py-3 border flex items-center rounded-lg border-cinebhdarkred shadow-md shadow-cinebhlightred hover:bg-cinebhpale cursor-pointer text-cinebhdarkred":
+            isOpen,
+        })}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {placeholder}
         <span className="mr-3">
-            <FontAwesomeIcon
-              icon={faChevronUp}
-              className={classNames({
-                "rotate-180": !isOpen,
-                "transition-all duration-300": true,
-              })}
-            />
-          </span>
+          <FontAwesomeIcon
+            icon={faChevronUp}
+            className={classNames({
+              "rotate-180": !isOpen,
+              "transition-all duration-300": true,
+            })}
+          />
+        </span>
       </div>
       <div
         className={classNames({
@@ -45,7 +49,7 @@ export default function MultiSelect({
       >
         {items.map((item, index) => {
           function handleChange() {
-            if(!selectedItems.includes(item)) {
+            if (!selectedItems.includes(item)) {
               onItemChange([...selectedItems, item]);
             } else {
               selectedItems.splice(selectedItems.indexOf(item), 1);
@@ -53,10 +57,23 @@ export default function MultiSelect({
             }
           }
 
-          return(
-            <div key={index} className="rounded-lg flex items-center hover:bg-cinebhpale cursor-pointer max-h-8 py-2">
-              <input type="checkbox" id={`${index}`} className="mr-2 w-4 h-4 ml-4 flex items-center cursor-pointer accent-cinebhdarkred" onChange={handleChange}/>
-              <label htmlFor={`${index}`} className="text-xs text-cinebhlightgray w-full h-full flex items-center cursor-pointer">{item}</label>
+          return (
+            <div
+              key={index}
+              className="rounded-lg flex items-center hover:bg-cinebhpale cursor-pointer max-h-8 py-2"
+            >
+              <input
+                type="checkbox"
+                id={`${index}`}
+                className="mr-2 w-4 h-4 ml-4 flex items-center cursor-pointer accent-cinebhdarkred"
+                onChange={handleChange}
+              />
+              <label
+                htmlFor={`${index}`}
+                className="text-xs text-cinebhlightgray w-full h-full flex items-center cursor-pointer"
+              >
+                {item}
+              </label>
             </div>
           );
         })}

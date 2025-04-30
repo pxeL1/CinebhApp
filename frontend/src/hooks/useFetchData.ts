@@ -9,7 +9,7 @@ export interface FetchDataResult<T> {
 
 export default function useFetchData<T>(
   url: string,
-  queryParams?: URLSearchParams
+  queryParams?: URLSearchParams,
 ): FetchDataResult<T> {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
@@ -26,7 +26,7 @@ export default function useFetchData<T>(
       })
       .catch((error: Error) => {
         setError(error);
-      })
+      });
   }, [url, queryParams]);
 
   return { data, loading, error };

@@ -12,27 +12,31 @@ export interface SelectProps {
 export default function Select({
   placeholder,
   items,
-  onItemChange
+  onItemChange,
 }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="w-full h-full relative">
-      <div className={classNames({
-        "w-full h-full py-3 border flex items-center rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow hover:bg-cinebhpale cursor-pointer text-cinebhlightgray": !isOpen,
-        "w-full h-full py-3 border flex items-center rounded-lg border-cinebhdarkred shadow-md shadow-cinebhlightred hover:bg-cinebhpale cursor-pointer text-cinebhdarkred": isOpen,
-      })}
-           onClick={() => setIsOpen(!isOpen)}>
-          {placeholder}
-          <span className="mr-3">
-            <FontAwesomeIcon
-              icon={faChevronUp}
-              className={classNames({
-                "rotate-180": !isOpen,
-                "transition-all duration-300": true,
-              })}
-            />
-          </span>
+      <div
+        className={classNames({
+          "w-full h-full py-3 border flex items-center rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow hover:bg-cinebhpale cursor-pointer text-cinebhlightgray":
+            !isOpen,
+          "w-full h-full py-3 border flex items-center rounded-lg border-cinebhdarkred shadow-md shadow-cinebhlightred hover:bg-cinebhpale cursor-pointer text-cinebhdarkred":
+            isOpen,
+        })}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {placeholder}
+        <span className="mr-3">
+          <FontAwesomeIcon
+            icon={faChevronUp}
+            className={classNames({
+              "rotate-180": !isOpen,
+              "transition-all duration-300": true,
+            })}
+          />
+        </span>
       </div>
       <div
         className={classNames({
@@ -42,10 +46,17 @@ export default function Select({
         })}
       >
         {items.map((item, index) => (
-          <div className={classNames({
-            "flex p-4 text-xs hover:bg-cinebhpale cursor-pointer text-cinebhlightgray py-2 rounded-lg max-h-8": true
-          })}
-          onClick={() => {setIsOpen(!isOpen); onItemChange(item)}} key={index}>
+          <div
+            className={classNames({
+              "flex p-4 text-xs hover:bg-cinebhpale cursor-pointer text-cinebhlightgray py-2 rounded-lg max-h-8":
+                true,
+            })}
+            onClick={() => {
+              setIsOpen(!isOpen);
+              onItemChange(item);
+            }}
+            key={index}
+          >
             {item}
           </div>
         ))}

@@ -5,4 +5,4 @@ export type Projection = {
   date: string;
   time: string;
   hall: Hall;
-}
+};

@@ -9,26 +9,34 @@ export interface TimeRangeSelectProps {
   onToTimeChange: (time: string) => void;
 }
 
-export default function TimeRangeSelect({ placeholder, onFromTimeChange, onToTimeChange }: TimeRangeSelectProps) {
+export default function TimeRangeSelect({
+  placeholder,
+  onFromTimeChange,
+  onToTimeChange,
+}: TimeRangeSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="w-full h-full relative">
-      <div className={classNames({
-        "w-full h-full py-3 border flex items-center rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow hover:bg-cinebhpale cursor-pointer text-cinebhlightgray": !isOpen,
-        "w-full h-full py-3 border flex items-center rounded-lg border-cinebhdarkred shadow-md shadow-cinebhlightred hover:bg-cinebhpale cursor-pointer text-cinebhdarkred": isOpen,
-      })}
-           onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className={classNames({
+          "w-full h-full py-3 border flex items-center rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow hover:bg-cinebhpale cursor-pointer text-cinebhlightgray":
+            !isOpen,
+          "w-full h-full py-3 border flex items-center rounded-lg border-cinebhdarkred shadow-md shadow-cinebhlightred hover:bg-cinebhpale cursor-pointer text-cinebhdarkred":
+            isOpen,
+        })}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {placeholder}
         <span className="mr-3">
-            <FontAwesomeIcon
-              icon={faChevronUp}
-              className={classNames({
-                "rotate-180": !isOpen,
-                "transition-all duration-300": true,
-              })}
-            />
-          </span>
+          <FontAwesomeIcon
+            icon={faChevronUp}
+            className={classNames({
+              "rotate-180": !isOpen,
+              "transition-all duration-300": true,
+            })}
+          />
+        </span>
       </div>
       <div
         className={classNames({
@@ -40,11 +48,19 @@ export default function TimeRangeSelect({ placeholder, onFromTimeChange, onToTim
         <div className="flex gap-4">
           <div className="rounded-xl border border-cinebhash w-full h-full flex flex-col p-2">
             <div className="text-xs text-cinebhlightgray">From:</div>
-            <input type="time" className="flex justify-center" onChange={(e) => onFromTimeChange(e.target.value)} />
+            <input
+              type="time"
+              className="flex justify-center"
+              onChange={(e) => onFromTimeChange(e.target.value)}
+            />
           </div>
           <div className="rounded-xl border border-cinebhash w-full h-full flex flex-col p-2">
             <div className="text-xs text-cinebhlightgray">To:</div>
-            <input type="time" className="flex justify-center" onChange={(e) => onToTimeChange(e.target.value)} />
+            <input
+              type="time"
+              className="flex justify-center"
+              onChange={(e) => onToTimeChange(e.target.value)}
+            />
           </div>
         </div>
       </div>

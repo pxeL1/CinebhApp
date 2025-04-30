@@ -33,7 +33,7 @@ export default function DatePicker({ onDateChange }: DatePickerProps) {
 
   function handleClick(index: number) {
     setDateIndex(index);
-    onDateChange(displayDates[index].utc().startOf('day'));
+    onDateChange(displayDates[index].utc().startOf("day"));
   }
 
   displayDates.map((displayDate, index) => {

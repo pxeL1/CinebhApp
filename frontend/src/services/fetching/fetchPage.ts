@@ -7,13 +7,13 @@ export default async function fetchPage<T>(
   size: number,
   queryParams?: URLSearchParams,
 ) {
-  const completeQueryParams = new URLSearchParams({ page: page.toString(), size: size.toString() });
+  const completeQueryParams = new URLSearchParams({
+    page: page.toString(),
+    size: size.toString(),
+  });
   queryParams?.forEach((value, key) => {
     completeQueryParams.append(key, value);
-  })
+  });
 
-  return await get<Page<T>>(
-    url,
-    completeQueryParams,
-  );
+  return await get<Page<T>>(url, completeQueryParams);
 }

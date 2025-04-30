@@ -13,5 +13,5 @@ export default async function fetchData(
     headers: defaultHeaders,
   });
 
-  return { data: await response.json(), ok: response.ok};
+  return { data: await response.json(), ok: response.ok };
 }
