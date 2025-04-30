@@ -1,19 +1,19 @@
 import useFetchData from "hooks/useFetchData";
-import { City } from "models/City";
 import { getCititesRequest } from "services/fetching/API";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
+import { City } from "models/City";
 import Select from "components/common/Select/Select";
 
-export interface CitySelectProps {
+export interface UpcomingCitySelectProps {
   selectedCity: string;
-  onCityChange: (city: string) => void;
+  onCityChange: (cinema: string) => void;
 }
 
-export default function CitySelect({
+export default function UpcomingCitySelect({
   selectedCity,
   onCityChange,
-}: CitySelectProps) {
+}: UpcomingCitySelectProps) {
   const { data, loading, error } =
     useFetchData<Array<City>>(getCititesRequest());
   const citiesPlaceholder = (

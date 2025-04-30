@@ -10,7 +10,7 @@ export interface CurrentlyShowingMovieCardProps {
 
 const separator = <div className="border-cinebhdarkred h-5 border-l w-1"></div>;
 
-export default function CurrentlyShowingMovieCard({
+export default function CurrentMovieCard({
   movie,
   date,
 }: CurrentlyShowingMovieCardProps) {
@@ -56,10 +56,10 @@ export default function CurrentlyShowingMovieCard({
               Showtimes
             </div>
             <div className="flex gap-4 flex-wrap overflow-y-hidden">
-              {showtimes.map((showtime, index) => (
+              {showtimes.map((showtime) => (
                 <div
                   className="max-h-12 p-3 border rounded-lg border-cinebhpale text-cinebhdarkgray font-bold text-xl flex items-center justify-center"
-                  key={index}
+                  key={showtime.id}
                 >
                   {showtime.time.slice(0, 5)}
                 </div>

@@ -5,15 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
 import Select from "components/common/Select/Select";
 
-export interface CinemaSelectProps {
+export interface CurrentCinemaSelectProps {
   selectedCinema: string;
   onCinemaChange: (cinema: string) => void;
 }
 
-export default function CinemaSelect({
+export default function CurrentCinemaSelect({
   selectedCinema,
   onCinemaChange,
-}: CinemaSelectProps) {
+}: CurrentCinemaSelectProps) {
   const { data, loading, error } = useFetchData<Array<Venue>>(
     getAllVenuesRequest(),
   );

@@ -14,7 +14,10 @@ export default function Navbar() {
         >
           Currently Showing
         </Link>
-        <Link to="/" className="no-underline mr-6 hover:text-cinebhdarkred">
+        <Link
+          to="/upcoming"
+          className="no-underline mr-6 hover:text-cinebhdarkred"
+        >
           Upcoming Movies
         </Link>
         <Link to="/" className="no-underline mr-6 hover:text-cinebhdarkred">

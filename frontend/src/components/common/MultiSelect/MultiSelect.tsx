@@ -42,7 +42,7 @@ export default function MultiSelect({
       </div>
       <div
         className={classNames({
-          "z-10 max-h-0 w-full border-cinebhpale shadow-md shadow-cinebhshadow rounded-lg bg-cinebhneutral overflow-y-auto mt-2 absolute offset transition-all duration-500 flex flex-col p-0":
+          "z-20 max-h-0 w-full border-cinebhpale shadow-md shadow-cinebhshadow rounded-lg bg-cinebhneutral overflow-y-auto mt-2 absolute offset transition-all duration-500 flex flex-col p-0":
             true,
           "max-h-60 border p-2": isOpen,
         })}

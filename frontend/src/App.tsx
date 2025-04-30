@@ -5,6 +5,7 @@ import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import Pricing from "./pages/Pricing/Pricing";
 import CurrentlyShowing from "pages/CurrentlyShowing/CurrentlyShowing";
+import Upcoming from "pages/Upcoming/Upcoming";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/currently" element={<CurrentlyShowing />} />
+        <Route path="/upcoming" element={<Upcoming />} />
       </Route>
     </Routes>
   );
