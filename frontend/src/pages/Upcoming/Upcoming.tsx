@@ -12,7 +12,6 @@ import { getFilteredMoviesRequest } from "services/fetching/API";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilm } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import Card from "components/common/Card/Card";
 import UpcomingMovieCards from "pages/Upcoming/UpcomingMovieCards";
 
 const emptyState = (

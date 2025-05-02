@@ -15,13 +15,16 @@ export default function UpcomingDateRangeSelect({
   onStartDateChange,
   onEndDateChange,
 }: UpcomingDateRangeSelectProps) {
+  const startDate = selectedStartDate.substring(0, 10);
+  const endDate = selectedEndDate.substring(0, 10);
+
   const datePlaceholder = (
     <div className="w-full h-full flex items-center text-cinebhlightgray">
       <span className="mr-2 ml-3">
         <FontAwesomeIcon icon={faCalendarDays} />
       </span>
       {selectedStartDate.length !== 0
-        ? selectedStartDate + " - " + selectedEndDate
+        ? startDate + " - " + endDate
         : "Date Range"}
     </div>
   );

@@ -2,17 +2,12 @@ import { JSX, useState } from "react";
 import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faChevronLeft,
-  faChevronRight,
   faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  Button,
-  CalendarCell,
-  CalendarGrid,
-  Heading,
-  RangeCalendar,
-} from "react-aria-components";
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { RangeCalendar } from "components/common/DateRangeSelect/RangeCalendar";
+import { DateValue } from "react-aria-components";
+import moment from "moment";
 
 export interface DateRangeSelectProps {
   placeholder: JSX.Element;
@@ -26,14 +21,15 @@ export default function DateRangeSelect({
   onEndDateChange,
 }: DateRangeSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [startDate, setStartDate] = useState("--/--/----");
-  const [endDate, setEndDate] = useState("--/--/----");
-  const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
-    null,
-    null,
-  ]);
+  const [value, setValue] = useState({
+    start: today(getLocalTimeZone()) as DateValue,
+    end: today(getLocalTimeZone()) as DateValue
+  });
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    onStartDateChange(moment(value.start.toDate("UTC").toString()).toISOString());
+    onEndDateChange(moment(value.end.toDate("UTC").toString()).toISOString());
+  }
 
   return (
     <div className="w-full h-full relative">
@@ -61,42 +57,25 @@ export default function DateRangeSelect({
         className={classNames({
           "z-20 max-h-0 min-w-80 w-full border-cinebhpale shadow-md shadow-cinebhshadow rounded-lg bg-cinebhneutral overflow-y-auto mt-2 absolute offset transition-all duration-500 flex flex-col p-0":
             true,
-          "max-h-[471px] border p-4": isOpen,
+          "max-h-[500px] border p-4": isOpen,
         })}
       >
         <div className="flex gap-4 mb-4">
           <div className="w-full h-full py-2.5 px-4 border border-cinebhdust rounded-xl">
             <div className="text-xs text-cinebhlightgray">Start Date</div>
-            <div className="text-cinebhdarkgray">{startDate}</div>
+            <div className="text-cinebhdarkgray">{value.start.toString()}</div>
           </div>
           <div className="w-full h-full py-2.5 px-4 border border-cinebhdust rounded-xl">
             <div className="text-xs text-cinebhlightgray">End Date</div>
-            <div className="text-cinebhdarkgray">{endDate}</div>
+            <div className="text-cinebhdarkgray">{value.end.toString()}</div>
           </div>
         </div>
         <div className="flex justify-center">
           <RangeCalendar
-            aria-label="Movie range"
-            className="w-full flex flex-col"
-          >
-            <header className="flex justify-between w-full text-cinebhdarkgray mb-6">
-              <Button slot="previous">
-                <FontAwesomeIcon icon={faChevronLeft} />
-              </Button>
-              <Heading />
-              <Button slot="next">
-                <FontAwesomeIcon icon={faChevronRight} />
-              </Button>
-            </header>
-            <CalendarGrid weekdayStyle={"short"}>
-              {(date) => (
-                <CalendarCell
-                  date={date}
-                  className="cursor-default text-xs text-center p-3 rounded-full hover:bg-cinebhdarkred hover:text-cinebhneutral"
-                />
-              )}
-            </CalendarGrid>
-          </RangeCalendar>
+            minValue={today(getLocalTimeZone())}
+            defaultValue={value}
+            onChange={setValue}
+          />
         </div>
         <div className="flex justify-end gap-3 mt-8">
           <button
