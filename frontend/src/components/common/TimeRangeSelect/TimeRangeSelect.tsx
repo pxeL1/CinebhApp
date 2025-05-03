@@ -4,13 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 export interface TimeRangeSelectProps {
-  placeholder: JSX.Element;
+  icon?: JSX.Element;
+  placeholder: string;
+  selected?: string;
   onFromTimeChange: (time: string) => void;
   onToTimeChange: (time: string) => void;
 }
 
 export default function TimeRangeSelect({
+  icon,
   placeholder,
+  selected,
   onFromTimeChange,
   onToTimeChange,
 }: TimeRangeSelectProps) {
@@ -19,15 +23,23 @@ export default function TimeRangeSelect({
   return (
     <div className="w-full h-full relative">
       <div
-        className={classNames({
-          "w-full h-full py-3 border flex items-center rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow hover:bg-cinebhpale cursor-pointer text-cinebhlightgray":
-            !isOpen,
-          "w-full h-full py-3 border flex items-center rounded-lg border-cinebhdarkred shadow-md shadow-cinebhlightred hover:bg-cinebhpale cursor-pointer text-cinebhdarkred":
-            isOpen,
-        })}
+        className={classNames(
+          "w-full h-full py-3 border flex items-center rounded-lg shadow-md hover:bg-cinebhpale cursor-pointer",
+          {
+            "border-cinebhdarkred shadow-cinebhlightred text-cinebhdarkred":
+              isOpen,
+          },
+          {
+            "border-cinebhpale shadow-cinebhshadow text-cinebhlightgray":
+              !isOpen,
+          },
+        )}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {placeholder}
+        <div className="w-full h-full flex items-center text-cinebhlightgray">
+          <span className="mr-2 ml-3">{icon}</span>
+          {selected !== undefined ? selected : placeholder}
+        </div>
         <span className="mr-3">
           <FontAwesomeIcon
             icon={faChevronUp}
@@ -39,11 +51,10 @@ export default function TimeRangeSelect({
         </span>
       </div>
       <div
-        className={classNames({
-          "z-10 max-h-0 w-full border-cinebhpale shadow-md shadow-cinebhshadow rounded-lg bg-cinebhneutral overflow-y-auto mt-2 absolute offset transition-all duration-500 flex flex-col":
-            true,
-          "max-h-60 border p-4": isOpen,
-        })}
+        className={classNames(
+          "z-10 max-h-0 w-full border-cinebhpale shadow-md shadow-cinebhshadow rounded-lg bg-cinebhneutral overflow-y-auto mt-2 absolute offset transition-all duration-500 flex flex-col",
+          { "max-h-60 border p-4": isOpen },
+        )}
       >
         <div className="flex gap-4">
           <div className="rounded-xl border border-cinebhash w-full h-full flex flex-col p-2">

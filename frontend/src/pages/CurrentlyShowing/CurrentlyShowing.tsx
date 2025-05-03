@@ -6,15 +6,21 @@ import moment, { Moment } from "moment";
 import { getFilteredMoviesRequest } from "services/fetching/API";
 import { Movie } from "models/Movie";
 import CurrentMovieCard from "pages/CurrentlyShowing/CurrentMovieCard";
-import CurrentCitySelect from "pages/CurrentlyShowing/CurrentCitySelect";
-import CurrentCinemaSelect from "pages/CurrentlyShowing/CurrentCinemaSelect";
-import CurrentGenresSelect from "pages/CurrentlyShowing/CurrentGenresSelect";
 import ProjectionTimesSelect from "pages/CurrentlyShowing/ProjectionTimesSelect";
 import usePagination from "hooks/usePagination";
 import fetchPage from "services/fetching/fetchPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilm } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBuilding,
+  faClapperboard,
+  faClock,
+  faFilm,
+  faLocationPin,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import CitySelect from "components/common/CitySelect/CitySelect";
+import CinemaSelect from "components/common/CinemaSelect/CinemaSelect";
+import GenresSelect from "components/common/GenreSelect/GenresSelect";
 
 const emptyState = (
   <div className="rounded-3xl border border-cinebhpale px-64 py-20 shadow-xs shadow-cinebhshadow w-full flex flex-col justify-center items-center">
@@ -40,13 +46,13 @@ const emptyState = (
 );
 
 export default function CurrentlyShowing() {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string>();
   const [date, setDate] = useState<Moment>(moment().utc().startOf("day"));
-  const [city, setCity] = useState("");
-  const [cinema, setCinema] = useState("");
-  const [genres, setGenres] = useState<Array<string>>([]);
-  const [fromTime, setFromTime] = useState("");
-  const [toTime, setToTime] = useState("");
+  const [city, setCity] = useState<string>();
+  const [cinema, setCinema] = useState<string>();
+  const [genres, setGenres] = useState<Array<string>>();
+  const [fromTime, setFromTime] = useState<string>();
+  const [toTime, setToTime] = useState<string>();
   const [movies, setMovies] = useState<Array<Movie>>([]);
   const [queryParams, setQueryParams] = useState(new URLSearchParams());
   const [moreContent, setMoreContent] = useState<boolean>(false);
@@ -54,22 +60,38 @@ export default function CurrentlyShowing() {
 
   useEffect(() => {
     const newQueryParams = new URLSearchParams();
-    newQueryParams.set("type", "current");
-    newQueryParams.set("search", search);
-    newQueryParams.set("date", date.toISOString());
-    newQueryParams.set("city", city);
-    newQueryParams.set("venue", cinema);
-    newQueryParams.set("genres", genres.toString());
-    newQueryParams.set("fromTime", fromTime);
-    newQueryParams.set("toTime", toTime);
+
+    if (search) {
+      newQueryParams.set("search", search);
+    }
+    if (date) {
+      newQueryParams.set("date", date.toISOString());
+    }
+    if (city) {
+      newQueryParams.set("city", city);
+    }
+    if (cinema) {
+      newQueryParams.set("venue", cinema);
+    }
+    if (genres) {
+      newQueryParams.set("genres", genres.toString());
+    }
+    if (fromTime) {
+      newQueryParams.set("fromTime", fromTime);
+    }
+    if (toTime) {
+      newQueryParams.set("toTime", toTime);
+    }
+
     setQueryParams(newQueryParams);
+
     fetchPage<Movie>(
       getFilteredMoviesRequest(),
       0,
       pageSize,
       newQueryParams,
     ).then((response) => {
-      setMoreContent(response.numberOfElements >= 9);
+      setMoreContent(!response.last);
       setMovies(response.content);
       setPageNumber(0);
     });
@@ -84,7 +106,7 @@ export default function CurrentlyShowing() {
       queryParams,
     ).then((response) => {
       setMovies([...movies, ...response.content]);
-      setMoreContent(response.numberOfElements >= 9);
+      setMoreContent(!response.last);
     });
   }
 
@@ -94,21 +116,25 @@ export default function CurrentlyShowing() {
         <div className="mb-6 mt-10 font-bold text-cinebhdarkgray text-4xl">
           Currently Showing({movies.length})
         </div>
-        <SearchBar
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search Movies"
-        />
+        <SearchBar onChange={setSearch} placeholder="Search Movies" />
         <div className="mt-4 mb-6 flex gap-4">
-          <CurrentCitySelect selectedCity={city} onCityChange={setCity} />
-          <CurrentCinemaSelect
+          <CitySelect
+            icon={<FontAwesomeIcon icon={faLocationPin} />}
+            selectedCity={city}
+            onCityChange={setCity}
+          />
+          <CinemaSelect
+            icon={<FontAwesomeIcon icon={faBuilding} />}
             selectedCinema={cinema}
             onCinemaChange={setCinema}
           />
-          <CurrentGenresSelect
+          <GenresSelect
+            icon={<FontAwesomeIcon icon={faClapperboard} />}
             selectedGenres={genres}
             onGenresChange={setGenres}
           />
           <ProjectionTimesSelect
+            icon={<FontAwesomeIcon icon={faClock} />}
             selectedFromTime={fromTime}
             onFromTimeChange={setFromTime}
             selectedToTime={toTime}
@@ -119,11 +145,7 @@ export default function CurrentlyShowing() {
         <div className="w-full h-full flex flex-col gap-6 items-center mt-4">
           {movies.length > 0
             ? movies.map((movie) => (
-                <CurrentMovieCard
-                  movie={movie}
-                  key={movie.id}
-                  date={date.toISOString()}
-                />
+                <CurrentMovieCard movie={movie} key={movie.id} />
               ))
             : emptyState}
           <button

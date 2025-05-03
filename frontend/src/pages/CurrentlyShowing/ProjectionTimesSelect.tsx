@@ -1,35 +1,34 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
 import TimeRangeSelect from "components/common/TimeRangeSelect/TimeRangeSelect";
+import { JSX } from "react";
 
 export interface ProjectionTimesSelectProps {
-  selectedFromTime: string;
-  selectedToTime: string;
+  icon?: JSX.Element;
+  selectedFromTime: string | undefined;
+  selectedToTime: string | undefined;
   onFromTimeChange: (fromTime: string) => void;
   onToTimeChange: (toTime: string) => void;
 }
 
 export default function ProjectionTimesSelect({
+  icon,
   selectedFromTime,
   onFromTimeChange,
   selectedToTime,
   onToTimeChange,
 }: ProjectionTimesSelectProps) {
-  const projectionTimesPlaceholder = (
-    <div className="w-full h-full flex items-center text-cinebhlightgray">
-      <span className="mr-2 ml-3">
-        <FontAwesomeIcon icon={faClock} />
-      </span>
-      {selectedFromTime.length !== 0
-        ? selectedFromTime + " - " + selectedToTime
-        : "All Projection Times"}
-    </div>
-  );
+  const fromTime = selectedFromTime ?? ""
+  const toTime = selectedToTime ?? ""
+  const selected =
+    selectedFromTime !== undefined
+      ? fromTime + " - " + toTime
+      : undefined;
 
   return (
     <div className="w-full h-full">
       <TimeRangeSelect
-        placeholder={projectionTimesPlaceholder}
+        icon={icon}
+        placeholder={"All Projection Times"}
+        selected={selected}
         onFromTimeChange={onFromTimeChange}
         onToTimeChange={onToTimeChange}
       />

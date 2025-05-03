@@ -1,37 +1,33 @@
 import useFetchData from "hooks/useFetchData";
 import { City } from "models/City";
 import { getCititesRequest } from "services/fetching/API";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
 import Select from "components/common/Select/Select";
+import { JSX } from "react";
 
 export interface CurrentCitySelectProps {
-  selectedCity: string;
+  icon?: JSX.Element;
+  selectedCity: string | undefined;
   onCityChange: (city: string) => void;
 }
 
-export default function CurrentCitySelect({
+export default function CitySelect({
+  icon,
   selectedCity,
   onCityChange,
 }: CurrentCitySelectProps) {
   const { data, loading, error } =
     useFetchData<Array<City>>(getCititesRequest());
-  const citiesPlaceholder = (
-    <div className="w-full h-full flex items-center text-cinebhlightgray">
-      <span className="mr-2 ml-3">
-        <FontAwesomeIcon icon={faLocationPin} />
-      </span>
-      {selectedCity.length !== 0 ? selectedCity : "All Cities"}
-    </div>
-  );
+  const items = data?.map((city) => city.name) ?? [];
 
   return (
     <div className="h-full w-full">
       {error ? <div>Error</div> : <></>}
       {loading ? <div>Loading...</div> : <></>}
       <Select
-        placeholder={citiesPlaceholder}
-        items={data?.map((city) => city.name) ?? []}
+        icon={icon}
+        placeholder={"All Cities"}
+        selected={selectedCity}
+        items={items}
         onItemChange={onCityChange}
       />
     </div>

@@ -1,18 +1,25 @@
 import Footer from "components/Footer/Footer";
 import { useEffect, useState } from "react";
 import SearchBar from "components/common/SearchBar/SearchBar";
-import UpcomingCitySelect from "pages/Upcoming/UpcomingCitySelect";
-import UpcomingCinemaSelect from "pages/Upcoming/UpcomingCinemaSelect";
-import UpcomingGenresSelect from "pages/Upcoming/UpcomingGenresSelect";
 import UpcomingDateRangeSelect from "pages/Upcoming/UpcomingDateRangeSelect";
 import { Movie } from "models/Movie";
 import usePagination from "hooks/usePagination";
 import fetchPage from "services/fetching/fetchPage";
 import { getFilteredMoviesRequest } from "services/fetching/API";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilm } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBuilding,
+  faCalendarDays,
+  faClapperboard,
+  faFilm,
+  faLocationPin,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import UpcomingMovieCards from "pages/Upcoming/UpcomingMovieCards";
+import CitySelect from "components/common/CitySelect/CitySelect";
+import CinemaSelect from "components/common/CinemaSelect/CinemaSelect";
+import GenresSelect from "components/common/GenreSelect/GenresSelect";
+import moment from "moment";
 
 const emptyState = (
   <div className="rounded-3xl border border-cinebhpale px-64 py-20 shadow-xs shadow-cinebhshadow w-full flex flex-col justify-center items-center">
@@ -38,12 +45,12 @@ const emptyState = (
 );
 
 export default function Upcoming() {
-  const [search, setSearch] = useState("");
-  const [city, setCity] = useState("");
-  const [cinema, setCinema] = useState("");
+  const [search, setSearch] = useState<string>();
+  const [city, setCity] = useState<string>();
+  const [cinema, setCinema] = useState<string>();
   const [genres, setGenres] = useState<Array<string>>([]);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState<string>(moment().toISOString());
+  const [endDate, setEndDate] = useState<string>();
   const [movies, setMovies] = useState<Array<Movie>>([]);
   const [queryParams, setQueryParams] = useState(new URLSearchParams());
   const [moreContent, setMoreContent] = useState<boolean>(false);
@@ -51,21 +58,33 @@ export default function Upcoming() {
 
   useEffect(() => {
     const newQueryParams = new URLSearchParams();
-    newQueryParams.set("type", "upcoming");
-    newQueryParams.set("search", search);
-    newQueryParams.set("city", city);
-    newQueryParams.set("venue", cinema);
-    newQueryParams.set("genres", genres.toString());
+
+    if (search) {
+      newQueryParams.set("search", search);
+    }
+    if (city) {
+      newQueryParams.set("city", city);
+    }
+    if (cinema) {
+      newQueryParams.set("venue", cinema);
+    }
+    if (genres) {
+      newQueryParams.set("genres", genres.toString());
+    }
+    if (endDate) {
+      newQueryParams.set("endDate", endDate);
+    }
+
     newQueryParams.set("startDate", startDate);
-    newQueryParams.set("endDate", endDate);
     setQueryParams(newQueryParams);
+
     fetchPage<Movie>(
       getFilteredMoviesRequest(),
       0,
       pageSize,
       newQueryParams,
     ).then((response) => {
-      setMoreContent(response.numberOfElements >= 12);
+      setMoreContent(!response.last);
       setMovies(response.content);
       setPageNumber(0);
     });
@@ -80,7 +99,7 @@ export default function Upcoming() {
       queryParams,
     ).then((response) => {
       setMovies([...movies, ...response.content]);
-      setMoreContent(response.numberOfElements >= 12);
+      setMoreContent(!response.last);
     });
   }
 
@@ -90,21 +109,25 @@ export default function Upcoming() {
         <div className="mb-6 mt-10 font-bold text-cinebhdarkgray text-4xl">
           Upcoming Movies({movies.length})
         </div>
-        <SearchBar
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search Movies"
-        />
+        <SearchBar onChange={setSearch} placeholder="Search Movies" />
         <div className="mt-4 mb-6 flex gap-4">
-          <UpcomingCitySelect selectedCity={city} onCityChange={setCity} />
-          <UpcomingCinemaSelect
+          <CitySelect
+            icon={<FontAwesomeIcon icon={faLocationPin} />}
+            selectedCity={city}
+            onCityChange={setCity}
+          />
+          <CinemaSelect
+            icon={<FontAwesomeIcon icon={faBuilding} />}
             selectedCinema={cinema}
             onCinemaChange={setCinema}
           />
-          <UpcomingGenresSelect
+          <GenresSelect
+            icon={<FontAwesomeIcon icon={faClapperboard} />}
             selectedGenres={genres}
             onGenresChange={setGenres}
           />
           <UpcomingDateRangeSelect
+            icon={<FontAwesomeIcon icon={faCalendarDays} />}
             selectedStartDate={startDate}
             onStartDateChange={setStartDate}
             selectedEndDate={endDate}

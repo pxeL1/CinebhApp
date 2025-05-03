@@ -1,15 +1,14 @@
-import { ChangeEvent } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 export interface SearchBarProps {
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (search: string) => void;
   placeholder: string;
 }
 
 export default function SearchBar({ onChange, placeholder }: SearchBarProps) {
   return (
-    <div className="my-4 w-full h-12 flex items-center border rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow">
+    <div className="my-4 w-full h-full flex items-center border rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow">
       <span>
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
@@ -17,7 +16,7 @@ export default function SearchBar({ onChange, placeholder }: SearchBarProps) {
         />
       </span>
       <input
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.value)}
         className="w-full h-full rounded-lg py-3 px-1 focus:outline-none text-cinebhlightgray placeholder-cinebhlightgray"
         placeholder={placeholder}
       />

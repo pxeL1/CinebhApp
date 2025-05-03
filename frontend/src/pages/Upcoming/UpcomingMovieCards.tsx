@@ -35,13 +35,12 @@ export default function UpcomingMovieCards({
     }
 
     return (
-      <div>
-        <div className="absolute z-10 rounded-xl bg-cinebhdarkred text-cinebhneutral p-1.5 mt-8 ml-40">
+      <div className="relative" key={movie.id}>
+        <div className="absolute z-10 rounded-xl bg-cinebhdarkred text-cinebhneutral p-1.5 top-8 left-40">
           {getStartDate()}
         </div>
         <div className="relative">
           <Card
-            key={movie.id}
             imageUrl={coverImageUrl}
             title={movie.name}
             description={getCardDescription()}

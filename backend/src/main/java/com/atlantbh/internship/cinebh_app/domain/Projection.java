@@ -16,8 +16,6 @@ public class Projection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private Instant date;
-    @Column(nullable = false)
     private LocalTime time;
     @ManyToOne
     @JoinColumn(name = "movie_id")

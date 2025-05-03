@@ -3,6 +3,7 @@ package com.atlantbh.internship.cinebh_app.services.movie;
 import com.atlantbh.internship.cinebh_app.domain.Movie;
 import com.atlantbh.internship.cinebh_app.domain.MovieFilterParameters;
 import com.atlantbh.internship.cinebh_app.repositories.MovieRepository;
+import com.atlantbh.internship.cinebh_app.utility.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -41,49 +42,37 @@ public class DefaultMovieService implements MovieService {
     public Page<Movie> getFilteredMovies(Pageable pageable, MovieFilterParameters movieFilterParameters) {
         List<Specification<Movie>> specifications = new ArrayList<>();
 
-        if(movieFilterParameters.getType() != null && !movieFilterParameters.getType().isEmpty()) {
-            if(movieFilterParameters.getType().equals("current")) {
-                specifications.add(startDateLessThanNow());
-            }
-            else if(movieFilterParameters.getType().equals("upcoming")) {
-                specifications.add(startDateGreaterThanNow());
-            }
-            specifications.add(endDateGreaterThanNow());
-        }
-
-        if(movieFilterParameters.getSearch() != null && !movieFilterParameters.getSearch().isEmpty()) {
+        if(!StringUtils.isNullOrEmpty(movieFilterParameters.getSearch())) {
             specifications.add(nameContains(movieFilterParameters.getSearch()));
         }
 
-        if(movieFilterParameters.getCity() != null && !movieFilterParameters.getCity().isEmpty()) {
+        if(!StringUtils.isNullOrEmpty(movieFilterParameters.getCity())) {
             specifications.add(hasProjectionsInCity(movieFilterParameters.getCity()));
         }
 
-        if(movieFilterParameters.getVenue() != null && !movieFilterParameters.getVenue().isEmpty()) {
+        if(!StringUtils.isNullOrEmpty(movieFilterParameters.getVenue())) {
             specifications.add(hasProjectionsInVenue(movieFilterParameters.getVenue()));
         }
 
-        if(movieFilterParameters.getGenres() != null && !movieFilterParameters.getGenres().isEmpty()) {
+        if(!StringUtils.isNullOrEmpty(movieFilterParameters.getGenres())) {
             specifications.add(hasGenre(movieFilterParameters.getGenres()));
         }
 
-        if(movieFilterParameters.getFromTime() != null &&
-                movieFilterParameters.getToTime() != null &&
-                !movieFilterParameters.getFromTime().isEmpty() &&
-                !movieFilterParameters.getToTime().isEmpty()) {
+        if(!StringUtils.isNullOrEmpty(movieFilterParameters.getFromTime()) && !StringUtils.isNullOrEmpty(movieFilterParameters.getToTime())) {
             specifications.add(hasProjectionBetweenTimes(movieFilterParameters.getFromTime(), movieFilterParameters.getToTime()));
         }
 
-        if(movieFilterParameters.getDate() != null &&
-                !movieFilterParameters.getDate().isEmpty()) {
-            specifications.add(hasProjectionOnDate(movieFilterParameters.getDate()));
+        if(!StringUtils.isNullOrEmpty(movieFilterParameters.getDate())) {
+            specifications.add(startDateLessThanOrEqualTo(movieFilterParameters.getDate()));
+            specifications.add(endDateGreaterThanOrEqualTo(movieFilterParameters.getDate()));
         }
 
-        if(movieFilterParameters.getStartDate() != null &&
-                movieFilterParameters.getEndDate() != null &&
-                !movieFilterParameters.getStartDate().isEmpty() &&
-                !movieFilterParameters.getEndDate().isEmpty()) {
-            specifications.add(movieIsBetweenDates(movieFilterParameters.getStartDate(), movieFilterParameters.getEndDate()));
+        if(!StringUtils.isNullOrEmpty(movieFilterParameters.getStartDate())) {
+            specifications.add(startDateGreaterThanOrEqualTo(movieFilterParameters.getStartDate()));
+        }
+
+        if(!StringUtils.isNullOrEmpty(movieFilterParameters.getEndDate())) {
+            specifications.add(startDateLessThanOrEqualTo(movieFilterParameters.getEndDate()));
         }
 
         return movieRepository.findAll(

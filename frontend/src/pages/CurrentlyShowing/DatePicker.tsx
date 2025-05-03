@@ -1,9 +1,13 @@
-import DateButton from "pages/CurrentlyShowing/DateButton";
 import moment, { Moment } from "moment";
-import { JSX, useState } from "react";
+import { JSX, PropsWithChildren, useState } from "react";
 
 export interface DatePickerProps {
   onDateChange: (date: Moment) => void;
+}
+
+export interface DateButtonProps {
+  onClick: () => void;
+  disabled: boolean;
 }
 
 const monthNames = [
@@ -21,6 +25,22 @@ const monthNames = [
   "Dec",
 ];
 const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+export function DateButton({
+  onClick,
+  disabled,
+  children,
+}: PropsWithChildren<DateButtonProps>) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="w-full h-full flex flex-col items-center justify-center border rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow text-cinebhdarkgray bg-cinebhneutral  disabled:text-cinebhneutral disabled:bg-cinebhdarkred cursor-pointer hover:bg-cinebhpale"
+    >
+      {children}
+    </button>
+  );
+}
 
 export default function DatePicker({ onDateChange }: DatePickerProps) {
   const [dateIndex, setDateIndex] = useState(0);

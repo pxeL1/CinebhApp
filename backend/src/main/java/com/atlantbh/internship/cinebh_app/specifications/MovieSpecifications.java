@@ -75,18 +75,15 @@ public class MovieSpecifications {
         };
     }
 
-    public static Specification<Movie> hasProjectionOnDate(String date) {
-        return (root, query, builder) -> {
-            query.distinct(true);
-
-            Join<Movie, Projection> projectionJoin = root.join("projections");
-
-            return builder.equal(projectionJoin.get("date"), Instant.parse(date));
-        };
+    public static Specification<Movie> startDateLessThanOrEqualTo(String date) {
+        return (root, query, builder) -> builder.lessThanOrEqualTo(root.get("startDate"), Instant.parse(date));
     }
 
-    public static Specification<Movie> movieIsBetweenDates(String startDate, String endDate) {
-        return (root, query, builder) ->
-                builder.between(root.get("startDate"), Instant.parse(startDate), Instant.parse(endDate));
+    public static Specification<Movie> endDateGreaterThanOrEqualTo(String date) {
+        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get("endDate"), Instant.parse(date));
+    }
+
+    public static Specification<Movie> startDateGreaterThanOrEqualTo(String date) {
+        return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get("startDate"), Instant.parse(date));
     }
 }

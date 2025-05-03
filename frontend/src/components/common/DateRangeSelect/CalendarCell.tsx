@@ -1,7 +1,12 @@
 import { useRef } from "react";
 import { useCalendarCell } from "@react-aria/calendar";
 import { useLocale } from "@react-aria/i18n";
-import { isSameDay, getDayOfWeek, isSameMonth, CalendarDate } from "@internationalized/date";
+import {
+  isSameDay,
+  getDayOfWeek,
+  isSameMonth,
+  CalendarDate,
+} from "@internationalized/date";
 import { useFocusRing } from "@react-aria/focus";
 import { mergeProps } from "@react-aria/utils";
 import { RangeCalendarState } from "@react-stately/calendar";
@@ -14,13 +19,8 @@ export interface CalendarCellProps {
 
 export function CalendarCell({ state, date, currentMonth }: CalendarCellProps) {
   const ref = useRef(null);
-  const {
-    cellProps,
-    buttonProps,
-    isSelected,
-    isDisabled,
-    formattedDate
-  } = useCalendarCell({ date }, state, ref);
+  const { cellProps, buttonProps, isSelected, isDisabled, formattedDate } =
+    useCalendarCell({ date }, state, ref);
 
   const isOutsideMonth = !isSameMonth(currentMonth, date);
 
@@ -83,7 +83,9 @@ export function CalendarCell({ state, date, currentMonth }: CalendarCellProps) {
               : ""
           } ${
             // Hover state for non-selected cells.
-            !isSelected && !isDisabled ? "hover:bg-cinebhdarkred hover:text-cinebhneutral" : ""
+            !isSelected && !isDisabled
+              ? "hover:bg-cinebhdarkred hover:text-cinebhneutral"
+              : ""
           } cursor-default`}
         >
           {formattedDate}

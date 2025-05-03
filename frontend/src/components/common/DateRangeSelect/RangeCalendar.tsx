@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useRangeCalendarState } from "@react-stately/calendar";
 import { useRangeCalendar } from "@react-aria/calendar";
 import { useLocale } from "@react-aria/i18n";
-import { RangeValue } from "@react-types/shared"
+import { RangeValue } from "@react-types/shared";
 import { CalendarDate, createCalendar } from "@internationalized/date";
 import { CalendarGrid } from "./CalendarGrid";
 import { CalendarHeader } from "./CalendarHeader";
@@ -27,11 +27,15 @@ export function RangeCalendar(props: RangeCalendarProps) {
   const { calendarProps, prevButtonProps, nextButtonProps } = useRangeCalendar(
     props,
     state,
-    ref
+    ref,
   );
 
   return (
-    <div {...calendarProps} ref={ref} className="inline-block text-cinebhdarkgray w-full h-full">
+    <div
+      {...calendarProps}
+      ref={ref}
+      className="inline-block text-cinebhdarkgray w-full h-full"
+    >
       <CalendarHeader
         state={state}
         calendarProps={calendarProps}
@@ -39,8 +43,7 @@ export function RangeCalendar(props: RangeCalendarProps) {
         nextButtonProps={nextButtonProps}
       />
       <div className="flex gap-8">
-        <CalendarGrid state={state}
-        weekdayStyle="short"/>
+        <CalendarGrid state={state} weekdayStyle="short" />
       </div>
     </div>
   );

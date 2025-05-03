@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <div className="w-full py-6 border-b border-cinebhlightgray bg-cinebhdarkgray flex items-center justify-between text-white">
+    <div className="w-full py-6 border-b border-cinebhlightgray bg-cinebhdarkgray flex justify-between items-center text-white">
       <Link to="/">
         <img className="h-8 w-32 ml-24" src={logo} alt="logo" />
       </Link>
@@ -24,7 +24,10 @@ export default function Navbar() {
           Venues
         </Link>
       </div>
-      <button className="mr-24 px-5 py-3 bg-transparent border rounded-lg text-cinebhneutral hover:text-cinebhdarkred cursor-pointer font-semibold">
+      <button
+        disabled={true}
+        className="mr-24 px-5 py-3 bg-transparent border rounded-lg text-cinebhneutral hover:text-cinebhdarkred cursor-pointer disabled:text-cinebhdarkgray disabled:cursor-default font-semibold"
+      >
         Sign In
       </button>
     </div>

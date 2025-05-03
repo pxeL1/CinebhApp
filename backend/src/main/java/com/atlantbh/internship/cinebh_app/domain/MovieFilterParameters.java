@@ -17,7 +17,6 @@ public class MovieFilterParameters {
     private String fromTime;
     private String toTime;
     private String date;
-    private String type;
     private String startDate;
     private String endDate;
 }

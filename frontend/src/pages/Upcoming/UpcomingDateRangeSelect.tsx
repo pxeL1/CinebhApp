@@ -1,37 +1,32 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import DateRangeSelect from "components/common/DateRangeSelect/DateRangeSelect";
+import { JSX } from "react";
 
 export interface UpcomingDateRangeSelectProps {
-  selectedStartDate: string;
-  selectedEndDate: string;
+  icon?: JSX.Element;
+  selectedStartDate: string | undefined;
+  selectedEndDate: string | undefined;
   onStartDateChange: (startDate: string) => void;
   onEndDateChange: (endDate: string) => void;
 }
 
 export default function UpcomingDateRangeSelect({
+  icon,
   selectedStartDate,
   selectedEndDate,
   onStartDateChange,
   onEndDateChange,
 }: UpcomingDateRangeSelectProps) {
-  const startDate = selectedStartDate.substring(0, 10);
-  const endDate = selectedEndDate.substring(0, 10);
+  const startDate = selectedStartDate?.substring(0, 10);
+  const endDate = selectedEndDate?.substring(0, 10);
+  const selected =
+    selectedEndDate !== undefined ? startDate + " - " + endDate : undefined;
 
-  const datePlaceholder = (
-    <div className="w-full h-full flex items-center text-cinebhlightgray">
-      <span className="mr-2 ml-3">
-        <FontAwesomeIcon icon={faCalendarDays} />
-      </span>
-      {selectedStartDate.length !== 0
-        ? startDate + " - " + endDate
-        : "Date Range"}
-    </div>
-  );
   return (
     <div className="w-full h-full">
       <DateRangeSelect
-        placeholder={datePlaceholder}
+        icon={icon}
+        placeholder={"Date Range"}
+        selected={selected}
         onEndDateChange={onEndDateChange}
         onStartDateChange={onStartDateChange}
       />

@@ -16,7 +16,9 @@ export function CalendarButton(props: PropsWithChildren<CalendarButtonProps>) {
       {...mergeProps(buttonProps, focusProps)}
       ref={ref}
       className={`p-2 rounded-full ${props.isDisabled ? "text-cinebhash" : "text-cinebhdarkgray"} ${
-        !props.isDisabled ? "hover:bg-cinebhrosered active:bg-cinebhlightred" : ""
+        !props.isDisabled
+          ? "hover:bg-cinebhrosered active:bg-cinebhlightred"
+          : ""
       } outline-none ${
         isFocusVisible ? "ring-2 ring-offset-2 ring-cinebhdarkred" : ""
       }`}

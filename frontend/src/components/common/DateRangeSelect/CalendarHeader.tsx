@@ -1,7 +1,10 @@
 import { useDateFormatter } from "@react-aria/i18n";
 import { CalendarButton } from "components/common/DateRangeSelect/CalendarButton";
 import { VisuallyHidden } from "@react-aria/visually-hidden";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { RangeCalendarState } from "@react-stately/calendar";
 import { DOMAttributes } from "react";
@@ -16,11 +19,11 @@ export interface CalendarHeaderProps {
 }
 
 export function CalendarHeader({
-                                 state,
-                                 calendarProps,
-                                 prevButtonProps,
-                                 nextButtonProps,
-                               }: CalendarHeaderProps) {
+  state,
+  calendarProps,
+  prevButtonProps,
+  nextButtonProps,
+}: CalendarHeaderProps) {
   const monthDateFormatter = useDateFormatter({
     month: "long",
     year: "numeric",
@@ -40,7 +43,7 @@ export function CalendarHeader({
         className="flex-1 align-center text-center text-cinebhdarkgray"
       >
         {monthDateFormatter.format(
-          state.visibleRange.start.toDate(state.timeZone)
+          state.visibleRange.start.toDate(state.timeZone),
         )}
       </h2>
       <CalendarButton {...nextButtonProps}>
