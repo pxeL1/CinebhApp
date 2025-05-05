@@ -58,8 +58,12 @@ public class DefaultMovieService implements MovieService {
             specifications.add(hasGenre(movieFilterParameters.getGenres()));
         }
 
-        if(!StringUtils.isNullOrEmpty(movieFilterParameters.getFromTime()) && !StringUtils.isNullOrEmpty(movieFilterParameters.getToTime())) {
-            specifications.add(hasProjectionBetweenTimes(movieFilterParameters.getFromTime(), movieFilterParameters.getToTime()));
+        if(!StringUtils.isNullOrEmpty(movieFilterParameters.getFromTime())) {
+            specifications.add(projectionTimeGreaterThan(movieFilterParameters.getFromTime()));
+        }
+
+        if(!StringUtils.isNullOrEmpty(movieFilterParameters.getToTime())) {
+            specifications.add(projectionTimeLessThan(movieFilterParameters.getToTime()));
         }
 
         if(!StringUtils.isNullOrEmpty(movieFilterParameters.getDate())) {
