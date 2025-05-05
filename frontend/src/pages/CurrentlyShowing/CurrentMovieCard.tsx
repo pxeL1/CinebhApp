@@ -12,14 +12,17 @@ export default function CurrentMovieCard({
 }: CurrentlyShowingMovieCardProps) {
   const coverImage = movie.images.find((image) => image.coverPhoto);
   const coverImageUrl: string = coverImage?.url ?? defaultImage;
-  const showtimes = movie.projections.map((projection) => (
+  const showtimes = movie.projections.map((projection) => {
+    const time = moment(projection.time, ['h:m a', 'H:m']).format("HH:mm");
+
+    return(
     <div
       className="max-h-12 p-3 border rounded-lg border-cinebhpale text-cinebhdarkgray font-bold text-xl flex items-center justify-center"
       key={projection.id}
     >
-      {projection.time.substring(0, 5)}
-    </div>
-  ));
+      {time}
+    </div>)
+});
   const genres = movie.genres.map((movieGenre) => (
     <div
       className="rounded-lg bg-cinebhpale px-2 py-1.5 text-cinebhlightgray text-sm"
