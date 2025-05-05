@@ -1,7 +1,7 @@
 import { useCalendarGrid } from "@react-aria/calendar";
 import { getWeeksInMonth, endOfMonth } from "@internationalized/date";
 import { useLocale } from "@react-aria/i18n";
-import { CalendarCell } from "./CalendarCell";
+import { CalendarCell } from "components/Calendar/CalendarCell";
 import { RangeCalendarState } from "@react-stately/calendar";
 
 export interface CalendarGridProps {
@@ -28,7 +28,7 @@ export function CalendarGrid({
   );
 
   // Get the number of weeks in the month so we can render the proper number of rows.
-  const weeksInMonth = getWeeksInMonth(startDate, locale);
+  const weeksInMonth = [...new Array(getWeeksInMonth(startDate, locale)).keys()]
 
   return (
     <table {...gridProps} cellPadding="0" className="flex-1">
@@ -40,7 +40,7 @@ export function CalendarGrid({
         </tr>
       </thead>
       <tbody>
-        {[...new Array(weeksInMonth).keys()].map((weekIndex) => (
+        {weeksInMonth.map((weekIndex) => (
           <tr key={weekIndex}>
             {state
               .getDatesInWeek(weekIndex, startDate)

@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { getLocalTimeZone, today } from "@internationalized/date";
-import { RangeCalendar } from "components/common/DateRangeSelect/RangeCalendar";
+import { RangeCalendar } from "components/Calendar/RangeCalendar";
 import { DateValue } from "react-aria-components";
 import moment from "moment";
 

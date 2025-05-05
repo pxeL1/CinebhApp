@@ -1,5 +1,5 @@
 import { useDateFormatter } from "@react-aria/i18n";
-import { CalendarButton } from "components/common/DateRangeSelect/CalendarButton";
+import { CalendarButton } from "components/Calendar/CalendarButton";
 import { VisuallyHidden } from "@react-aria/visually-hidden";
 import {
   faChevronLeft,

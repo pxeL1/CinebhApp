@@ -38,7 +38,7 @@ export default function Select({
       >
         <div className="w-full h-full flex items-center text-cinebhlightgray">
           <span className="mr-2 ml-3">{icon}</span>
-          {selected !== undefined ? selected : placeholder}
+          {selected ?? placeholder}
         </div>
         <span className="mr-3">
           <FontAwesomeIcon

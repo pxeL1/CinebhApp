@@ -10,6 +10,7 @@ import {
 import { useFocusRing } from "@react-aria/focus";
 import { mergeProps } from "@react-aria/utils";
 import { RangeCalendarState } from "@react-stately/calendar";
+import classNames from "classnames";
 
 export interface CalendarCellProps {
   state: RangeCalendarState;
@@ -52,41 +53,34 @@ export function CalendarCell({ state, date, currentMonth }: CalendarCellProps) {
   return (
     <td
       {...cellProps}
-      className={`py-0.5 relative ${isFocusVisible ? "z-10" : "z-0"}`}
+      className={classNames(
+        "py-0.5 relative",
+        {"z-10": isFocusVisible},
+        {"z-0": !isFocusVisible}
+      )}
     >
       <div
         {...mergeProps(buttonProps, focusProps)}
         ref={ref}
-        className={`w-full h-full outline-none group ${
-          isRoundedLeft ? "rounded-l-full" : ""
-        } ${isRoundedRight ? "rounded-r-full" : ""} ${
-          isSelected ? "bg-cinebhrosered" : ""
-        } ${isDisabled ? "disabled" : ""} ${isOutsideMonth ? "text-cinebhash" : ""}`}
+        className={classNames(
+          "w-full h-full outline-none group",
+          {"rounded-l-full": isRoundedLeft},
+          {"rounded-r-full": isRoundedRight},
+          {"bg-cinebhrosered": isSelected},
+          {"disabled": isDisabled},
+          {"text-cinebhash": isOutsideMonth}
+        )}
+
       >
         <div
-          className={`w-full h-full p-3 rounded-full flex items-center justify-center text-xs ${
-            isDisabled ? "text-cinebhash" : ""
-          } ${
-            // Focus ring, visible while the cell has keyboard focus.
-            isFocusVisible
-              ? "ring-2 group-focus:z-2 ring-cinebhdarkred ring-offset-2"
-              : ""
-          } ${
-            // Darker selection background for the start and end.
-            isSelectionStart || isSelectionEnd
-              ? "bg-cinebhdarkred text-cinebhneutral hover:bg-cinebhdarkred"
-              : ""
-          } ${
-            // Hover state for cells in the middle of the range.
-            isSelected && !(isSelectionStart || isSelectionEnd)
-              ? "hover:bg-cinebhdarkred hover:text-cinebhneutral"
-              : ""
-          } ${
-            // Hover state for non-selected cells.
-            !isSelected && !isDisabled
-              ? "hover:bg-cinebhdarkred hover:text-cinebhneutral"
-              : ""
-          } cursor-default`}
+          className={classNames(
+            "w-full h-full p-3 rounded-full flex items-center justify-center text-xs cursor-default",
+            {"text-cinebhash" : isDisabled},
+            {"ring-2 group-focus:z-2 ring-cinebhdarkred ring-offset-2" : isFocusVisible},
+            {"bg-cinebhdarkred text-cinebhneutral hover:bg-cinebhdarkred": isSelectionStart || isSelectionEnd},
+            {"hover:bg-cinebhdarkred hover:text-cinebhneutral": isSelected && !(isSelectionStart || isSelectionEnd)},
+            {"hover:bg-cinebhdarkred hover:text-cinebhneutral": !isSelected && !isDisabled}
+          )}
         >
           {formattedDate}
         </div>

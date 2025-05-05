@@ -6,7 +6,6 @@ import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 export interface MultiSelectProps {
   icon?: JSX.Element;
   placeholder: string;
-  selected: Array<string>;
   items: Array<string>;
   onItemChange: (item: Array<string>) => void;
   selectedItems: Array<string>;
@@ -15,7 +14,6 @@ export interface MultiSelectProps {
 export default function MultiSelect({
   icon,
   placeholder,
-  selected,
   items,
   onItemChange,
   selectedItems,
@@ -24,10 +22,10 @@ export default function MultiSelect({
 
   function handleChange(item: string) {
     if (!selectedItems.includes(item)) {
-      onItemChange([...selectedItems!, item]);
+      onItemChange([...selectedItems, item]);
     } else {
       const newItems = selectedItems.filter((newItem) => newItem !== item);
-      onItemChange([...newItems]);
+      onItemChange(newItems);
     }
   }
 
@@ -50,7 +48,7 @@ export default function MultiSelect({
         <div className="w-full h-full flex items-center text-cinebhlightgray">
           <span className="mr-2 ml-3">{icon}</span>
           <div className="overflow-hidden max-h-6 max-w-52">
-            {selected.length > 0 ? selected.toString() : placeholder}
+            {selectedItems.length > 0 ? selectedItems.toString() : placeholder}
           </div>
         </div>
         <span className="mr-3">
@@ -78,7 +76,7 @@ export default function MultiSelect({
               <input
                 type="checkbox"
                 id={`${index}`}
-                className="mr-2 w-4 h-4 ml-4 cursor-pointer accent-cinebhdarkred"
+                className="mr-2 p-4 ml-4 cursor-pointer accent-cinebhdarkred"
                 onChange={() => handleChange(item)}
               />
               <label

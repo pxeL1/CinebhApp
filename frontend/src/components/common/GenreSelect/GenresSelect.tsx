@@ -20,14 +20,27 @@ export default function GenresSelect({
   );
   const items = data?.map((genre) => genre.name) ?? [];
 
+  if(error) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        Error
+      </div>
+    )
+  }
+
+  if(loading) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        Loading...
+      </div>
+    )
+  }
+
   return (
     <div className="h-full w-full">
-      {error ? <div>Error</div> : <></>}
-      {loading ? <div>Loading...</div> : <></>}
       <MultiSelect
         icon={icon}
         placeholder={"All Genres"}
-        selected={selectedGenres ?? []}
         items={items}
         onItemChange={onGenresChange}
         selectedItems={selectedGenres ?? []}

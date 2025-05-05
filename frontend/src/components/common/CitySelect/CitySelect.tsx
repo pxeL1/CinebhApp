@@ -19,10 +19,24 @@ export default function CitySelect({
     useFetchData<Array<City>>(getCititesRequest());
   const items = data?.map((city) => city.name) ?? [];
 
+  if(error) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        Error
+      </div>
+    )
+  }
+
+  if(loading) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        Loading...
+      </div>
+    )
+  }
+
   return (
     <div className="h-full w-full">
-      {error ? <div>Error</div> : <></>}
-      {loading ? <div>Loading...</div> : <></>}
       <Select
         icon={icon}
         placeholder={"All Cities"}

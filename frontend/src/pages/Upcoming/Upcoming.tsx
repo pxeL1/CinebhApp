@@ -20,6 +20,7 @@ import CitySelect from "components/common/CitySelect/CitySelect";
 import CinemaSelect from "components/common/CinemaSelect/CinemaSelect";
 import GenresSelect from "components/common/GenreSelect/GenresSelect";
 import moment from "moment";
+import classNames from "classnames";
 
 const emptyState = (
   <div className="rounded-3xl border border-cinebhpale px-64 py-20 shadow-xs shadow-cinebhshadow w-full flex flex-col justify-center items-center">
@@ -48,7 +49,7 @@ export default function Upcoming() {
   const [search, setSearch] = useState<string>();
   const [city, setCity] = useState<string>();
   const [cinema, setCinema] = useState<string>();
-  const [genres, setGenres] = useState<Array<string>>([]);
+  const [genres, setGenres] = useState<Array<string>>();
   const [startDate, setStartDate] = useState<string>(moment().toISOString());
   const [endDate, setEndDate] = useState<string>();
   const [movies, setMovies] = useState<Array<Movie>>([]);
@@ -59,23 +60,13 @@ export default function Upcoming() {
   useEffect(() => {
     const newQueryParams = new URLSearchParams();
 
-    if (search) {
-      newQueryParams.set("search", search);
-    }
-    if (city) {
-      newQueryParams.set("city", city);
-    }
-    if (cinema) {
-      newQueryParams.set("venue", cinema);
-    }
-    if (genres) {
-      newQueryParams.set("genres", genres.toString());
-    }
-    if (endDate) {
-      newQueryParams.set("endDate", endDate);
-    }
-
+    newQueryParams.set("search", search ?? "");
+    newQueryParams.set("city", city ?? "");
+    newQueryParams.set("venue", cinema ?? "");
+    newQueryParams.set("genres", genres?.toString() ?? "");
+    newQueryParams.set("endDate", endDate ?? "");
     newQueryParams.set("startDate", startDate);
+
     setQueryParams(newQueryParams);
 
     fetchPage<Movie>(
@@ -109,7 +100,9 @@ export default function Upcoming() {
         <div className="mb-6 mt-10 font-bold text-cinebhdarkgray text-4xl">
           Upcoming Movies({movies.length})
         </div>
-        <SearchBar onChange={setSearch} placeholder="Search Movies" />
+        <div className="my-4">
+          <SearchBar onChange={setSearch} placeholder="Search Movies" />
+        </div>
         <div className="mt-4 mb-6 flex gap-4">
           <CitySelect
             icon={<FontAwesomeIcon icon={faLocationPin} />}
@@ -143,7 +136,10 @@ export default function Upcoming() {
             emptyState
           )}
           <button
-            className={`w-20 h-min underline text-cinebhdarkred cursor-pointer hover:text-cinebhlightred font-semibold decoration-0 ${!moreContent ? "hidden" : ""}`}
+            className={classNames(
+              "w-20 h-min underline text-cinebhdarkred cursor-pointer hover:text-cinebhlightred font-semibold decoration-0",
+              { "hidden": !moreContent },
+            )}
             onClick={handleLoadMore}
           >
             Load More

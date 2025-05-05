@@ -20,13 +20,27 @@ export default function CinemaSelect({
   );
   const items = data?.map((cinema) => cinema.name) ?? [];
 
+  if(error) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        Error
+      </div>
+    )
+  }
+
+  if(loading) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        Loading...
+      </div>
+    )
+  }
+
   return (
     <div className="h-full w-full">
-      {error ? <div>Error</div> : <></>}
-      {loading ? <div>Loading...</div> : <></>}
       <Select
         icon={icon}
-        placeholder={"All Cinemas"}
+        placeholder="All Cinemas"
         selected={selectedCinema}
         items={items}
         onItemChange={onCinemaChange}

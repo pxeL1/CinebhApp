@@ -21,6 +21,7 @@ import { Link } from "react-router-dom";
 import CitySelect from "components/common/CitySelect/CitySelect";
 import CinemaSelect from "components/common/CinemaSelect/CinemaSelect";
 import GenresSelect from "components/common/GenreSelect/GenresSelect";
+import classNames from "classnames";
 
 const emptyState = (
   <div className="rounded-3xl border border-cinebhpale px-64 py-20 shadow-xs shadow-cinebhshadow w-full flex flex-col justify-center items-center">
@@ -61,27 +62,13 @@ export default function CurrentlyShowing() {
   useEffect(() => {
     const newQueryParams = new URLSearchParams();
 
-    if (search) {
-      newQueryParams.set("search", search);
-    }
-    if (date) {
-      newQueryParams.set("date", date.toISOString());
-    }
-    if (city) {
-      newQueryParams.set("city", city);
-    }
-    if (cinema) {
-      newQueryParams.set("venue", cinema);
-    }
-    if (genres) {
-      newQueryParams.set("genres", genres.toString());
-    }
-    if (fromTime) {
-      newQueryParams.set("fromTime", fromTime);
-    }
-    if (toTime) {
-      newQueryParams.set("toTime", toTime);
-    }
+    newQueryParams.set("search", search ?? "");
+    newQueryParams.set("date", date.toISOString());
+    newQueryParams.set("city", city ?? "");
+    newQueryParams.set("venue", cinema ?? "");
+    newQueryParams.set("genres", genres?.toString() ?? "");
+    newQueryParams.set("fromTime", fromTime ?? "");
+    newQueryParams.set("toTime", toTime ?? "");
 
     setQueryParams(newQueryParams);
 
@@ -116,7 +103,9 @@ export default function CurrentlyShowing() {
         <div className="mb-6 mt-10 font-bold text-cinebhdarkgray text-4xl">
           Currently Showing({movies.length})
         </div>
-        <SearchBar onChange={setSearch} placeholder="Search Movies" />
+        <div className="my-4">
+          <SearchBar onChange={setSearch} placeholder="Search Movies" />
+        </div>
         <div className="mt-4 mb-6 flex gap-4">
           <CitySelect
             icon={<FontAwesomeIcon icon={faLocationPin} />}
@@ -143,13 +132,15 @@ export default function CurrentlyShowing() {
         </div>
         <DatePicker onDateChange={setDate} />
         <div className="w-full h-full flex flex-col gap-6 items-center mt-4">
-          {movies.length > 0
-            ? movies.map((movie) => (
-                <CurrentMovieCard movie={movie} key={movie.id} />
-              ))
-            : emptyState}
+          {!movies.length && emptyState}
+          {movies.map((movie) => (
+            <CurrentMovieCard movie={movie} key={movie.id} />
+          ))}
           <button
-            className={`w-20 h-min underline text-cinebhdarkred cursor-pointer hover:text-cinebhlightred font-semibold decoration-0 ${!moreContent ? "hidden" : ""}`}
+            className={classNames(
+              "w-20 h-min underline text-cinebhdarkred cursor-pointer hover:text-cinebhlightred font-semibold decoration-0",
+              { "hidden": !moreContent },
+            )}
             onClick={handleLoadMore}
           >
             Load More

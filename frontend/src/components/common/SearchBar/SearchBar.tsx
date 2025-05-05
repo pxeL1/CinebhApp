@@ -8,7 +8,7 @@ export interface SearchBarProps {
 
 export default function SearchBar({ onChange, placeholder }: SearchBarProps) {
   return (
-    <div className="my-4 w-full h-full flex items-center border rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow">
+    <div className="w-full h-full flex items-center border rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow">
       <span>
         <FontAwesomeIcon
           icon={faMagnifyingGlass}

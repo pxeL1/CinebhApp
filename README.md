@@ -15,6 +15,9 @@ We will use Java and its Spring Boot framework for the backend. Java has proven 
 - Java 21 or later
 - Node v22.14.0
 
+To start the backend using CLI run: ./mvnw spring-boot:run
+To start the frontend using CLI run: npm run dev
+
 ## API Documentation
 
 Swagger API documentation can be accessed here: http://localhost:8080/swagger-ui/index.html

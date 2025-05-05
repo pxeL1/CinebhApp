@@ -19,7 +19,7 @@ export default function ProjectionTimesSelect({
   const fromTime = selectedFromTime ?? ""
   const toTime = selectedToTime ?? ""
   const selected =
-    selectedFromTime !== undefined
+    selectedFromTime !== undefined && selectedToTime !== undefined
       ? fromTime + " - " + toTime
       : undefined;
 

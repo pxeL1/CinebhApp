@@ -4,8 +4,8 @@ import { useRangeCalendar } from "@react-aria/calendar";
 import { useLocale } from "@react-aria/i18n";
 import { RangeValue } from "@react-types/shared";
 import { CalendarDate, createCalendar } from "@internationalized/date";
-import { CalendarGrid } from "./CalendarGrid";
-import { CalendarHeader } from "./CalendarHeader";
+import { CalendarGrid } from "components/Calendar/CalendarGrid";
+import { CalendarHeader } from "components/Calendar/CalendarHeader";
 import { DateValue } from "react-aria-components";
 
 export interface RangeCalendarProps {

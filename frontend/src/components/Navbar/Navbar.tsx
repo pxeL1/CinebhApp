@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <div className="w-full py-6 border-b border-cinebhlightgray bg-cinebhdarkgray flex justify-between items-center text-white">
+    <div className="w-full py-6 border-b border-cinebhlightgray bg-cinebhdarkgray flex items-center text-white">
       <Link to="/">
-        <img className="h-8 w-32 ml-24" src={logo} alt="logo" />
+        <img className="h-8 w-32 ml-24 mr-96" src={logo} alt="logo" />
       </Link>
       <div className="flex h-6">
         <Link
@@ -25,8 +25,7 @@ export default function Navbar() {
         </Link>
       </div>
       <button
-        disabled={true}
-        className="mr-24 px-5 py-3 bg-transparent border rounded-lg text-cinebhneutral hover:text-cinebhdarkred cursor-pointer disabled:text-cinebhdarkgray disabled:cursor-default font-semibold"
+        className="mr-24 px-5 py-3 bg-transparent border rounded-lg text-cinebhneutral hover:text-cinebhdarkred cursor-pointer font-semibold hidden"
       >
         Sign In
       </button>

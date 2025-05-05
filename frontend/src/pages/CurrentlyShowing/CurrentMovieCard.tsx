@@ -17,7 +17,7 @@ export default function CurrentMovieCard({
       className="max-h-12 p-3 border rounded-lg border-cinebhpale text-cinebhdarkgray font-bold text-xl flex items-center justify-center"
       key={projection.id}
     >
-      {projection.time.slice(0, 5)}
+      {projection.time.substring(0, 5)}
     </div>
   ));
   const genres = movie.genres.map((movieGenre) => (

@@ -1,5 +1,5 @@
 import moment, { Moment } from "moment";
-import { JSX, PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useState } from "react";
 
 export interface DatePickerProps {
   onDateChange: (date: Moment) => void;
@@ -26,7 +26,7 @@ const monthNames = [
 ];
 const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-export function DateButton({
+function DateButton({
   onClick,
   disabled,
   children,
@@ -35,7 +35,7 @@ export function DateButton({
     <button
       onClick={onClick}
       disabled={disabled}
-      className="w-full h-full flex flex-col items-center justify-center border rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow text-cinebhdarkgray bg-cinebhneutral  disabled:text-cinebhneutral disabled:bg-cinebhdarkred cursor-pointer hover:bg-cinebhpale"
+      className="w-full h-full flex flex-col py-4 items-center justify-center border rounded-lg border-cinebhpale shadow-md shadow-cinebhshadow text-cinebhdarkgray bg-cinebhneutral  disabled:text-cinebhneutral disabled:bg-cinebhdarkred cursor-pointer hover:bg-cinebhpale"
     >
       {children}
     </button>
@@ -44,7 +44,6 @@ export function DateButton({
 
 export default function DatePicker({ onDateChange }: DatePickerProps) {
   const [dateIndex, setDateIndex] = useState(0);
-  const buttons: Array<JSX.Element> = [];
   const displayDates: Array<Moment> = [];
 
   for (let i = 0; i < 10; i++) {
@@ -56,25 +55,22 @@ export default function DatePicker({ onDateChange }: DatePickerProps) {
     onDateChange(displayDates[index].utc().startOf("day"));
   }
 
-  displayDates.map((displayDate, index) => {
-    buttons.push(
-      <DateButton
-        onClick={() => handleClick(index)}
-        disabled={index === dateIndex}
-        key={index}
-      >
-        <div className="font-semibold flex gap-1 mb-2">
-          <div>{monthNames[displayDate.month()]}</div>
-          <div>{displayDate.date()}</div>
-        </div>
-        <div>{index === 0 ? "Today" : dayNames[displayDate.day()]}</div>
-      </DateButton>,
-    );
-  });
-
   return (
     <div>
-      <div className="w-full h-20 flex gap-4">{buttons}</div>
+      <div className="w-full h-full flex gap-4">{displayDates.map((displayDate, index) => (
+          <DateButton
+            onClick={() => handleClick(index)}
+            disabled={index === dateIndex}
+            key={index}
+          >
+            <div className="font-semibold flex gap-1 mb-2">
+              <div>{monthNames[displayDate.month()]}</div>
+              <div>{displayDate.date()}</div>
+            </div>
+            <div>{index === 0 ? "Today" : dayNames[displayDate.day()]}</div>
+          </DateButton>
+        ))
+      }</div>
       <div className="mt-5 text-cinebhlightgray text-sm italic">
         Quick reminder that our cinema schedule is on a ten-day update cycle.
       </div>
