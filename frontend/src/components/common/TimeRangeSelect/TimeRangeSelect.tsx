@@ -7,6 +7,8 @@ export interface TimeRangeSelectProps {
   icon?: JSX.Element;
   placeholder: string;
   selected?: string;
+  fromTime: string | undefined;
+  toTime: string | undefined;
   onFromTimeChange: (time: string) => void;
   onToTimeChange: (time: string) => void;
 }
@@ -15,6 +17,8 @@ export default function TimeRangeSelect({
   icon,
   placeholder,
   selected,
+  fromTime,
+  toTime,
   onFromTimeChange,
   onToTimeChange,
 }: TimeRangeSelectProps) {
@@ -38,7 +42,7 @@ export default function TimeRangeSelect({
       >
         <div className="w-full h-full flex items-center text-cinebhlightgray">
           <span className="mr-2 ml-3">{icon}</span>
-          {selected !== undefined ? selected : placeholder}
+          {selected ?? placeholder}
         </div>
         <span className="mr-3">
           <FontAwesomeIcon
@@ -62,6 +66,7 @@ export default function TimeRangeSelect({
             <input
               type="time"
               className="flex justify-center"
+              value={fromTime}
               onChange={(e) => onFromTimeChange(e.target.value)}
             />
           </div>
@@ -70,6 +75,7 @@ export default function TimeRangeSelect({
             <input
               type="time"
               className="flex justify-center"
+              value={toTime}
               onChange={(e) => onToTimeChange(e.target.value)}
             />
           </div>

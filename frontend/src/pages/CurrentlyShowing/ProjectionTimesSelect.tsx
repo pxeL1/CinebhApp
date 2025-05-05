@@ -16,10 +16,10 @@ export default function ProjectionTimesSelect({
   selectedToTime,
   onToTimeChange,
 }: ProjectionTimesSelectProps) {
-  const fromTime = selectedFromTime ?? ""
-  const toTime = selectedToTime ?? ""
+  const fromTime = selectedFromTime ?? "";
+  const toTime = selectedToTime ?? "";
   const selected =
-    selectedFromTime !== undefined && selectedToTime !== undefined
+    selectedFromTime !== undefined || selectedToTime !== undefined
       ? fromTime + " - " + toTime
       : undefined;
 
@@ -29,6 +29,8 @@ export default function ProjectionTimesSelect({
         icon={icon}
         placeholder={"All Projection Times"}
         selected={selected}
+        fromTime={selectedFromTime}
+        toTime={selectedToTime}
         onFromTimeChange={onFromTimeChange}
         onToTimeChange={onToTimeChange}
       />

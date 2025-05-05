@@ -55,8 +55,8 @@ export function CalendarCell({ state, date, currentMonth }: CalendarCellProps) {
       {...cellProps}
       className={classNames(
         "py-0.5 relative",
-        {"z-10": isFocusVisible},
-        {"z-0": !isFocusVisible}
+        { "z-10": isFocusVisible },
+        { "z-0": !isFocusVisible },
       )}
     >
       <div
@@ -64,22 +64,33 @@ export function CalendarCell({ state, date, currentMonth }: CalendarCellProps) {
         ref={ref}
         className={classNames(
           "w-full h-full outline-none group",
-          {"rounded-l-full": isRoundedLeft},
-          {"rounded-r-full": isRoundedRight},
-          {"bg-cinebhrosered": isSelected},
-          {"disabled": isDisabled},
-          {"text-cinebhash": isOutsideMonth}
+          { "rounded-l-full": isRoundedLeft },
+          { "rounded-r-full": isRoundedRight },
+          { "bg-cinebhrosered": isSelected },
+          { disabled: isDisabled },
+          { "text-cinebhash": isOutsideMonth },
         )}
-
       >
         <div
           className={classNames(
             "w-full h-full p-3 rounded-full flex items-center justify-center text-xs cursor-default",
-            {"text-cinebhash" : isDisabled},
-            {"ring-2 group-focus:z-2 ring-cinebhdarkred ring-offset-2" : isFocusVisible},
-            {"bg-cinebhdarkred text-cinebhneutral hover:bg-cinebhdarkred": isSelectionStart || isSelectionEnd},
-            {"hover:bg-cinebhdarkred hover:text-cinebhneutral": isSelected && !(isSelectionStart || isSelectionEnd)},
-            {"hover:bg-cinebhdarkred hover:text-cinebhneutral": !isSelected && !isDisabled}
+            { "text-cinebhash": isDisabled },
+            {
+              "ring-2 group-focus:z-2 ring-cinebhdarkred ring-offset-2":
+                isFocusVisible,
+            },
+            {
+              "bg-cinebhdarkred text-cinebhneutral hover:bg-cinebhdarkred":
+                isSelectionStart || isSelectionEnd,
+            },
+            {
+              "hover:bg-cinebhdarkred hover:text-cinebhneutral":
+                isSelected && !(isSelectionStart || isSelectionEnd),
+            },
+            {
+              "hover:bg-cinebhdarkred hover:text-cinebhneutral":
+                !isSelected && !isDisabled,
+            },
           )}
         >
           {formattedDate}

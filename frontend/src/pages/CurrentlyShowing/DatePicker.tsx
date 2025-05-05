@@ -57,7 +57,8 @@ export default function DatePicker({ onDateChange }: DatePickerProps) {
 
   return (
     <div>
-      <div className="w-full h-full flex gap-4">{displayDates.map((displayDate, index) => (
+      <div className="w-full h-full flex gap-4">
+        {displayDates.map((displayDate, index) => (
           <DateButton
             onClick={() => handleClick(index)}
             disabled={index === dateIndex}
@@ -69,8 +70,8 @@ export default function DatePicker({ onDateChange }: DatePickerProps) {
             </div>
             <div>{index === 0 ? "Today" : dayNames[displayDate.day()]}</div>
           </DateButton>
-        ))
-      }</div>
+        ))}
+      </div>
       <div className="mt-5 text-cinebhlightgray text-sm italic">
         Quick reminder that our cinema schedule is on a ten-day update cycle.
       </div>

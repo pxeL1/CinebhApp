@@ -20,20 +20,20 @@ export default function CinemaSelect({
   );
   const items = data?.map((cinema) => cinema.name) ?? [];
 
-  if(error) {
+  if (error) {
     return (
       <div className="w-full h-full flex items-center justify-center">
         Error
       </div>
-    )
+    );
   }
 
-  if(loading) {
+  if (loading) {
     return (
       <div className="w-full h-full flex items-center justify-center">
         Loading...
       </div>
-    )
+    );
   }
 
   return (

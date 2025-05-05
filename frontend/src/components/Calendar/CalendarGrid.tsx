@@ -28,7 +28,9 @@ export function CalendarGrid({
   );
 
   // Get the number of weeks in the month so we can render the proper number of rows.
-  const weeksInMonth = [...new Array(getWeeksInMonth(startDate, locale)).keys()]
+  const weeksInMonth = [
+    ...new Array(getWeeksInMonth(startDate, locale)).keys(),
+  ];
 
   return (
     <table {...gridProps} cellPadding="0" className="flex-1">

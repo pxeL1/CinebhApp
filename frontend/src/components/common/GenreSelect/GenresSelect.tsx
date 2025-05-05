@@ -20,20 +20,20 @@ export default function GenresSelect({
   );
   const items = data?.map((genre) => genre.name) ?? [];
 
-  if(error) {
+  if (error) {
     return (
       <div className="w-full h-full flex items-center justify-center">
         Error
       </div>
-    )
+    );
   }
 
-  if(loading) {
+  if (loading) {
     return (
       <div className="w-full h-full flex items-center justify-center">
         Loading...
       </div>
-    )
+    );
   }
 
   return (

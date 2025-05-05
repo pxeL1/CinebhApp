@@ -24,9 +24,7 @@ export default function Navbar() {
           Venues
         </Link>
       </div>
-      <button
-        className="mr-24 px-5 py-3 bg-transparent border rounded-lg text-cinebhneutral hover:text-cinebhdarkred cursor-pointer font-semibold hidden"
-      >
+      <button className="mr-24 px-5 py-3 bg-transparent border rounded-lg text-cinebhneutral hover:text-cinebhdarkred cursor-pointer font-semibold hidden">
         Sign In
       </button>
     </div>

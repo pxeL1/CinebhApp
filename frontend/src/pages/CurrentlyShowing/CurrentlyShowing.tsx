@@ -139,7 +139,7 @@ export default function CurrentlyShowing() {
           <button
             className={classNames(
               "w-20 h-min underline text-cinebhdarkred cursor-pointer hover:text-cinebhlightred font-semibold decoration-0",
-              { "hidden": !moreContent },
+              { hidden: !moreContent },
             )}
             onClick={handleLoadMore}
           >

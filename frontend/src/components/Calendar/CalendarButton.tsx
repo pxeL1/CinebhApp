@@ -18,14 +18,15 @@ export function CalendarButton(props: PropsWithChildren<CalendarButtonProps>) {
       ref={ref}
       className={classNames(
         "p-2 rounded-full outline-none",
-        {"text-cinebhash": props.isDisabled},
-        {"text-cinebhdarkgray hover:bg-cinebhrosered active:bg-cinebhlightred": !props.isDisabled},
-        {"ring-2 ring-offset-2 ring-cinebhdarkred": isFocusVisible}
+        { "text-cinebhash": props.isDisabled },
+        {
+          "text-cinebhdarkgray hover:bg-cinebhrosered active:bg-cinebhlightred":
+            !props.isDisabled,
+        },
+        { "ring-2 ring-offset-2 ring-cinebhdarkred": isFocusVisible },
       )}
     >
       {props.children}
     </button>
   );
 }
-
-

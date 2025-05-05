@@ -128,17 +128,14 @@ export default function Upcoming() {
           />
         </div>
         <div className="w-full h-full flex gap-6 items-center mt-4 flex-col">
-          {movies.length > 0 ? (
-            <div className="w-full grid grid-cols-4 gap-4">
-              <UpcomingMovieCards movies={movies} />
-            </div>
-          ) : (
-            emptyState
-          )}
+          {!movies.length && emptyState}
+          <div className="w-full grid grid-cols-4 gap-4">
+            <UpcomingMovieCards movies={movies} />
+          </div>
           <button
             className={classNames(
               "w-20 h-min underline text-cinebhdarkred cursor-pointer hover:text-cinebhlightred font-semibold decoration-0",
-              { "hidden": !moreContent },
+              { hidden: !moreContent },
             )}
             onClick={handleLoadMore}
           >
