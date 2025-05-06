@@ -14,8 +14,4 @@ public class VenueImage {
     private Long id;
     @Column(nullable = false)
     private String url;
-    @OneToOne
-    @JoinColumn(name = "venue_id")
-    @JsonIgnore
-    private Venue venue;
 }

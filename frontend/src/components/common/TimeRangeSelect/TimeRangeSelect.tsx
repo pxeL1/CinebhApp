@@ -1,0 +1,90 @@
+import { JSX, useState } from "react";
+import classNames from "classnames";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
+
+export interface TimeRangeSelectProps {
+  icon?: JSX.Element;
+  placeholder: string;
+  selectedFromTime: string | undefined;
+  selectedToTime: string | undefined;
+  onFromTimeChange: (time: string) => void;
+  onToTimeChange: (time: string) => void;
+}
+
+export default function TimeRangeSelect({
+  icon,
+  placeholder,
+  selectedFromTime,
+  selectedToTime,
+  onFromTimeChange,
+  onToTimeChange,
+}: TimeRangeSelectProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const fromTime = selectedFromTime ?? "";
+  const toTime = selectedToTime ?? "";
+  const selected =
+    selectedFromTime !== undefined || selectedToTime !== undefined
+      ? fromTime + " - " + toTime
+      : undefined;
+
+  return (
+    <div className="w-full h-full relative">
+      <div
+        className={classNames(
+          "w-full h-full py-3 border flex items-center rounded-lg shadow-md hover:bg-cinebhpale cursor-pointer",
+          {
+            "border-cinebhdarkred shadow-cinebhlightred text-cinebhdarkred":
+              isOpen,
+          },
+          {
+            "border-cinebhpale shadow-cinebhshadow text-cinebhlightgray":
+              !isOpen,
+          },
+        )}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div className="w-full h-full flex items-center text-cinebhlightgray">
+          <span className="mr-2 ml-3">{icon}</span>
+          {selected ?? placeholder}
+        </div>
+        <span className="mr-3">
+          <FontAwesomeIcon
+            icon={faChevronUp}
+            className={classNames({
+              "rotate-180": !isOpen,
+              "transition-all duration-300": true,
+            })}
+          />
+        </span>
+      </div>
+      <div
+        className={classNames(
+          "z-10 max-h-0 w-full border-cinebhpale shadow-md shadow-cinebhshadow rounded-lg bg-cinebhneutral overflow-y-auto mt-2 absolute offset transition-all duration-500 flex flex-col",
+          { "max-h-60 border p-4": isOpen },
+        )}
+      >
+        <div className="flex gap-4">
+          <div className="rounded-xl border border-cinebhash w-full h-full flex flex-col p-2">
+            <div className="text-xs text-cinebhlightgray">From:</div>
+            <input
+              type="time"
+              className="flex justify-center"
+              value={fromTime}
+              onChange={(e) => onFromTimeChange(e.target.value)}
+            />
+          </div>
+          <div className="rounded-xl border border-cinebhash w-full h-full flex flex-col p-2">
+            <div className="text-xs text-cinebhlightgray">To:</div>
+            <input
+              type="time"
+              className="flex justify-center"
+              value={toTime}
+              onChange={(e) => onToTimeChange(e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

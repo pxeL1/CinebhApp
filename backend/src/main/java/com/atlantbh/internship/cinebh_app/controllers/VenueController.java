@@ -17,7 +17,12 @@ public class VenueController {
     }
 
     @GetMapping
-    public ResponseEntity getAllVenues(Pageable pageable) {
-        return ResponseEntity.ok(venueService.getAllVenues(pageable));
+    public ResponseEntity getAllVenuesPage(Pageable pageable) {
+        return ResponseEntity.ok(venueService.getAllVenuesPage(pageable));
+    }
+
+    @GetMapping(value = "/all")
+    public ResponseEntity getAllVenues() {
+        return ResponseEntity.ok(venueService.getAllVenues());
     }
 }

@@ -46,7 +46,8 @@ INSERT INTO movie_genre (genre_id, movie_id) VALUES
     (13, 17), (4, 17),
     (4, 18), (9, 18),
     (1, 19), (3, 19), (11, 19),
-    (4, 20), (11, 20), (6, 20);
+    (4, 20), (11, 20), (6, 20),
+    (4, 21), (11, 21), (6, 21);
 
 INSERT INTO movie_image (is_cover_photo, url, movie_id) VALUES
     (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FThe%20Electric%20State%2Fthe_electric_state.jpg?alt=media&token=9d540bf3-25f4-453b-9320-3dcfb49170fa', 1),
@@ -71,19 +72,22 @@ INSERT INTO movie_image (is_cover_photo, url, movie_id) VALUES
     (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FThe%20Substance%2Fthesubstance.jpg?alt=media&token=d92ea2ff-2db2-4253-9cb9-64ee41777a08' ,20),
     (true, 'https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/images%2FCompanion%2Fcompanion.jpg?alt=media&token=2c8d3418-e253-4c48-874a-48d9e5e4f13c', 21);
 
-INSERT INTO venue (name, city, phone, street_address, image_id) VALUES
-    ('CineStar 4DX Sarajevo', 'Sarajevo', '036 333-340', 'Dzemala Bijedica St 160n', 1),
-    ('Cineplexx Sarajevo', 'Sarajevo', '033 745-055', 'Zmaja od Bosne 4', 2),
-    ('CineStar Mostar', 'Mostar', '036 333-340', 'Kardinala Stepinca bb', 3),
-    ('CineStar 4DX Banja Luka', 'Banja Luka', '036 333-340', 'Bulevar srpske vojske 8', 4),
-    ('CineStar Tuzla', 'Tuzla', '036 333-340', 'Mitra Trifunovića Uče 2', 5);
+INSERT INTO city (name) VALUES
+    ('Sarajevo'), ('Mostar'), ('Banja Luka'), ('Tuzla');
 
-INSERT INTO venue_image (url, venue_id) VALUES
-    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineStar%204DX%20Sarajevo%2Fcinestarsarajevo.jpeg?alt=media&token=657a32a5-fa47-4ea4-a100-17637a7c69b7', 1),
-    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineplexx%20Sarajevo%2Fcineplexxsarajevo.jpg?alt=media&token=7c488cb4-9704-4cfb-9b43-6bde30f8578a', 2),
-    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineStar%20Mostar%2Fcinestarmostar.jfif?alt=media&token=24703e91-3462-42e0-a1ca-0c237955f586', 3),
-    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineStar%204DX%20Banja%20Luka%2Fcinestarbanjaluka.jpg?alt=media&token=089d1e5f-9ff5-4871-808b-44d2b70dcb39', 4),
-    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineStar%20Tuzla%2Fcinestartuzla.jpg?alt=media&token=5828de4f-5065-4d38-8049-3cf95220dc97', 5);
+INSERT INTO venue_image (url) VALUES
+    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineStar%204DX%20Sarajevo%2Fcinestarsarajevo.jpeg?alt=media&token=657a32a5-fa47-4ea4-a100-17637a7c69b7'),
+    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineplexx%20Sarajevo%2Fcineplexxsarajevo.jpg?alt=media&token=7c488cb4-9704-4cfb-9b43-6bde30f8578a'),
+    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineStar%20Mostar%2Fcinestarmostar.jfif?alt=media&token=24703e91-3462-42e0-a1ca-0c237955f586'),
+    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineStar%204DX%20Banja%20Luka%2Fcinestarbanjaluka.jpg?alt=media&token=089d1e5f-9ff5-4871-808b-44d2b70dcb39'),
+    ('https://firebasestorage.googleapis.com/v0/b/cinebhapp-storage.firebasestorage.app/o/venueImages%2FCineStar%20Tuzla%2Fcinestartuzla.jpg?alt=media&token=5828de4f-5065-4d38-8049-3cf95220dc97');
+
+INSERT INTO venue (name, city_id, phone, street_address, image_id) VALUES
+    ('CineStar 4DX Sarajevo', 1, '036 333-340', 'Dzemala Bijedica St 160n', 1),
+    ('Cineplexx Sarajevo', 1, '033 745-055', 'Zmaja od Bosne 4', 2),
+    ('CineStar Mostar', 2, '036 333-340', 'Kardinala Stepinca bb', 3),
+    ('CineStar 4DX Banja Luka', 3, '036 333-340', 'Bulevar srpske vojske 8', 4),
+    ('CineStar Tuzla', 4, '036 333-340', 'Mitra Trifunovića Uče 2', 5);
 
 INSERT INTO hall (name, venue_id) VALUES
     ('Hall 1', 1), ('Hall 1', 2), ('Hall 1', 3), ('Hall 1', 4), ('Hall 1', 5);
@@ -176,19 +180,19 @@ INSERT INTO seat (number, type, hall_id) VALUES
     ('I4', 2, 2), ('I4', 2, 3), ('I4', 2, 4), ('I4', 2, 5);
 
 INSERT INTO projection (time, hall_id, movie_id) VALUES
-    ('11:00:00', 1, 7), ('14:00:00', 1, 12), ('17:00:00', 1, 3), ('20:00:00', 1, 18), 
-    ('12:00:00', 1, 9), ('15:00:00', 1, 5), ('18:00:00', 1, 14), ('21:00:00', 1, 20), 
-    ('13:00:00', 1, 6), ('16:00:00', 1, 11), ('11:00:00', 2, 15), ('14:00:00', 2, 8), 
-    ('17:00:00', 2, 19), ('20:00:00', 2, 2), ('12:00:00', 2, 17), ('15:00:00', 2, 4), 
-    ('18:00:00', 2, 10), ('21:00:00', 2, 13), ('13:00:00', 2, 1), ('16:00:00', 2, 16),
-    ('11:00:00', 3, 21), ('14:00:00', 3, 7), ('17:00:00', 3, 12), ('20:00:00', 3, 3), 
-    ('12:00:00', 3, 18), ('15:00:00', 3, 9), ('18:00:00', 3, 5), ('21:00:00', 3, 14), 
-    ('13:00:00', 3, 20), ('16:00:00', 3, 6),('11:00:00', 4, 11), ('14:00:00', 4, 15), 
-    ('17:00:00', 4, 8), ('20:00:00', 4, 19), ('12:00:00', 4, 2), ('15:00:00', 4, 17), 
-    ('18:00:00', 4, 4), ('21:00:00', 4, 10), ('13:00:00', 4, 13), ('16:00:00', 4, 1),
-    ('11:00:00', 5, 16), ('14:00:00', 5, 21), ('17:00:00', 5, 7), ('20:00:00', 5, 12), 
-    ('12:00:00', 5, 3), ('15:00:00', 5, 18),('18:00:00', 5, 9), ('21:00:00', 5, 5), 
-    ('13:00:00', 5, 14), ('16:00:00', 5, 20);
+    ('11:00:00', 1, 7), ('14:00:00', 1, 2), ('17:00:00', 1, 3), ('20:00:00', 1, 8),
+    ('12:00:00', 1, 9), ('15:00:00', 1, 5), ('18:00:00', 1, 4), ('21:00:00', 1, 2),
+    ('13:00:00', 1, 6), ('16:00:00', 1, 1), ('11:00:00', 2, 5), ('14:00:00', 2, 8),
+    ('17:00:00', 2, 9), ('20:00:00', 2, 2), ('12:00:00', 2, 7), ('15:00:00', 2, 4),
+    ('18:00:00', 2,  10), ('21:00:00', 2, 3), ('13:00:00', 2, 1), ('16:00:00', 2, 6),
+    ('11:00:00', 3, 5), ('14:00:00', 3, 7), ('17:00:00', 3, 2), ('20:00:00', 3, 3),
+    ('12:00:00', 3, 8), ('15:00:00', 3, 9), ('18:00:00', 3, 5), ('21:00:00', 3, 4),
+    ('13:00:00', 3, 2), ('16:00:00', 3, 6),('11:00:00', 4, 11), ('14:00:00', 4, 5),
+    ('17:00:00', 4, 8), ('20:00:00', 4, 9), ('12:00:00',4, 2), ('15:00:00', 4, 7),
+    ('18:00:00', 4, 4), ('21:00:00', 4, 10), ('13:00:00', 4, 3), ('16:00:00', 4, 1),
+    ('11:00:00', 5, 8), ('14:00:00', 5, 11), ('17:00:00', 5, 7), ('20:00:00', 5, 2),
+    ('12:00:00', 5, 3), ('15:00:00', 5, 8),('18:00:00', 5, 9), ('21:00:00', 5, 5),
+    ('13:00:00', 5, 11), ('16:00:00', 5, 11);
 
 INSERT INTO personnel (role, actor_role_name, name, movie_id) VALUES
 -- The Electric State (movie_id 1)

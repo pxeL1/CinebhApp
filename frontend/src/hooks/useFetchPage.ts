@@ -26,6 +26,7 @@ export default function useFetchPage<T>(
   url: string,
   pageNumber: number,
   pageSize: number,
+  queryParams?: URLSearchParams,
 ): FetchPageResult<T> {
   const [page, setPage] = useState<Page<T>>(DEFAULT_PAGE);
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,7 +36,7 @@ export default function useFetchPage<T>(
     setLoading(true);
     setError(null);
 
-    fetchPage<T>(url, pageNumber, pageSize)
+    fetchPage<T>(url, pageNumber, pageSize, queryParams)
       .then((response) => {
         setLoading(false);
         setPage(response);
@@ -43,7 +44,7 @@ export default function useFetchPage<T>(
       .catch((error: Error) => {
         setError(error);
       });
-  }, [url, pageNumber, pageSize]);
+  }, [url, pageNumber, pageSize, queryParams]);
 
   return { page, loading, error };
 }

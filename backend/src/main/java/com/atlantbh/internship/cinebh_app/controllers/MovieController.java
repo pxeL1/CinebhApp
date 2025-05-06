@@ -1,5 +1,6 @@
 package com.atlantbh.internship.cinebh_app.controllers;
 
+import com.atlantbh.internship.cinebh_app.domain.MovieFilterParameters;
 import com.atlantbh.internship.cinebh_app.services.movie.MovieService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +25,10 @@ public class MovieController {
     @GetMapping(value = "/upcoming")
     public ResponseEntity getUpcomingMovies(Pageable pageable) {
         return ResponseEntity.ok(movieService.getAllUpcomingMovies(pageable));
+    }
+
+    @GetMapping(value = "/filter")
+    public ResponseEntity getFilteredMovies(Pageable pageable, MovieFilterParameters movieFilterParameters) {
+        return ResponseEntity.ok(movieService.getFilteredMovies(pageable, movieFilterParameters));
     }
 }

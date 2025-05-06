@@ -8,8 +8,10 @@ export default async function fetchData(
   const defaultHeaders = new Headers({ "Content-Type": "application/json" });
   const completeUrl: string = getCompleteUrl(url, queryParams);
 
-  return await fetch(completeUrl, {
+  const response = await fetch(completeUrl, {
     method: method,
     headers: defaultHeaders,
   });
+
+  return { data: await response.json(), ok: response.ok };
 }

@@ -3,15 +3,21 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <div className="w-full py-6 border-b border-cinebhlightgray bg-cinebhdarkgray flex items-center justify-between text-white">
+    <div className="w-full py-6 border-b border-cinebhlightgray bg-cinebhdarkgray flex items-center text-white">
       <Link to="/">
-        <img className="h-8 w-32 ml-24" src={logo} alt="logo" />
+        <img className="h-8 w-32 ml-24 mr-96" src={logo} alt="logo" />
       </Link>
-      <div className="flex h-6 hidden">
-        <Link to="/" className="no-underline mr-6 hover:text-cinebhdarkred">
+      <div className="flex h-6">
+        <Link
+          to="/currently"
+          className="no-underline mr-6 hover:text-cinebhdarkred"
+        >
           Currently Showing
         </Link>
-        <Link to="/" className="no-underline mr-6 hover:text-cinebhdarkred">
+        <Link
+          to="/upcoming"
+          className="no-underline mr-6 hover:text-cinebhdarkred"
+        >
           Upcoming Movies
         </Link>
         <Link to="/" className="no-underline mr-6 hover:text-cinebhdarkred">

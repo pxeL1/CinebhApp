@@ -33,6 +33,7 @@ export default function CurrentlyShowingCarousel() {
     <div className="w-full mb-10">
       <PaginatedCarousel
         title="Currently Showing"
+        seeAllPath="/currently"
         nextPage={nextPage}
         prevPage={previousPage}
         page={page}

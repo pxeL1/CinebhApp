@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DefaultVenueService implements VenueService {
     private final VenueRepository venueRepository;
@@ -15,7 +17,12 @@ public class DefaultVenueService implements VenueService {
     }
 
     @Override
-    public Page<Venue> getAllVenues(Pageable pageable) {
+    public Page<Venue> getAllVenuesPage(Pageable pageable) {
         return venueRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Venue> getAllVenues() {
+        return venueRepository.findAll();
     }
 }

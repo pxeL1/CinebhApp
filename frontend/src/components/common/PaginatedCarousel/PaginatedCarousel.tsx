@@ -5,6 +5,7 @@ import { Page } from "models/Page";
 
 export interface PaginatedCarouselProps<T> {
   title: string;
+  seeAllPath: string;
   page: Page<T>;
   nextPage: () => void;
   prevPage: () => void;
@@ -13,6 +14,7 @@ export interface PaginatedCarouselProps<T> {
 export default function PaginatedCarousel<T>({
   title,
   page,
+  seeAllPath,
   nextPage,
   prevPage,
   children,
@@ -22,8 +24,8 @@ export default function PaginatedCarousel<T>({
       <div className="flex justify-between items-center h-10 mb-8">
         <div className="font-bold text-4xl">{title}</div>
         <Link
-          to="/"
-          className="font-semibold tracking-[.015em] text-cinebhdarkred hover:underline hidden"
+          to={seeAllPath}
+          className="font-semibold tracking-[.015em] text-cinebhdarkred hover:underline"
         >
           See All
         </Link>
