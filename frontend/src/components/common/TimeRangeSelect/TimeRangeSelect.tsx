@@ -6,9 +6,8 @@ import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 export interface TimeRangeSelectProps {
   icon?: JSX.Element;
   placeholder: string;
-  selected?: string;
-  fromTime: string | undefined;
-  toTime: string | undefined;
+  selectedFromTime: string | undefined;
+  selectedToTime: string | undefined;
   onFromTimeChange: (time: string) => void;
   onToTimeChange: (time: string) => void;
 }
@@ -16,13 +15,18 @@ export interface TimeRangeSelectProps {
 export default function TimeRangeSelect({
   icon,
   placeholder,
-  selected,
-  fromTime,
-  toTime,
+  selectedFromTime,
+  selectedToTime,
   onFromTimeChange,
   onToTimeChange,
 }: TimeRangeSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const fromTime = selectedFromTime ?? "";
+  const toTime = selectedToTime ?? "";
+  const selected =
+    selectedFromTime !== undefined || selectedToTime !== undefined
+      ? fromTime + " - " + toTime
+      : undefined;
 
   return (
     <div className="w-full h-full relative">

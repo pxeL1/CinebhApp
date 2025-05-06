@@ -16,21 +16,14 @@ export default function ProjectionTimesSelect({
   selectedToTime,
   onToTimeChange,
 }: ProjectionTimesSelectProps) {
-  const fromTime = selectedFromTime ?? "";
-  const toTime = selectedToTime ?? "";
-  const selected =
-    selectedFromTime !== undefined || selectedToTime !== undefined
-      ? fromTime + " - " + toTime
-      : undefined;
 
   return (
     <div className="w-full h-full">
       <TimeRangeSelect
         icon={icon}
         placeholder={"All Projection Times"}
-        selected={selected}
-        fromTime={selectedFromTime}
-        toTime={selectedToTime}
+        selectedFromTime={selectedFromTime}
+        selectedToTime={selectedToTime}
         onFromTimeChange={onFromTimeChange}
         onToTimeChange={onToTimeChange}
       />
