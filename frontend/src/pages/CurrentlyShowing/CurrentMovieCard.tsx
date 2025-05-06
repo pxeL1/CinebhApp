@@ -1,6 +1,7 @@
 import { Movie } from "models/Movie";
 import { defaultImage } from "defaultValues";
 import moment from "moment";
+import { getFormattedTime } from "utility/time-utils";
 
 export interface CurrentlyShowingMovieCardProps {
   movie: Movie;
@@ -13,7 +14,7 @@ export default function CurrentMovieCard({
   const coverImage = movie.images.find((image) => image.coverPhoto);
   const coverImageUrl: string = coverImage?.url ?? defaultImage;
   const showtimes = movie.projections.map((projection) => {
-    const time = moment(projection.time, ["h:m a", "H:m"]).format("HH:mm");
+    const time = getFormattedTime(projection.time);
 
     return (
       <div
