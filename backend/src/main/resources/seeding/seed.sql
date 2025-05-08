@@ -322,3 +322,6 @@ INSERT INTO personnel (role, actor_role_name, name, movie_id) VALUES
 (1, NULL, 'Drew Goddard', 21),
 (0, 'Sarah', 'Florence Pugh', 21),
 (0, 'The Companion', 'Bill Skarsgård', 21);
+
+INSERT INTO role (name) VALUES
+    ('USER'), ('ADMIN');

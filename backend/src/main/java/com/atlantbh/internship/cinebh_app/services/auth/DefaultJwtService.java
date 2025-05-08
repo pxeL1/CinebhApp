@@ -17,20 +17,26 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @Service
 public class DefaultJwtService implements JwtService {
     @Value("${config.secret-key}")
     private String SECRET_KEY;
-    private static final Duration EXPIRATION_TIME = Duration.ofMinutes(60);
+    private static final Duration SHORT_EXPIRATION_TIME = Duration.ofMinutes(30);
+    private static final Duration LONG_EXPIRATION_TIME = Duration.ofDays(7);
 
     @Override
-    public String createToken(User user) {
-        Claims claims = Jwts.claims().subject(user.getEmail()).add("roles", user.getRoles()).build();
+    public String createToken(User user, boolean rememberMe) {
+        List<String> roles = user.getRoles().stream().map(role -> role.getRole().getName()).toList();
+        Claims claims = Jwts.claims().subject(user.getEmail()).add("roles", roles).build();
+        Duration tokenDuration = rememberMe ? LONG_EXPIRATION_TIME : SHORT_EXPIRATION_TIME;
+        Date expiration = Date.from(Instant.now().plus(tokenDuration));
+
         return Jwts.builder()
                 .claims(claims)
-                .expiration(Date.from(Instant.now().plus(EXPIRATION_TIME)))
+                .expiration(expiration)
                 .signWith(getSignInKey())
                 .compact();
     }
@@ -62,7 +68,7 @@ public class DefaultJwtService implements JwtService {
     }
 
     @Override
-    public boolean isTokenExpired(HttpServletRequest request) {
+    public boolean isTokenValid(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         String token = extractToken(bearerToken);
         Claims claims = resolveClaims(token);

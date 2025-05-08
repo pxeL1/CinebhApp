@@ -1,5 +1,6 @@
 package com.atlantbh.internship.cinebh_app.config;
 
+import com.atlantbh.internship.cinebh_app.services.auth.BlacklistService;
 import com.atlantbh.internship.cinebh_app.services.auth.JwtService;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
@@ -19,9 +20,11 @@ import java.util.List;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
+    private final BlacklistService blacklistService;
 
-    public JwtAuthenticationFilter(JwtService jwtService) {
+    public JwtAuthenticationFilter(JwtService jwtService, BlacklistService blacklistService) {
         this.jwtService = jwtService;
+        this.blacklistService = blacklistService;
     }
 
     @Override
@@ -33,6 +36,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = jwtService.extractToken(bearerToken);
 
             if(token == null){
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+            if(blacklistService.isTokenBlacklisted(token)){
                 filterChain.doFilter(request, response);
                 return;
             }

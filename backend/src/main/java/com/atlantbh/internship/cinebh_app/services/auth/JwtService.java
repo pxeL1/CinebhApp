@@ -6,9 +6,9 @@ import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletRequest;
 
 public interface JwtService {
-    String createToken(User user);
+    String createToken(User user, boolean rememberMe);
     Claims resolveClaims(String token) throws JwtException;
     String extractToken(String bearerToken);
     boolean validateExpiration(Claims claims);
-    boolean isTokenExpired(HttpServletRequest request);
+    boolean isTokenValid(HttpServletRequest request);
 }
