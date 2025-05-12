@@ -7,7 +7,7 @@ export default async function post<T>(
 ) {
   const res = await fetchData(url, "POST", queryParams, body);
 
-  if(!res.ok) {
+  if (!res.ok) {
     throw new Error(res.data.message);
   }
 

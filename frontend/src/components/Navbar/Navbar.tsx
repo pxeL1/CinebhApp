@@ -18,15 +18,13 @@ export default function Navbar() {
 
   function handleLogout() {
     try {
-      get(getLogoutRequest()).then(
-        () => {
-          setIsOpen(false);
-          userContext?.setUser(undefined);
-          localStorage.removeItem("expiration");
-          localStorage.removeItem("user");
-          navigate("/");
-        }
-      )
+      get(getLogoutRequest()).then(() => {
+        setIsOpen(false);
+        userContext?.setUser(undefined);
+        localStorage.removeItem("expiration");
+        localStorage.removeItem("user");
+        navigate("/");
+      });
     } catch (error) {
       console.log(error);
     }
@@ -55,14 +53,16 @@ export default function Navbar() {
             Venues
           </Link>
         </div>
-        { userContext?.user ?
-        <UserMenu user={userContext.user} handleLogout={handleLogout} /> :
+        {userContext?.user ? (
+          <UserMenu user={userContext.user} handleLogout={handleLogout} />
+        ) : (
           <button
             className="mr-24 px-5 py-3 bg-transparent border rounded-lg text-cinebhneutral hover:text-cinebhdarkred cursor-pointer font-semibold"
             onClick={() => setIsOpen(true)}
           >
             Sign In
-          </button>}
+          </button>
+        )}
       </div>
       <Authentication isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>

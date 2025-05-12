@@ -9,4 +9,4 @@ export type User = {
   city: string | null;
   country: string | null;
   roles: UserRole[];
-}
+};

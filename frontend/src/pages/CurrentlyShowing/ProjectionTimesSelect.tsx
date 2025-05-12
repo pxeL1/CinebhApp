@@ -16,7 +16,6 @@ export default function ProjectionTimesSelect({
   selectedToTime,
   onToTimeChange,
 }: ProjectionTimesSelectProps) {
-
   return (
     <div className="w-full h-full">
       <TimeRangeSelect

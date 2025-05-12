@@ -8,7 +8,7 @@ export interface ButtonProps {
 export enum ButtonType {
   PRIMARY,
   SECONDARY,
-  TERTIARY
+  TERTIARY,
 }
 
 const buttonVariant: Record<ButtonType, string> = {
@@ -17,7 +17,7 @@ const buttonVariant: Record<ButtonType, string> = {
   [ButtonType.SECONDARY]:
     "flex items-center justify-center h-full w-full bg-white border border-cinebhpale rounded-lg hover:bg-cinebhpale disabled:text-cinebhpale disabled:hover:bg-white p-4",
   [ButtonType.TERTIARY]:
-    "flex items-center justify-center h-full w-full bg-cinebhdark text-cinebhpale p-2 rounded cursor-pointer hover:bg-cinebhash"
+    "flex items-center justify-center h-full w-full bg-cinebhdark text-cinebhpale p-2 rounded cursor-pointer hover:bg-cinebhash",
 };
 
 export default function Button({

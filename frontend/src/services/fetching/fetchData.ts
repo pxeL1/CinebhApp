@@ -4,7 +4,7 @@ export default async function fetchData(
   url: string,
   method: string,
   queryParams?: URLSearchParams,
-  body?: object
+  body?: object,
 ) {
   const defaultHeaders = new Headers({ "Content-Type": "application/json" });
   const completeUrl: string = getCompleteUrl(url, queryParams);
@@ -13,7 +13,7 @@ export default async function fetchData(
     method: method,
     headers: defaultHeaders,
     body: JSON.stringify(body) ?? null,
-    credentials: 'include'
+    credentials: "include",
   });
 
   return { data: await response.json(), ok: response.ok };

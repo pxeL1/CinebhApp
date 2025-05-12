@@ -19,25 +19,27 @@ function App() {
   useEffect(() => {
     const userString = localStorage.getItem("user");
     const expiration = localStorage.getItem("expiration");
-    if(userString) {
+    if (userString) {
       const user: User = JSON.parse(userString);
       setUser(user);
     }
 
-    if(expiration && isTimeBeforeNow(expiration)) {
+    if (expiration && isTimeBeforeNow(expiration)) {
       get(getValidateRequest()).catch(() => {
         setUser(undefined);
         localStorage.removeItem("user");
         localStorage.removeItem("expiration");
-      })
+      });
     }
-  }, [])
+  }, []);
 
   return (
-    <UserContext.Provider value={{
-      user,
-      setUser
-    }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+      }}
+    >
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />

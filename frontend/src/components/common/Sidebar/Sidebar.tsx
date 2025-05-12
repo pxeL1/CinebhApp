@@ -5,11 +5,12 @@ export interface SidebarProps {
   isOpen: boolean;
 }
 
-export default function Sidebar({ isOpen, children }: PropsWithChildren<SidebarProps>) {
+export default function Sidebar({
+  isOpen,
+  children,
+}: PropsWithChildren<SidebarProps>) {
   return (
-    <div
-      className={classNames({"no-doc-scroll": isOpen })}
-    >
+    <div className={classNames({ "no-doc-scroll": isOpen })}>
       <div
         className={classNames(
           "w-full z-20 absolute bg-cinebhdim transition-all duration-500",
@@ -20,8 +21,8 @@ export default function Sidebar({ isOpen, children }: PropsWithChildren<SidebarP
       <div
         className={classNames(
           "w-full h-full z-30 absolute justify-end",
-          { "hidden": !isOpen },
-          { "flex": isOpen },
+          { hidden: !isOpen },
+          { flex: isOpen },
         )}
       >
         {children}
