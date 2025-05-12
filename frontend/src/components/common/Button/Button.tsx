@@ -8,13 +8,16 @@ export interface ButtonProps {
 export enum ButtonType {
   PRIMARY,
   SECONDARY,
+  TERTIARY
 }
 
 const buttonVariant: Record<ButtonType, string> = {
   [ButtonType.PRIMARY]:
-    "w-28 h-12 rounded-lg bg-cinebhdarkred text-cinebhneutral cursor-pointer hover:bg-cinebhlightred flex justify-center items-center",
+    "w-full h-full rounded-lg bg-cinebhdarkred text-cinebhneutral cursor-pointer hover:bg-cinebhlightred flex justify-center items-center py-3 px-5",
   [ButtonType.SECONDARY]:
-    "flex items-center justify-center h-12 w-12 bg-white border border-cinebhpale rounded-lg hover:bg-cinebhpale disabled:text-cinebhpale disabled:hover:bg-white",
+    "flex items-center justify-center h-full w-full bg-white border border-cinebhpale rounded-lg hover:bg-cinebhpale disabled:text-cinebhpale disabled:hover:bg-white p-4",
+  [ButtonType.TERTIARY]:
+    "flex items-center justify-center h-full w-full bg-cinebhdark text-cinebhpale p-2 rounded cursor-pointer hover:bg-cinebhash"
 };
 
 export default function Button({

@@ -5,6 +5,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,9 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @NoArgsConstructor
 @Service
@@ -54,9 +53,13 @@ public class DefaultJwtService implements JwtService {
     }
 
     @Override
-    public String extractToken(String bearerToken) {
-        if(bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
+    public String extractToken(HttpServletRequest request) {
+        if(request.getCookies() != null) {
+            return Arrays.stream(request.getCookies())
+                    .filter(cookie -> cookie.getName().equals("token"))
+                    .map(Cookie::getValue)
+                    .findFirst()
+                    .orElse(null);
         }
 
         return null;
@@ -69,8 +72,7 @@ public class DefaultJwtService implements JwtService {
 
     @Override
     public boolean isTokenValid(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        String token = extractToken(bearerToken);
+        String token = extractToken(request);
         Claims claims = resolveClaims(token);
 
         return validateExpiration(claims);

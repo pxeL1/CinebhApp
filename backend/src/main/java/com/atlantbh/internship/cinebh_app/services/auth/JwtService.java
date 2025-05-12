@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public interface JwtService {
     String createToken(User user, boolean rememberMe);
     Claims resolveClaims(String token) throws JwtException;
-    String extractToken(String bearerToken);
+    String extractToken(HttpServletRequest request);
     boolean validateExpiration(Claims claims);
     boolean isTokenValid(HttpServletRequest request);
 }

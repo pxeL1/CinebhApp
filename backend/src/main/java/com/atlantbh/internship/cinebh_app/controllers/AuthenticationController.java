@@ -1,7 +1,7 @@
 package com.atlantbh.internship.cinebh_app.controllers;
 
+import com.atlantbh.internship.cinebh_app.dtos.Error;
 import com.atlantbh.internship.cinebh_app.dtos.LoginRequest;
-import com.atlantbh.internship.cinebh_app.dtos.LogoutRequest;
 import com.atlantbh.internship.cinebh_app.dtos.RegisterRequest;
 import com.atlantbh.internship.cinebh_app.services.auth.AuthService;
 import com.atlantbh.internship.cinebh_app.services.auth.JwtService;
@@ -26,7 +26,7 @@ public class AuthenticationController {
         try {
             return ResponseEntity.ok(authService.login(loginRequest, response));
         } catch (Exception e) {
-            return ResponseEntity.status(401).body("Authentication failed: " + e.getMessage());
+            return ResponseEntity.status(401).body(new Error("Authentication failed: " + e.getMessage()));
         }
     }
 
@@ -35,7 +35,7 @@ public class AuthenticationController {
         try {
             return ResponseEntity.ok(authService.register(registerRequest, response));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(new Error(e.getMessage()));
         }
     }
 
@@ -44,12 +44,12 @@ public class AuthenticationController {
         try {
             return ResponseEntity.ok(jwtService.isTokenValid(request));
         } catch (Exception e) {
-            return ResponseEntity.status(401).body(e.getMessage());
+            return ResponseEntity.status(401).body(new Error(e.getMessage()));
         }
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity logout(@RequestBody LogoutRequest logoutRequest) {
-        return ResponseEntity.ok(authService.logout(logoutRequest));
+    @GetMapping("/logout")
+    public ResponseEntity logout(HttpServletRequest request, HttpServletResponse response) {
+        return ResponseEntity.ok(authService.logout(request, response));
     }
 }

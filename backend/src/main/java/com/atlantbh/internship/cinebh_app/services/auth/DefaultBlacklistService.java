@@ -30,11 +30,19 @@ public class DefaultBlacklistService implements BlacklistService {
     @Scheduled(fixedDelay = 30, timeUnit = TimeUnit.MINUTES)
     public void cleanExpiredTokens() {
         blacklistedTokens.forEach(blacklistedToken -> {
-            try {
-                jwtService.resolveClaims(blacklistedToken);
-            } catch (JwtException e) {
+            if(isTokenExpired(blacklistedToken)) {
                 blacklistedTokens.remove(blacklistedToken);
             }
         });
+    }
+
+    private boolean isTokenExpired(String token) {
+        try {
+            jwtService.resolveClaims(token);
+        } catch (JwtException e) {
+            return true;
+        }
+
+        return false;
     }
 }

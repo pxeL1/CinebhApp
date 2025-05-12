@@ -25,3 +25,19 @@ export function getAllGenresRequest() {
 export function getFilteredMoviesRequest() {
   return "/movie/filter";
 }
+
+export function getLoginRequest() {
+  return "/auth/login";
+}
+
+export function getRegisterRequest() {
+  return "/auth/register";
+}
+
+export function getValidateRequest() {
+  return "/auth/validate";
+}
+
+export function getLogoutRequest() {
+  return "/auth/logout";
+}
