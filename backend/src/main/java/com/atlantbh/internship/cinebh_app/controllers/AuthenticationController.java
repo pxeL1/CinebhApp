@@ -1,30 +1,31 @@
 package com.atlantbh.internship.cinebh_app.controllers;
 
+import com.atlantbh.internship.cinebh_app.dtos.*;
 import com.atlantbh.internship.cinebh_app.dtos.Error;
-import com.atlantbh.internship.cinebh_app.dtos.AuthRequest;
-import com.atlantbh.internship.cinebh_app.dtos.LogoutResponse;
 import com.atlantbh.internship.cinebh_app.services.auth.AuthService;
-import com.atlantbh.internship.cinebh_app.services.auth.JwtService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.atlantbh.internship.cinebh_app.utility.CookieUtils;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthenticationController {
     private final AuthService authService;
-    private final JwtService jwtService;
 
-    public AuthenticationController(AuthService authService, JwtService jwtService) {
+    public AuthenticationController(AuthService authService) {
         this.authService = authService;
-        this.jwtService = jwtService;
     }
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthRequest authRequest, HttpServletResponse response) {
         try {
-            return ResponseEntity.ok(authService.login(authRequest, response));
+            AuthDTO authDTO = authService.login(authRequest);
+            response.addCookie(CookieUtils.createCookie("token", authDTO.token()));
+
+            return ResponseEntity.ok(authDTO.authResponse());
         } catch (Exception e) {
             return ResponseEntity.status(401).body(new Error("Authentication failed: " + e.getMessage()));
         }
@@ -33,24 +34,42 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody AuthRequest authRequest, HttpServletResponse response) {
         try {
-            return ResponseEntity.ok(authService.register(authRequest, response));
+            AuthDTO authDTO = authService.register(authRequest);
+            response.addCookie(CookieUtils.createCookie(CookieUtils.TOKEN_COOKIE, authDTO.token()));
+
+            return ResponseEntity.ok(authDTO.authResponse());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new Error(e.getMessage()));
         }
     }
 
     @GetMapping("/validate")
-    public ResponseEntity validate(HttpServletRequest request) {
+    public ResponseEntity validate() {
         try {
-            return ResponseEntity.ok(jwtService.isTokenValid(request));
+            String credentials = SecurityContextHolder.getContext()
+                    .getAuthentication()
+                    .getCredentials()
+                    .toString();
+            authService.validate(credentials);
+
+            return ResponseEntity.ok(new ValidateResponse("Authentication validated"));
         } catch (Exception e) {
             return ResponseEntity.status(401).body(new Error(e.getMessage()));
         }
     }
 
     @GetMapping("/logout")
-    public ResponseEntity logout(HttpServletRequest request, HttpServletResponse response) {
-        authService.logout(request, response);
+    public ResponseEntity logout(HttpServletResponse response) {
+        String credentials = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getCredentials()
+                .toString();
+        Cookie cookie = CookieUtils.createCookie(CookieUtils.TOKEN_COOKIE, credentials);
+        cookie.setMaxAge(0);
+
+        response.addCookie(cookie);
+        authService.logout(credentials);
+
         return ResponseEntity.ok(new LogoutResponse("Logged out successfully"));
     }
 }

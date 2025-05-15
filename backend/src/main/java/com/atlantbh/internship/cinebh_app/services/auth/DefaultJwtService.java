@@ -49,40 +49,16 @@ public class DefaultJwtService implements JwtService {
 
     @Override
     public Claims resolveClaims(String token) throws JwtException {
-        if(token != null) {
-            return Jwts.parser()
-                    .verifyWith((SecretKey) getSignInKey())
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload();
-        }
-        return null;
+        return Jwts.parser()
+                .verifyWith((SecretKey) getSignInKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     @Override
-    public String extractToken(HttpServletRequest request) {
-        if(request.getCookies() != null) {
-            return Arrays.stream(request.getCookies())
-                    .filter(cookie -> cookie.getName().equals("token"))
-                    .map(Cookie::getValue)
-                    .findFirst()
-                    .orElse(null);
-        }
-
-        return null;
-    }
-
-    @Override
-    public boolean validateExpiration(Claims claims) {
-        return claims.getExpiration().after(new Date());
-    }
-
-    @Override
-    public boolean isTokenValid(HttpServletRequest request) {
-        String token = extractToken(request);
-        Claims claims = resolveClaims(token);
-
-        return validateExpiration(claims);
+    public void isTokenValid(String token) {
+        resolveClaims(token);
     }
 
     private Key getSignInKey() {

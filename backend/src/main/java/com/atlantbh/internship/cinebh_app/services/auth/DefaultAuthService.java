@@ -3,14 +3,12 @@ package com.atlantbh.internship.cinebh_app.services.auth;
 import com.atlantbh.internship.cinebh_app.domain.Role;
 import com.atlantbh.internship.cinebh_app.domain.User;
 import com.atlantbh.internship.cinebh_app.domain.UserRole;
+import com.atlantbh.internship.cinebh_app.dtos.AuthDTO;
 import com.atlantbh.internship.cinebh_app.dtos.AuthResponse;
 import com.atlantbh.internship.cinebh_app.dtos.AuthRequest;
 import com.atlantbh.internship.cinebh_app.repositories.RoleRepository;
 import com.atlantbh.internship.cinebh_app.repositories.UserRepository;
 import com.atlantbh.internship.cinebh_app.services.user.DefaultUserService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -42,18 +40,18 @@ public class DefaultAuthService implements AuthService{
     }
 
     @Override
-    public AuthResponse login(AuthRequest authRequest, HttpServletResponse response) {
+    public AuthDTO login(AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.email(), authRequest.password()));
         User user = userService.loadUserByUsername(authentication.getName());
         String token = jwtService.createToken(user, authRequest.rememberMe());
-        response.addCookie(getCookie(token));
         Instant expiration = getTokenExpiration(authRequest.rememberMe());
+        AuthResponse authResponse = new AuthResponse(user, expiration);
 
-        return new AuthResponse(user, expiration);
+        return new AuthDTO(authResponse, token);
     }
 
     @Override
-    public AuthResponse register(AuthRequest authRequest, HttpServletResponse response) {
+    public AuthDTO register(AuthRequest authRequest) {
         boolean exists = userRepository.existsByEmail(authRequest.email());
 
         if(exists) {
@@ -67,28 +65,20 @@ public class DefaultAuthService implements AuthService{
 
         User user = userRepository.save(newUser);
         String token = jwtService.createToken(user, authRequest.rememberMe());
-        response.addCookie(getCookie(token));
         Instant expiration = getTokenExpiration(authRequest.rememberMe());
+        AuthResponse authResponse = new AuthResponse(user, expiration);
 
-        return new AuthResponse(user, expiration);
+        return new AuthDTO(authResponse, token);
     }
 
     @Override
-    public void logout(HttpServletRequest request, HttpServletResponse response) {
-        String token = jwtService.extractToken(request);
-        tokenBlacklistService.addBlacklistedToken(token);
-        Cookie cookie = getCookie(token);
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+    public void logout(String credentials) {
+        tokenBlacklistService.addBlacklistedToken(credentials);
     }
 
-    public Cookie getCookie(String token) {
-        Cookie cookie = new Cookie("token", token);
-        cookie.setPath("/");
-        cookie.setHttpOnly(true);
-        cookie.setSecure(false);
-
-        return cookie;
+    @Override
+    public void validate(String credentials) {
+        jwtService.isTokenValid(credentials);
     }
 
     public Instant getTokenExpiration(boolean rememberMe) {
