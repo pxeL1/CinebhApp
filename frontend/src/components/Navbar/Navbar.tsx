@@ -26,7 +26,7 @@ export default function Navbar() {
         navigate("/");
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 

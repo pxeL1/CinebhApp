@@ -2,6 +2,7 @@ package com.atlantbh.internship.cinebh_app.config;
 
 import com.atlantbh.internship.cinebh_app.services.auth.TokenBlacklistService;
 import com.atlantbh.internship.cinebh_app.services.auth.JwtService;
+import com.atlantbh.internship.cinebh_app.utility.CookieUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -40,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = null;
             if(request.getCookies() != null) {
                 token = Arrays.stream(request.getCookies())
-                        .filter(cookie -> cookie.getName().equals("token"))
+                        .filter(cookie -> cookie.getName().equals(CookieUtils.TOKEN_COOKIE))
                         .map(Cookie::getValue)
                         .findFirst()
                         .orElse(null);

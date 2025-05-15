@@ -7,5 +7,4 @@ public interface AuthService {
     AuthDTO login(AuthRequest authRequest);
     AuthDTO register(AuthRequest authRequest);
     void logout(String credentials);
-    void validate(String credentials);
 }

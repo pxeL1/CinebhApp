@@ -1,12 +1,13 @@
 package com.atlantbh.internship.cinebh_app.services.auth;
 
-import com.atlantbh.internship.cinebh_app.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
-import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.Collection;
+import java.util.Date;
 
 public interface JwtService {
-    String createToken(User user, boolean rememberMe);
+    String createToken(String subject, String claimsName, Collection<String> claimsValues, Date expiration);
     Claims resolveClaims(String token) throws JwtException;
-    void isTokenValid(String token);
+    boolean isTokenValid(String token);
 }

@@ -23,7 +23,7 @@ public class AuthenticationController {
     public ResponseEntity login(@RequestBody AuthRequest authRequest, HttpServletResponse response) {
         try {
             AuthDTO authDTO = authService.login(authRequest);
-            response.addCookie(CookieUtils.createCookie("token", authDTO.token()));
+            response.addCookie(CookieUtils.createCookie(CookieUtils.TOKEN_COOKIE, authDTO.token()));
 
             return ResponseEntity.ok(authDTO.authResponse());
         } catch (Exception e) {
@@ -45,17 +45,16 @@ public class AuthenticationController {
 
     @GetMapping("/validate")
     public ResponseEntity validate() {
-        try {
-            String credentials = SecurityContextHolder.getContext()
-                    .getAuthentication()
-                    .getCredentials()
-                    .toString();
-            authService.validate(credentials);
+        String credentials = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getCredentials()
+                .toString();
 
+        if(!credentials.isEmpty()) {
             return ResponseEntity.ok(new ValidateResponse("Authentication validated"));
-        } catch (Exception e) {
-            return ResponseEntity.status(401).body(new Error(e.getMessage()));
         }
+
+        return ResponseEntity.status(401).body(new Error("Authentication invalid"));
     }
 
     @GetMapping("/logout")

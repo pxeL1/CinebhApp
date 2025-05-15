@@ -1,14 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import logo from "assets/images/Logo.png";
 import Button, { ButtonType } from "components/common/Button/Button";
-import {
-  faArrowLeft,
-  faEnvelope,
-  faLock,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Sidebar from "components/common/Sidebar/Sidebar";
-import Input from "components/common/Input/Input";
 import cameraImg from "assets/images/Group 26.png";
 import filmImg from "assets/images/Group 25.png";
 import { useNavigate } from "react-router-dom";
@@ -64,8 +59,7 @@ export default function AuthenticationSidebar({
   }
 
   function handleSignUp(email: string, password: string, rememberMe: boolean) {
-    const role = "USER";
-    const registerRequest = { email, password, role, rememberMe };
+    const registerRequest = { email, password, rememberMe };
 
     post<AuthResponse>(getRegisterRequest(), registerRequest)
       .then((data) => {
@@ -75,7 +69,7 @@ export default function AuthenticationSidebar({
         setSuccessfulRegister(true);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         setError(true);
       });
   }

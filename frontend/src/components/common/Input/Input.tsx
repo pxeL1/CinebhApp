@@ -17,6 +17,7 @@ function PasswordInput({
   dark,
   onChange,
   error,
+  placeholder,
   ...rest
 }: InputProps) {
   const [isShown, setIsShown] = useState(false);
@@ -51,8 +52,9 @@ function PasswordInput({
         </span>
         <input
           type={isShown ? "text" : "password"}
-          placeholder={rest.placeholder}
+          placeholder={placeholder}
           onChange={onChange}
+          {...rest}
           className={classNames(
             "w-full h-full py-3 focus:outline-none",
             {
@@ -86,9 +88,11 @@ export default function Input({
   dark,
   onChange,
   error,
+  type,
+  placeholder,
   ...rest
 }: InputProps) {
-  if (rest.type === "password") {
+  if (type === "password") {
     return (
       <PasswordInput
         icon={icon}
@@ -96,6 +100,7 @@ export default function Input({
         onChange={onChange}
         label={label}
         error={error}
+        placeholder={placeholder}
         {...rest}
       />
     );
@@ -130,9 +135,10 @@ export default function Input({
           {icon}
         </span>
         <input
-          type={rest.type}
-          placeholder={rest.placeholder}
+          type={type}
+          placeholder={placeholder}
           onChange={onChange}
+          {...rest}
           className={classNames(
             "w-full h-full py-3 focus:outline-none",
             {

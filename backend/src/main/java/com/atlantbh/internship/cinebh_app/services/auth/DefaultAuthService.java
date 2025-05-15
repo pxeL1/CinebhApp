@@ -17,7 +17,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Date;
 import java.util.List;
+
+import static com.atlantbh.internship.cinebh_app.services.auth.DefaultJwtService.ROLES_CLAIM;
 
 @Service
 public class DefaultAuthService implements AuthService{
@@ -43,8 +46,8 @@ public class DefaultAuthService implements AuthService{
     public AuthDTO login(AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.email(), authRequest.password()));
         User user = userService.loadUserByUsername(authentication.getName());
-        String token = jwtService.createToken(user, authRequest.rememberMe());
-        Instant expiration = getTokenExpiration(authRequest.rememberMe());
+        String token = jwtService.createToken(user.getEmail(), ROLES_CLAIM, getRoleNames(user), getTokenExpiration(authRequest.rememberMe()));
+        Date expiration = getTokenExpiration(authRequest.rememberMe());
         AuthResponse authResponse = new AuthResponse(user, expiration);
 
         return new AuthDTO(authResponse, token);
@@ -64,8 +67,8 @@ public class DefaultAuthService implements AuthService{
         newUser.setRoles(List.of(newUserRole));
 
         User user = userRepository.save(newUser);
-        String token = jwtService.createToken(user, authRequest.rememberMe());
-        Instant expiration = getTokenExpiration(authRequest.rememberMe());
+        String token = jwtService.createToken(user.getEmail(), ROLES_CLAIM, getRoleNames(user), getTokenExpiration(authRequest.rememberMe()));
+        Date expiration = getTokenExpiration(authRequest.rememberMe());
         AuthResponse authResponse = new AuthResponse(user, expiration);
 
         return new AuthDTO(authResponse, token);
@@ -76,15 +79,17 @@ public class DefaultAuthService implements AuthService{
         tokenBlacklistService.addBlacklistedToken(credentials);
     }
 
-    @Override
-    public void validate(String credentials) {
-        jwtService.isTokenValid(credentials);
+    private Date getTokenExpiration(boolean rememberMe) {
+        if(rememberMe) {
+            return Date.from(Instant.now().plus(Duration.ofDays(7)));
+        }
+        return Date.from(Instant.now().plus(Duration.ofMinutes(30)));
     }
 
-    public Instant getTokenExpiration(boolean rememberMe) {
-        if(rememberMe) {
-            return Instant.now().plus(Duration.ofDays(7));
-        }
-        return Instant.now().plus(Duration.ofMinutes(30));
+    private List<String> getRoleNames(User user) {
+        return user.getRoles()
+                .stream()
+                .map(role -> role.getRole().getName())
+                .toList();
     }
 }
