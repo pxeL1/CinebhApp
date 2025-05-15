@@ -7,6 +7,6 @@ type UserContextValues = {
 };
 
 const user = undefined;
-const setUser = (user: User | undefined) => {}
+const setUser = (user: User | undefined) => {};
 
-export const UserContext = createContext<UserContextValues>({user, setUser});
+export const UserContext = createContext<UserContextValues>({ user, setUser });

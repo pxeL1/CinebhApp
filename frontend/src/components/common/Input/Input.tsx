@@ -11,7 +11,14 @@ export interface InputProps extends HTMLProps<HTMLInputElement> {
   error?: boolean;
 }
 
-function PasswordInput({ icon, label, dark, onChange, error, ...rest}: InputProps) {
+function PasswordInput({
+  icon,
+  label,
+  dark,
+  onChange,
+  error,
+  ...rest
+}: InputProps) {
   const [isShown, setIsShown] = useState(false);
 
   return (
@@ -65,7 +72,7 @@ function PasswordInput({ icon, label, dark, onChange, error, ...rest}: InputProp
               },
             )}
           >
-            <FontAwesomeIcon icon={ isShown ? faEye : faEyeSlash}/>
+            <FontAwesomeIcon icon={isShown ? faEye : faEyeSlash} />
           </button>
         </span>
       </div>
@@ -73,9 +80,25 @@ function PasswordInput({ icon, label, dark, onChange, error, ...rest}: InputProp
   );
 }
 
-export default function Input({ icon, label, dark, onChange, error, ...rest}: InputProps) {
+export default function Input({
+  icon,
+  label,
+  dark,
+  onChange,
+  error,
+  ...rest
+}: InputProps) {
   if (rest.type === "password") {
-    return <PasswordInput icon={icon} dark={dark} onChange={onChange} label={label} error={error} {...rest} />;
+    return (
+      <PasswordInput
+        icon={icon}
+        dark={dark}
+        onChange={onChange}
+        label={label}
+        error={error}
+        {...rest}
+      />
+    );
   }
 
   return (

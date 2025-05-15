@@ -37,17 +37,13 @@ export default function AuthenticationSidebar({
   const header = isLogin ? "Welcome back" : "Hello";
 
   useEffect(() => {
-    if(!userContext.user) {
+    if (!userContext.user) {
       setSuccessfulLogin(false);
       setSuccessfulRegister(false);
     }
   }, [userContext.user]);
 
-  function handleSignIn(
-    email: string,
-    password: string,
-    rememberMe: boolean,
-  ) {
+  function handleSignIn(email: string, password: string, rememberMe: boolean) {
     const loginRequest = { email, password, rememberMe };
 
     post<AuthResponse>(getLoginRequest(), loginRequest)
@@ -67,11 +63,7 @@ export default function AuthenticationSidebar({
       });
   }
 
-  function handleSignUp(
-    email: string,
-    password: string,
-    rememberMe: boolean,
-  ) {
+  function handleSignUp(email: string, password: string, rememberMe: boolean) {
     const role = "USER";
     const registerRequest = { email, password, role, rememberMe };
 

@@ -8,19 +8,15 @@ export interface SignInProps {
   isLogin: boolean;
   setIsLogin: (value: boolean) => void;
   error: boolean;
-  handleSubmit: (
-    email: string,
-    password: string,
-    rememberMe: boolean,
-  ) => void;
+  handleSubmit: (email: string, password: string, rememberMe: boolean) => void;
 }
 
 export default function SignIn({
-                                 isLogin,
-                                 setIsLogin,
-                                 error,
-                                 handleSubmit,
-                               }: SignInProps) {
+  isLogin,
+  setIsLogin,
+  error,
+  handleSubmit,
+}: SignInProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
