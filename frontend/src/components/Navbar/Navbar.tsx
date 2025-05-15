@@ -1,8 +1,8 @@
 import logo from "assets/images/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import Authentication from "components/Authentication/Authentication";
+import AuthenticationSIdebar from "components/AuthenticationSidebar/AuthenticationSidebar";
 import { useContext, useState } from "react";
-import { UserContext } from "contexts/UserContext";
+import { UserContext } from "contexts/UserContext/UserContext";
 import { User } from "models/User";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
@@ -20,7 +20,7 @@ export default function Navbar() {
     try {
       get(getLogoutRequest()).then(() => {
         setIsOpen(false);
-        userContext?.setUser(undefined);
+        userContext.setUser(undefined);
         localStorage.removeItem("expiration");
         localStorage.removeItem("user");
         navigate("/");
@@ -64,12 +64,12 @@ export default function Navbar() {
           </button>
         )}
       </div>
-      <Authentication isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AuthenticationSIdebar isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 }
 
-export interface UserMenuProps {
+interface UserMenuProps {
   user: User;
   handleLogout: () => void;
 }

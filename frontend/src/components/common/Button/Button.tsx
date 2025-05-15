@@ -13,11 +13,11 @@ export enum ButtonType {
 
 const buttonVariant: Record<ButtonType, string> = {
   [ButtonType.PRIMARY]:
-    "w-full h-full rounded-lg bg-cinebhdarkred text-cinebhneutral cursor-pointer hover:bg-cinebhlightred flex justify-center items-center py-3 px-5",
+    "w-full rounded-lg bg-cinebhdarkred text-cinebhneutral cursor-pointer hover:bg-cinebhlightred flex justify-center items-center py-3 px-5",
   [ButtonType.SECONDARY]:
-    "flex items-center justify-center h-full w-full bg-white border border-cinebhpale rounded-lg hover:bg-cinebhpale disabled:text-cinebhpale disabled:hover:bg-white p-4",
+    "cursor-pointer flex items-center justify-center bg-white border border-cinebhpale rounded-lg hover:bg-cinebhpale disabled:cursor-default disabled:text-cinebhpale disabled:hover:bg-white p-4",
   [ButtonType.TERTIARY]:
-    "flex items-center justify-center h-full w-full bg-cinebhdark text-cinebhpale p-2 rounded cursor-pointer hover:bg-cinebhash",
+    "w-full flex items-center justify-center bg-cinebhdark text-cinebhpale p-2 rounded cursor-pointer hover:bg-cinebhash",
 };
 
 export default function Button({

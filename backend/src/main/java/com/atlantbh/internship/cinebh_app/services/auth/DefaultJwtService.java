@@ -25,11 +25,18 @@ public class DefaultJwtService implements JwtService {
     private String SECRET_KEY;
     private static final Duration SHORT_EXPIRATION_TIME = Duration.ofMinutes(30);
     private static final Duration LONG_EXPIRATION_TIME = Duration.ofDays(7);
+    public static final String ROLES_CLAIM = "roles";
 
     @Override
     public String createToken(User user, boolean rememberMe) {
-        List<String> roles = user.getRoles().stream().map(role -> role.getRole().getName()).toList();
-        Claims claims = Jwts.claims().subject(user.getEmail()).add("roles", roles).build();
+        List<String> roles = user.getRoles()
+                .stream()
+                .map(role -> role.getRole().getName())
+                .toList();
+        Claims claims = Jwts.claims()
+                .subject(user.getEmail())
+                .add(ROLES_CLAIM, roles)
+                .build();
         Duration tokenDuration = rememberMe ? LONG_EXPIRATION_TIME : SHORT_EXPIRATION_TIME;
         Date expiration = Date.from(Instant.now().plus(tokenDuration));
 

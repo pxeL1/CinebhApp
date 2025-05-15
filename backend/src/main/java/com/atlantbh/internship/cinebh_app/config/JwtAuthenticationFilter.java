@@ -1,6 +1,6 @@
 package com.atlantbh.internship.cinebh_app.config;
 
-import com.atlantbh.internship.cinebh_app.services.auth.BlacklistService;
+import com.atlantbh.internship.cinebh_app.services.auth.TokenBlacklistService;
 import com.atlantbh.internship.cinebh_app.services.auth.JwtService;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
@@ -17,14 +17,16 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
 
+import static com.atlantbh.internship.cinebh_app.services.auth.DefaultJwtService.ROLES_CLAIM;
+
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
-    private final BlacklistService blacklistService;
+    private final TokenBlacklistService tokenBlacklistService;
 
-    public JwtAuthenticationFilter(JwtService jwtService, BlacklistService blacklistService) {
+    public JwtAuthenticationFilter(JwtService jwtService, TokenBlacklistService tokenBlacklistService) {
         this.jwtService = jwtService;
-        this.blacklistService = blacklistService;
+        this.tokenBlacklistService = tokenBlacklistService;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
-            if(blacklistService.isTokenBlacklisted(token)){
+            if(tokenBlacklistService.isTokenBlacklisted(token)){
                 filterChain.doFilter(request, response);
                 return;
             }
@@ -48,9 +50,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if(claims != null && jwtService.validateExpiration(claims)) {
                 String email = claims.getSubject();
-                List<String> roles = claims.get("roles", List.class);
-                List<SimpleGrantedAuthority> auhtorities = roles.stream().map(SimpleGrantedAuthority::new).toList();
-                Authentication authentication = new UsernamePasswordAuthenticationToken(email, token, auhtorities);
+                List<String> roles = claims.get(ROLES_CLAIM, List.class);
+                List<SimpleGrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority::new).toList();
+                Authentication authentication = new UsernamePasswordAuthenticationToken(email, token, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }

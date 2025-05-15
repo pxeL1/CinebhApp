@@ -1,8 +1,10 @@
 import getCompleteUrl from "services/fetching/getCompleteUrl";
 
+export type Method = "GET" | "POST" | "PUT" | "DELETE";
+
 export default async function fetchData(
   url: string,
-  method: string,
+  method: Method,
   queryParams?: URLSearchParams,
   body?: object,
 ) {
@@ -12,7 +14,7 @@ export default async function fetchData(
   const response = await fetch(completeUrl, {
     method: method,
     headers: defaultHeaders,
-    body: JSON.stringify(body) ?? null,
+    body: JSON.stringify(body),
     credentials: "include",
   });
 

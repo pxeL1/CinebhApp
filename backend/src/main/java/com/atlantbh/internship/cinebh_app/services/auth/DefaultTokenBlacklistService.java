@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class DefaultBlacklistService implements BlacklistService {
+public class DefaultTokenBlacklistService implements TokenBlacklistService {
     private final JwtService jwtService;
     private final List<String> blacklistedTokens = new ArrayList<>();
 
-    public DefaultBlacklistService(JwtService jwtService) {
+    public DefaultTokenBlacklistService(JwtService jwtService) {
         this.jwtService = jwtService;
     }
 

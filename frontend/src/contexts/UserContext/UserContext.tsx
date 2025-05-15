@@ -6,4 +6,7 @@ type UserContextValues = {
   setUser: (user: User | undefined) => void;
 };
 
-export const UserContext = createContext<UserContextValues | null>(null);
+const user = undefined;
+const setUser = (user: User | undefined) => {}
+
+export const UserContext = createContext<UserContextValues>({user, setUser});

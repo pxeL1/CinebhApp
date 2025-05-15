@@ -11,65 +11,61 @@ export interface InputProps extends HTMLProps<HTMLInputElement> {
   error?: boolean;
 }
 
-function PasswordInput(props: InputProps) {
-  const [isShowed, setIsShowed] = useState(false);
+function PasswordInput({ icon, label, dark, onChange, error, ...rest}: InputProps) {
+  const [isShown, setIsShown] = useState(false);
 
   return (
     <div className="h-full w-full flex flex-col gap-1.5">
       <label
         className={classNames(
           "font-semibold",
-          { "text-cinebhneutral": props.dark && !props.error },
-          { "text-cinebhdark": !props.dark && !props.error },
-          { "text-cinebherrorlight": props.error },
+          { "text-cinebhneutral": dark && !error },
+          { "text-cinebhdark": !dark && !error },
+          { "text-cinebherrorlight": error },
         )}
       >
-        {props.label}
+        {label}
       </label>
       <div
         className={classNames(
           "w-full h-full flex bg-cinebhneutral rounded-lg px-3 border",
-          { "border-cinebhpale": !props.error },
-          { "border-cinebherrordark": props.error },
+          { "border-cinebhpale": !error },
+          { "border-cinebherrordark": error },
         )}
       >
         <span
           className={classNames(
             "flex items-center mr-1.5",
-            { "text-cinebhdark": !props.error },
-            { "text-cinebherrordark": props.error },
+            { "text-cinebhdark": !error },
+            { "text-cinebherrordark": error },
           )}
         >
-          {props.icon}
+          {icon}
         </span>
         <input
-          type={isShowed ? "text" : "password"}
-          placeholder={props.placeholder}
-          onChange={props.onChange}
+          type={isShown ? "text" : "password"}
+          placeholder={rest.placeholder}
+          onChange={onChange}
           className={classNames(
             "w-full h-full py-3 focus:outline-none",
             {
-              "text-cinebhlightgray placeholder-cinebhlightgray": !props.error,
+              "text-cinebhlightgray placeholder-cinebhlightgray": !error,
             },
-            { "text-cinebherrordark placeholder-cinebherrordark": props.error },
+            { "text-cinebherrordark placeholder-cinebherrordark": error },
           )}
         />
         <span>
           <button
-            onClick={() => setIsShowed(!isShowed)}
+            onClick={() => setIsShown(!isShown)}
             className={classNames(
               "h-full flex items-center cursor-pointer",
-              { "text-cinebhdark hover:text-cinebhlightgray": !props.error },
+              { "text-cinebhdark hover:text-cinebhlightgray": !error },
               {
-                "text-cinebherrordark hover:text-cinebherrorlight": props.error,
+                "text-cinebherrordark hover:text-cinebherrorlight": error,
               },
             )}
           >
-            {isShowed ? (
-              <FontAwesomeIcon icon={faEye} />
-            ) : (
-              <FontAwesomeIcon icon={faEyeSlash} />
-            )}
+            <FontAwesomeIcon icon={ isShown ? faEye : faEyeSlash}/>
           </button>
         </span>
       </div>
@@ -77,9 +73,9 @@ function PasswordInput(props: InputProps) {
   );
 }
 
-export default function Input(props: InputProps) {
-  if (props.type === "password") {
-    return <PasswordInput {...props} />;
+export default function Input({ icon, label, dark, onChange, error, ...rest}: InputProps) {
+  if (rest.type === "password") {
+    return <PasswordInput icon={icon} dark={dark} onChange={onChange} label={label} error={error} {...rest} />;
   }
 
   return (
@@ -87,39 +83,39 @@ export default function Input(props: InputProps) {
       <label
         className={classNames(
           "font-semibold",
-          { "text-cinebhneutral": props.dark && !props.error },
-          { "text-cinebhdark": !props.dark && !props.error },
-          { "text-cinebherrorlight": props.error },
+          { "text-cinebhneutral": dark && !error },
+          { "text-cinebhdark": !dark && !error },
+          { "text-cinebherrorlight": error },
         )}
       >
-        {props.label}
+        {label}
       </label>
       <div
         className={classNames(
           "w-full h-full flex bg-cinebhneutral rounded-lg px-3 border",
-          { "border-cinebhpale": !props.error },
-          { "border-cinebherrordark": props.error },
+          { "border-cinebhpale": !error },
+          { "border-cinebherrordark": error },
         )}
       >
         <span
           className={classNames(
             "flex items-center mr-1.5",
-            { "text-cinebhdark": !props.error },
-            { "text-cinebherrordark": props.error },
+            { "text-cinebhdark": !error },
+            { "text-cinebherrordark": error },
           )}
         >
-          {props.icon}
+          {icon}
         </span>
         <input
-          type={props.type}
-          placeholder={props.placeholder}
-          onChange={props.onChange}
+          type={rest.type}
+          placeholder={rest.placeholder}
+          onChange={onChange}
           className={classNames(
             "w-full h-full py-3 focus:outline-none",
             {
-              "text-cinebhlightgray placeholder-cinebhlightgray": !props.error,
+              "text-cinebhlightgray placeholder-cinebhlightgray": !error,
             },
-            { "text-cinebherrordark placeholder-cinebherrordark": props.error },
+            { "text-cinebherrordark placeholder-cinebherrordark": error },
           )}
         />
       </div>

@@ -6,40 +6,11 @@ import About from "./pages/About/About";
 import Pricing from "./pages/Pricing/Pricing";
 import CurrentlyShowing from "pages/CurrentlyShowing/CurrentlyShowing";
 import Upcoming from "pages/Upcoming/Upcoming";
-import { UserContext } from "contexts/UserContext";
-import { useEffect, useState } from "react";
-import { User } from "models/User";
-import get from "services/fetching/Get";
-import { getValidateRequest } from "services/fetching/API";
-import { isTimeBeforeNow } from "utility/time-utils";
+import UserContextProvider from "contexts/UserContext/UserContextProvider";
 
 function App() {
-  const [user, setUser] = useState<User>();
-
-  useEffect(() => {
-    const userString = localStorage.getItem("user");
-    const expiration = localStorage.getItem("expiration");
-    if (userString) {
-      const user: User = JSON.parse(userString);
-      setUser(user);
-    }
-
-    if (expiration && isTimeBeforeNow(expiration)) {
-      get(getValidateRequest()).catch(() => {
-        setUser(undefined);
-        localStorage.removeItem("user");
-        localStorage.removeItem("expiration");
-      });
-    }
-  }, []);
-
   return (
-    <UserContext.Provider
-      value={{
-        user,
-        setUser,
-      }}
-    >
+    <UserContextProvider>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
@@ -49,7 +20,7 @@ function App() {
           <Route path="/upcoming" element={<Upcoming />} />
         </Route>
       </Routes>
-    </UserContext.Provider>
+    </UserContextProvider>
   );
 }
 
