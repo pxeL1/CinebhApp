@@ -43,20 +43,6 @@ public class AuthenticationController {
         }
     }
 
-    @GetMapping("/validate")
-    public ResponseEntity validate() {
-        String credentials = SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getCredentials()
-                .toString();
-
-        if(!credentials.isEmpty()) {
-            return ResponseEntity.ok(new ValidateResponse("Authentication validated"));
-        }
-
-        return ResponseEntity.status(401).body(new Error("Authentication invalid"));
-    }
-
     @GetMapping("/logout")
     public ResponseEntity logout(HttpServletResponse response) {
         String credentials = SecurityContextHolder.getContext()

@@ -1,8 +1,6 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 import { User } from "models/User";
 import { isTimeBeforeNow } from "utility/time-utils";
-import get from "services/fetching/Get";
-import { getValidateRequest } from "services/fetching/API";
 import { UserContext } from "./UserContext";
 
 export default function UserContextProvider({ children }: PropsWithChildren) {
@@ -17,11 +15,9 @@ export default function UserContextProvider({ children }: PropsWithChildren) {
     }
 
     if (expiration && isTimeBeforeNow(expiration)) {
-      get(getValidateRequest()).catch(() => {
-        setUser(undefined);
-        localStorage.removeItem("user");
-        localStorage.removeItem("expiration");
-      });
+      setUser(undefined);
+      localStorage.removeItem("user");
+      localStorage.removeItem("expiration");
     }
   }, []);
 
