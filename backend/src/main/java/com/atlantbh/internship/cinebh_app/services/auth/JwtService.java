@@ -5,9 +5,10 @@ import io.jsonwebtoken.JwtException;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 public interface JwtService {
-    String createToken(String subject, String claimsName, Collection<String> claimsValues, Date expiration);
+    String createToken(String subject, Map<String, Object> claimsMap, Date expiration);
     Claims resolveClaims(String token) throws JwtException;
     boolean isTokenValid(String token);
 }

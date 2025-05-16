@@ -18,7 +18,9 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.atlantbh.internship.cinebh_app.services.auth.DefaultJwtService.ROLES_CLAIM;
 
@@ -46,7 +48,7 @@ public class DefaultAuthService implements AuthService{
     public AuthDTO login(AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.email(), authRequest.password()));
         User user = userService.loadUserByUsername(authentication.getName());
-        String token = jwtService.createToken(user.getEmail(), ROLES_CLAIM, getRoleNames(user), getTokenExpiration(authRequest.rememberMe()));
+        String token = getUserToken(user, authRequest.rememberMe());
         Date expiration = getTokenExpiration(authRequest.rememberMe());
         AuthResponse authResponse = new AuthResponse(user, expiration);
 
@@ -67,7 +69,7 @@ public class DefaultAuthService implements AuthService{
         newUser.setRoles(List.of(newUserRole));
 
         User user = userRepository.save(newUser);
-        String token = jwtService.createToken(user.getEmail(), ROLES_CLAIM, getRoleNames(user), getTokenExpiration(authRequest.rememberMe()));
+        String token = getUserToken(user, authRequest.rememberMe());
         Date expiration = getTokenExpiration(authRequest.rememberMe());
         AuthResponse authResponse = new AuthResponse(user, expiration);
 
@@ -91,5 +93,11 @@ public class DefaultAuthService implements AuthService{
                 .stream()
                 .map(role -> role.getRole().getName())
                 .toList();
+    }
+
+    private String getUserToken(User user, boolean rememberMe) {
+        Map<String, Object> claimsMap = new HashMap<>();
+        claimsMap.put(ROLES_CLAIM, getRoleNames(user));
+        return jwtService.createToken(user.getEmail(), claimsMap, getTokenExpiration(rememberMe));
     }
 }

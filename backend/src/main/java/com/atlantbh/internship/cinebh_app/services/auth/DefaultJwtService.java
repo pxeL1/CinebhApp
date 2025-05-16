@@ -1,6 +1,7 @@
 package com.atlantbh.internship.cinebh_app.services.auth;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ClaimsBuilder;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -21,11 +22,11 @@ public class DefaultJwtService implements JwtService {
     public static final String ROLES_CLAIM = "roles";
 
     @Override
-    public String createToken(String subject, String claimsName, Collection<String> claimsValues, Date expiration) {
-        Claims claims = Jwts.claims()
-                .subject(subject)
-                .add(claimsName, claimsValues)
-                .build();
+    public String createToken(String subject, Map<String, Object> claimsMap, Date expiration) {
+        ClaimsBuilder claimsBuilder = Jwts.claims()
+                .subject(subject);
+        claimsMap.forEach(claimsBuilder::add);
+        Claims claims = claimsBuilder.build();
 
         return Jwts.builder()
                 .claims(claims)
