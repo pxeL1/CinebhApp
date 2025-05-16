@@ -22,14 +22,20 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private String email;
     @JsonIgnore
+    @Column(nullable = false)
     private String password;
     private String firstName;
     private String lastName;
     private String phoneNumber;
     private String city;
     private String country;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserRole> roles;
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
