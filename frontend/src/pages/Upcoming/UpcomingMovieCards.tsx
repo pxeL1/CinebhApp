@@ -2,6 +2,7 @@ import { Movie } from "models/Movie";
 import { defaultImage } from "defaultValues";
 import Card from "components/common/Card/Card";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 export interface UpcomingMovieCardsProps {
   movies: Array<Movie>;
@@ -40,11 +41,13 @@ export default function UpcomingMovieCards({
           {getStartDate()}
         </div>
         <div className="relative">
-          <Card
-            imageUrl={coverImageUrl}
-            title={movie.name}
-            description={getCardDescription()}
-          />
+          <Link to={`/details/${movie.id}`} key={movie.id}>
+            <Card
+              imageUrl={coverImageUrl}
+              title={movie.name}
+              description={getCardDescription()}
+            />
+          </Link>
         </div>
       </div>
     );

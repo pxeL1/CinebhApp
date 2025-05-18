@@ -7,3 +7,7 @@ export function getFormattedTime(time: string): string {
 export function isTimeBeforeNow(time: string): boolean {
   return moment() > moment(time);
 }
+
+export function getFormattedDate(date: string): string {
+  return moment(date).format("DD/MM/yyyy");
+}

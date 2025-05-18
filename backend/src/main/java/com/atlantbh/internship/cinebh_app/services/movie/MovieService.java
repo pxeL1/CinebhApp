@@ -9,4 +9,5 @@ public interface MovieService {
     Page<Movie> getAllCurrentMovies(Pageable pageable);
     Page<Movie> getAllUpcomingMovies(Pageable pageable);
     Page<Movie> getFilteredMovies(Pageable pageable, MovieFilterParameters movieFilterParameters);
+    Movie getMovie(Long id);
 }

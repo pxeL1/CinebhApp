@@ -2,6 +2,7 @@ import { Movie } from "models/Movie";
 import { defaultImage } from "defaultValues";
 import moment from "moment";
 import { getFormattedTime } from "utility/time-utils";
+import { Link } from "react-router-dom";
 
 export interface CurrentlyShowingMovieCardProps {
   movie: Movie;
@@ -35,40 +36,42 @@ export default function CurrentMovieCard({
   ));
 
   return (
-    <div className="w-full flex rounded-3xl border border-cinebhpale shadow-md shadow-cinebhshadow p-4">
-      <img
-        src={coverImageUrl}
-        alt="Cover Image"
-        className="w-full h-full max-h-72 max-w-64 rounded-2xl"
-      />
-      <div className="ml-6 flex flex-col justify-between">
-        <div className="flex gap-24">
-          <div className="flex flex-col gap-4 min-w-60">
-            <div className="text-3xl font-bold text-cinebhdarkgray">
-              {movie.name}
+    <Link to={`/details/${movie.id}`} className="w-full hover:bg-cinebhshadow rounded-3xl">
+      <div className="w-full flex rounded-3xl border border-cinebhpale shadow-md shadow-cinebhshadow p-4">
+        <img
+          src={coverImageUrl}
+          alt="Cover Image"
+          className="w-full h-full max-h-72 max-w-64 rounded-2xl"
+        />
+        <div className="ml-6 flex flex-col justify-between">
+          <div className="flex gap-24">
+            <div className="flex flex-col gap-4 min-w-60">
+              <div className="text-3xl font-bold text-cinebhdarkgray">
+                {movie.name}
+              </div>
+              <div className="flex gap-3 items-center">
+                {movie.pgRating}
+                {separator}
+                {movie.language}
+                {separator}
+                {movie.duration}
+              </div>
+              <div className="flex gap-4 max-w-60 flex-wrap">{genres}</div>
             </div>
-            <div className="flex gap-3 items-center">
-              {movie.pgRating}
-              {separator}
-              {movie.language}
-              {separator}
-              {movie.duration}
+            <div>
+              <div className="text-cinebhdarkred font-bold text-xl mt-1 mb-4">
+                Showtimes
+              </div>
+              <div className="flex gap-4 flex-wrap overflow-y-hidden">
+                {showtimes}
+              </div>
             </div>
-            <div className="flex gap-4 max-w-60 flex-wrap">{genres}</div>
           </div>
-          <div>
-            <div className="text-cinebhdarkred font-bold text-xl mt-1 mb-4">
-              Showtimes
-            </div>
-            <div className="flex gap-4 flex-wrap overflow-y-hidden">
-              {showtimes}
-            </div>
+          <div className="text-sm italic text-cinebhlightgray">
+            Playing in cinema until {moment(movie.endDate).format("DD.MM.YYYY")}
           </div>
-        </div>
-        <div className="text-sm italic text-cinebhlightgray">
-          Playing in cinema until {moment(movie.endDate).format("DD.MM.YYYY")}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

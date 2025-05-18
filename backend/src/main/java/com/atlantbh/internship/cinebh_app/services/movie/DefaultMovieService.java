@@ -84,4 +84,9 @@ public class DefaultMovieService implements MovieService {
                 pageable
         );
     }
+
+    @Override
+    public Movie getMovie(Long id) {
+        return movieRepository.findById(id).orElseThrow();
+    }
 }
