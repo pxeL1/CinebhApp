@@ -65,6 +65,7 @@ export default function ProjectionPicker({
           <div className="flex gap-4">
             {filteredProjections?.map((project) => (
               <ProjectionButton
+                key={project.id}
                 onProjectionChange={() => setProjection(project)}
                 disabled={project.id === projection?.id}
                 time={project.time}

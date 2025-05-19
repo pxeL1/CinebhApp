@@ -41,6 +41,7 @@ export default function ProjectionDatePicker({
       <div className="flex justify-between mb-4">
         {displayDates.map((date, index) => (
           <ProjectionDateButton
+            key={index}
             onClick={() => handleClick(index)}
             disabled={index === dateIndex}
           >

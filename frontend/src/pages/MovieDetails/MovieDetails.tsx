@@ -11,6 +11,9 @@ import SeeAlsoCarousel from "pages/MovieDetails/SeeAlsoCarousel";
 import Video from "components/common/Video/Video";
 import { MovieImage } from "models/MovieImage";
 import { defaultImage } from "defaultValues";
+import RatingsTable from "pages/MovieDetails/RatingsTable";
+import { TMDBRatingSupplier } from "services/RatingSupplier/TMDBRatingSupplier";
+import { RatingSupplier } from "services/RatingSupplier/RatingSupplier";
 
 const separator = <div className="border-cinebhdarkred h-5 border-l w-1"></div>;
 
@@ -20,6 +23,8 @@ export default function MovieDetails() {
   const [startDate, setStartDate] = useState<string>();
   const [endDate, setEndDate] = useState<string>();
   const [images, setImages] = useState<Array<MovieImage>>([]);
+  const tmdbRatingSupplier = new TMDBRatingSupplier();
+  const ratingSuppliers: Array<RatingSupplier> = [tmdbRatingSupplier];
 
   useEffect(() => {
     if (!id) return;
@@ -40,7 +45,7 @@ export default function MovieDetails() {
         </div>
         <div className="flex rounded-2xl overflow-hidden gap-4 mb-9 max-h-100">
           <div className="w-1/2">
-            <Video src={movie?.trailer ?? ""} alt={defaultImage} />
+            <Video src={movie?.trailer ?? "error"} alt={defaultImage} />
           </div>
           <div className="w-1/2 grid grid-cols-2 grid-rows-2 gap-4">
             <img
@@ -65,7 +70,7 @@ export default function MovieDetails() {
             />
           </div>
         </div>
-        <div className="flex mb-56">
+        <div className="flex mb-10">
           <div className="flex flex-col w-1/2">
             <div className="text-4xl font-bold text-cinebhdarkgray mb-4">
               {movie?.name}
@@ -97,6 +102,9 @@ export default function MovieDetails() {
           <div className="w-1/2">
             <ProjectionPicker projections={movie?.projections ?? []} />
           </div>
+        </div>
+        <div className="mb-19">
+          <RatingsTable movie={movie} ratingSuppliers={ratingSuppliers} />
         </div>
         <div>
           <SeeAlsoCarousel />

@@ -21,6 +21,7 @@ public class Movie {
     private Instant startDate;
     private Instant endDate;
     private String trailer;
+    private String tmdbId;
     @Column(length = 1024)
     private String synopsis;
     @Column(nullable = false)

@@ -9,8 +9,17 @@ export interface PaginatedCarouselProps<T> {
   page: Page<T>;
   nextPage: () => void;
   prevPage: () => void;
-  numberOfElements?: number;
+  numberOfElements?: NumberOfColumns;
 }
+
+export type NumberOfColumns = 4 | 6 | 8 | 10;
+
+const columns: Record<number, string> = {
+  4: "grid-cols-4",
+  6: "grid-cols-6",
+  8: "grid-cols-8",
+  10: "grid-cols-10",
+};
 
 export default function PaginatedCarousel<T>({
   title,
@@ -32,7 +41,9 @@ export default function PaginatedCarousel<T>({
           See All
         </Link>
       </div>
-      <div className={`grid grid-rows-1 grid-cols-6 gap-4 mb-6`}>
+      <div
+        className={`grid grid-rows-1 gap-4 mb-6 ${columns[numberOfElements]}`}
+      >
         {children}
       </div>
       <div className="flex justify-end">
