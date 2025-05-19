@@ -24,7 +24,11 @@ export default function MovieCards({ page }: MovieCardsProps) {
     }
 
     return (
-      <Link to={`/details/${movie.id}`} key={movie.id} className="hover:bg-cinebhshadow rounded-3xl">
+      <Link
+        to={`/details/${movie.id}`}
+        key={movie.id}
+        className="hover:bg-cinebhshadow rounded-3xl"
+      >
         <Card
           imageUrl={coverImageUrl}
           title={movie.name}

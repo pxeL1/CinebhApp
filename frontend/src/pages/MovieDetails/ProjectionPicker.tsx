@@ -20,20 +20,25 @@ export default function ProjectionPicker({
   const [cinema, setCinema] = useState<string>();
   const [date, setDate] = useState<Moment>();
   const [projection, setProjection] = useState<Projection>();
-  const [filteredProjections, setFilteredProjections] = useState<Array<Projection>>(projections);
+  const [filteredProjections, setFilteredProjections] =
+    useState<Array<Projection>>(projections);
 
   useEffect(() => {
     let newProjections = projections;
 
-    if(city) {
-      newProjections = newProjections?.filter((projection) => projection.hall.venue.city.name === city)
+    if (city) {
+      newProjections = newProjections?.filter(
+        (projection) => projection.hall.venue.city.name === city,
+      );
     }
-    if(cinema) {
-      newProjections = newProjections?.filter((projection) => projection.hall.venue.name === cinema)
+    if (cinema) {
+      newProjections = newProjections?.filter(
+        (projection) => projection.hall.venue.name === cinema,
+      );
     }
 
     setFilteredProjections(newProjections);
-  }, [cinema, city, projections])
+  }, [cinema, city, projections]);
 
   return (
     <div className="border border-cinebhpale shadow-xl shadow-cinebhshadow rounded-2xl">
@@ -59,15 +64,23 @@ export default function ProjectionPicker({
           </div>
           <div className="flex gap-4">
             {filteredProjections?.map((project) => (
-              <ProjectionButton onProjectionChange={() => setProjection(project)} disabled={project.id === projection?.id} time={project.time} />
+              <ProjectionButton
+                onProjectionChange={() => setProjection(project)}
+                disabled={project.id === projection?.id}
+                time={project.time}
+              />
             ))}
           </div>
         </div>
       </div>
       <div className="border-t border-cinebhpale px-6 pt-6 pb-8">
         <div className="flex gap-4 invisible">
-          <Button variant={ButtonType.PRIMARY} onClick={() => {}}>Reserve Ticket</Button>
-          <Button variant={ButtonType.PRIMARY} onClick={() => {}}>Buy Ticket</Button>
+          <Button variant={ButtonType.PRIMARY} onClick={() => {}}>
+            Reserve Ticket
+          </Button>
+          <Button variant={ButtonType.PRIMARY} onClick={() => {}}>
+            Buy Ticket
+          </Button>
         </div>
       </div>
     </div>
@@ -80,7 +93,11 @@ interface ProjectionButtonProps {
   disabled: boolean;
 }
 
-function ProjectionButton({ time, onProjectionChange, disabled }: ProjectionButtonProps) {
+function ProjectionButton({
+  time,
+  onProjectionChange,
+  disabled,
+}: ProjectionButtonProps) {
   return (
     <button
       onClick={onProjectionChange}

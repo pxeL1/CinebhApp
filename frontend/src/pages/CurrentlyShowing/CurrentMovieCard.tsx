@@ -36,7 +36,10 @@ export default function CurrentMovieCard({
   ));
 
   return (
-    <Link to={`/details/${movie.id}`} className="w-full hover:bg-cinebhshadow rounded-3xl">
+    <Link
+      to={`/details/${movie.id}`}
+      className="w-full hover:bg-cinebhshadow rounded-3xl"
+    >
       <div className="w-full flex rounded-3xl border border-cinebhpale shadow-md shadow-cinebhshadow p-4">
         <img
           src={coverImageUrl}

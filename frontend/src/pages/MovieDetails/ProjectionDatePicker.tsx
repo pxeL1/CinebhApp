@@ -1,26 +1,10 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 import { DateButtonProps } from "pages/CurrentlyShowing/DatePicker";
-import { Projection } from "models/Projection";
 import moment, { Moment } from "moment";
 import Button, { ButtonType } from "components/common/Button/Button";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const monthNames = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+import { dayNames, monthNames } from "utility/time-utils";
 
 export interface ProjectionDatePickerProps {
   onDateChange: (date: Moment) => void;

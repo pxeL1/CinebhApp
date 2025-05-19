@@ -1,48 +1,63 @@
-import { HTMLProps, useState } from "react";
+import { HTMLProps, useEffect, useRef, useState } from "react";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 
 export interface VideoProps extends HTMLProps<HTMLVideoElement> {
-  src?: string;
+  src: string;
+  alt?: string;
 }
 
-export default function Video({ src, ...rest }: VideoProps) {
+export default function Video({ src, alt, ...rest }: VideoProps) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const video: HTMLVideoElement = document.getElementsByTagName("video")[0];
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    videoRef.current?.load();
+  }, [src]);
 
   function handleClick() {
-    if(isPlaying) {
+    if (isPlaying) {
       setIsPlaying(false);
-      video.pause();
+      videoRef.current?.pause();
     } else {
       setIsPlaying(true);
-      video.play();
+      videoRef.current?.play();
     }
-
   }
 
   return (
-    <div className="relative h-full">
+    <div className="relative h-full min-h-100">
       <div
         className={classNames(
           "flex items-center justify-center z-10 absolute w-full h-full",
-          {"hidden": isPlaying}
-        )
-        }
+          { hidden: isPlaying },
+        )}
       >
-        <button onClick={handleClick} className="z-10 absolute text-cinebhneutral min-h-12 min-w-12 bg-cinebhdarkred rounded-lg cursor-pointer hover:bg-cinebhlightred">
+        <button
+          onClick={handleClick}
+          className="z-10 absolute text-cinebhneutral min-h-12 min-w-12 bg-cinebhdarkred rounded-lg cursor-pointer hover:bg-cinebhlightred"
+        >
           <FontAwesomeIcon icon={faPlay} />
         </button>
         <div className="h-full w-full opacity-50 bg-cinebhdarkgray"></div>
       </div>
-      <button onClick={handleClick} className={classNames(
-        "w-full h-full absolute z-10",
-        {"hidden": !isPlaying}
-      )}/>
-      <video {...rest} preload="metadata" className="h-full">
-        <source src={src} />
-        Your browser does not support the video tag.
+      <button
+        onClick={handleClick}
+        className={classNames("w-full h-full absolute z-10", {
+          hidden: !isPlaying,
+        })}
+      />
+      <video
+        ref={videoRef}
+        {...rest}
+        preload="metadata"
+        className="w-full h-full bg-black"
+      >
+        <source src={src} type="video/mp4" />
+        <source src={src} type="video/webm" />
+        <source src={src} type="video/ogg" />
+        <img src={alt} alt="fallback image" />
       </video>
     </div>
   );

@@ -19,7 +19,7 @@ export default function PaginatedCarousel<T>({
   nextPage,
   prevPage,
   children,
-  numberOfElements = 4
+  numberOfElements = 4,
 }: PropsWithChildren<PaginatedCarouselProps<T>>) {
   return (
     <div className="flex flex-col w-full">
@@ -32,7 +32,7 @@ export default function PaginatedCarousel<T>({
           See All
         </Link>
       </div>
-      <div className={`grid grid-rows-1 grid-cols-${numberOfElements} gap-4 mb-6`}>
+      <div className={`grid grid-rows-1 grid-cols-6 gap-4 mb-6`}>
         {children}
       </div>
       <div className="flex justify-end">

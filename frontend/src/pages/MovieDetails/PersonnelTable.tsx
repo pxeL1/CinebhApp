@@ -4,29 +4,28 @@ import get from "services/fetching/Get";
 import { getPersonnelByMovieRequest } from "services/fetching/API";
 
 export interface PersonnelTableProps {
-  id?: string;
+  id: string;
 }
 
-const separator = <div className="border-cinebhdarkred border-l-[1.5px] h-full"></div>
+const separator = (
+  <div className="border-cinebhdarkred border-l-[1.5px] h-full"></div>
+);
 
 export default function PersonnelTable({ id }: PersonnelTableProps) {
-  const [directors, setDirectors] = useState<Array<Personnel>>();
-  const [writers, setWriters] = useState<Array<Personnel>>();
-  const [cast, setCast] = useState<Array<Personnel>>();
+  const [personnel, setPersonnel] = useState<Array<Personnel>>([]);
+  const director = personnel.find((person) => person.role === "DIRECTOR");
+  const writers = filterPersonnel(personnel, "WRITER");
+  const cast = filterPersonnel(personnel, "CAST");
 
   useEffect(() => {
-    if(!id) return;
-
     get<Array<Personnel>>(getPersonnelByMovieRequest(id)).then((personnel) => {
-      const resDirectors = personnel.filter((personnel) => personnel.role === "DIRECTOR");
-      const resWriters = personnel.filter((personnel) => personnel.role === "WRITER");
-      const resCast = personnel.filter((personnel) => personnel.role === "CAST");
+      setPersonnel(personnel);
+    });
+  }, [id]);
 
-      setDirectors(resDirectors);
-      setWriters(resWriters);
-      setCast(resCast);
-    })
-  }, [id])
+  function filterPersonnel(personnel: Array<Personnel>, role: string) {
+    return personnel.filter((person) => person.role === role);
+  }
 
   function getPersonnelString(personnel?: Array<Personnel>) {
     return (
@@ -39,26 +38,11 @@ export default function PersonnelTable({ id }: PersonnelTableProps) {
     );
   }
 
-  function getCastTable(cast?: Array<Personnel>) {
-    return cast?.map((actor) => {
-      return(
-        <div key={actor.id}>
-          <div className="font-semibold text-cinebhdarkgray text-sm">
-            {actor.name}
-          </div>
-          <div className="text-xs text-cinebhlightgray">
-            {actor.actorRoleName}
-          </div>
-        </div>
-      );
-    });
-  }
-
   return (
     <div className="flex flex-col">
       <div className="flex gap-2 mb-4">
         <div className="text-cinebhlightgray">Director:</div>
-        {getPersonnelString(directors)}
+        {director?.name}
       </div>
       <div className="flex gap-2 mb-8">
         <div className="text-cinebhlightgray">Writers:</div>
@@ -69,8 +53,27 @@ export default function PersonnelTable({ id }: PersonnelTableProps) {
         Cast
       </div>
       <div className="grid grid-cols-3 gap-x-24 gap-y-7">
-        {getCastTable(cast)}
+        <CastTable cast={cast ?? []} />
       </div>
     </div>
-  )
+  );
+}
+
+interface CastTableProps {
+  cast: Array<Personnel>;
+}
+
+function CastTable({ cast }: CastTableProps) {
+  return cast.map((actor) => {
+    return (
+      <div key={actor.id}>
+        <div className="font-semibold text-cinebhdarkgray text-sm">
+          {actor.name}
+        </div>
+        <div className="text-xs text-cinebhlightgray">
+          {actor.actorRoleName}
+        </div>
+      </div>
+    );
+  });
 }

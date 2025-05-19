@@ -1,5 +1,6 @@
 import moment, { Moment } from "moment";
 import { PropsWithChildren, useState } from "react";
+import { dayNames, monthNames } from "utility/time-utils";
 
 export interface DatePickerProps {
   onDateChange: (date: Moment) => void;
@@ -9,22 +10,6 @@ export interface DateButtonProps {
   onClick: () => void;
   disabled: boolean;
 }
-
-const monthNames = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 function DateButton({
   onClick,

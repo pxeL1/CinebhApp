@@ -5,4 +5,4 @@ export type Personnel = {
   name: string;
   actorRoleName?: string;
   role: PersonnelRole;
-}
+};

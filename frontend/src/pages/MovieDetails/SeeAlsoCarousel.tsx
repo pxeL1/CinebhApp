@@ -5,7 +5,7 @@ import { Movie } from "models/Movie";
 import { getCurrentMoviesRequest } from "services/fetching/API";
 import { Page } from "models/Page";
 import { defaultImage } from "defaultValues";
-import Card from "components/common/Card/Card";
+import Card, { CardType } from "components/common/Card/Card";
 import { Link } from "react-router-dom";
 
 export default function SeeAlsoCarousel() {
@@ -16,7 +16,7 @@ export default function SeeAlsoCarousel() {
     pageSize,
   );
 
-  if(error) {
+  if (error) {
     return (
       <div className="w-full text-center text-cinebherrordark">
         Error while loading.
@@ -24,12 +24,8 @@ export default function SeeAlsoCarousel() {
     );
   }
 
-  if(loading) {
-    return (
-      <div className="w-full text-center">
-        Loading...
-      </div>
-    )
+  if (loading) {
+    return <div className="w-full text-center">Loading...</div>;
   }
 
   return (
@@ -60,7 +56,7 @@ function SeeAlsoCards({ page }: SeeAlsoCardProps) {
         <Card
           imageUrl={coverImageUrl}
           title={movie.name}
-          small={true}
+          type={CardType.SMALL}
         />
       </Link>
     );
