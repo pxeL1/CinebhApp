@@ -1,4 +1,4 @@
-import { Personnel } from "models/Personnel";
+import { Personnel, PersonnelRole } from "models/Personnel";
 import { useEffect, useState } from "react";
 import get from "services/fetching/Get";
 import { getPersonnelByMovieRequest } from "services/fetching/API";
@@ -11,6 +11,21 @@ const separator = (
   <div className="border-cinebhdarkred border-l-[1.5px] h-full"></div>
 );
 
+function filterPersonnel(personnel: Array<Personnel>, role: PersonnelRole) {
+  return personnel.filter((person) => person.role === role);
+}
+
+function getPersonnelString(personnel?: Array<Personnel>) {
+  return (
+    <div className="text-cinebhdarkgray">
+      {personnel?.map((person, index) => {
+        const isLast = index === personnel.length - 1;
+        return person.name + (!isLast ? ", " : "");
+      })}
+    </div>
+  );
+}
+
 export default function PersonnelTable({ id }: PersonnelTableProps) {
   const [personnel, setPersonnel] = useState<Array<Personnel>>([]);
   const director = personnel.find((person) => person.role === "DIRECTOR");
@@ -22,21 +37,6 @@ export default function PersonnelTable({ id }: PersonnelTableProps) {
       setPersonnel(personnel);
     });
   }, [id]);
-
-  function filterPersonnel(personnel: Array<Personnel>, role: string) {
-    return personnel.filter((person) => person.role === role);
-  }
-
-  function getPersonnelString(personnel?: Array<Personnel>) {
-    return (
-      <div className="text-cinebhdarkgray">
-        {personnel?.map((person, index) => {
-          const isLast = index === personnel.length - 1;
-          return person.name + (!isLast ? ", " : "");
-        })}
-      </div>
-    );
-  }
 
   return (
     <div className="flex flex-col">

@@ -66,9 +66,9 @@ export default function ProjectionPicker({
             {filteredProjections?.map((project) => (
               <ProjectionButton
                 key={project.id}
-                onProjectionChange={() => setProjection(project)}
+                onProjectionChange={setProjection}
                 disabled={project.id === projection?.id}
-                time={project.time}
+                projection={project}
               />
             ))}
           </div>
@@ -89,23 +89,23 @@ export default function ProjectionPicker({
 }
 
 interface ProjectionButtonProps {
-  time: string;
-  onProjectionChange: () => void;
+  projection: Projection;
+  onProjectionChange: (projection: Projection) => void;
   disabled: boolean;
 }
 
 function ProjectionButton({
-  time,
+  projection,
   onProjectionChange,
   disabled,
 }: ProjectionButtonProps) {
   return (
     <button
-      onClick={onProjectionChange}
+      onClick={() => onProjectionChange(projection)}
       disabled={disabled}
       className="max-h-12 p-3 border rounded-lg border-cinebhpale text-cinebhdarkgray font-bold text-xl flex items-center justify-center cursor-pointer hover:bg-cinebhshadow disabled:bg-cinebhdarkred disabled:border-cinebhdarkred disabled:text-cinebhneutral disabled:cursor-default"
     >
-      {getFormattedTime(time)}
+      {getFormattedTime(projection.time)}
     </button>
   );
 }

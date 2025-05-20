@@ -5,10 +5,10 @@ export interface CardProps {
   imageUrl: string;
   title: string;
   description?: ReactNode;
-  type?: CardType;
+  size?: CardSize;
 }
 
-export enum CardType {
+export enum CardSize {
   REGULAR,
   SMALL,
 }
@@ -17,13 +17,13 @@ export default function Card({
   imageUrl,
   title,
   description,
-  type = CardType.REGULAR,
+  size = CardSize.REGULAR,
 }: CardProps) {
   return (
     <div className="rounded-3xl shadow-md shadow-cinebhshadow border border-cinebhpale p-4 w-full pb-6 hover:bg-cinebhshadow">
       <div
         className={classNames("rounded-2xl overflow-hidden w-full", {
-          "max-h-34": type === CardType.SMALL,
+          "max-h-34": size === CardSize.SMALL,
         })}
       >
         <img

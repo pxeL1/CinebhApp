@@ -6,7 +6,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export interface RatingsTableProps {
-  movie?: Movie;
+  movie: Movie;
   ratingSuppliers: Array<RatingSupplier>;
 }
 
@@ -22,7 +22,6 @@ export default function RatingsTable({
 
   useEffect(() => {
     async function fetchRatings() {
-      if (!movie) return;
       const newRatings: Array<Rating> = [];
       for (const supplier of ratingSuppliers) {
         const rating = await supplier.getRating(movie);

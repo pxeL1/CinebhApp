@@ -39,8 +39,7 @@ export class TMDBRatingSupplier implements RatingSupplier {
     const ratings: Array<number> = results.map(
       (review: Review) => review.author_details.rating,
     );
-    let ratingsSum = 0;
-    ratings.forEach((rating) => (ratingsSum += rating));
+    const ratingsSum = ratings.reduce((prev, current) => prev + current, 0);
 
     return { author: "TMDB", rating: ratingsSum / ratings.length };
   }

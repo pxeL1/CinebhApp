@@ -5,7 +5,7 @@ import { Movie } from "models/Movie";
 import { getCurrentMoviesRequest } from "services/fetching/API";
 import { Page } from "models/Page";
 import { defaultImage } from "defaultValues";
-import Card, { CardType } from "components/common/Card/Card";
+import Card, { CardSize } from "components/common/Card/Card";
 import { Link } from "react-router-dom";
 
 export default function SeeAlsoCarousel() {
@@ -56,7 +56,7 @@ function SeeAlsoCards({ page }: SeeAlsoCardProps) {
         <Card
           imageUrl={coverImageUrl}
           title={movie.name}
-          type={CardType.SMALL}
+          size={CardSize.SMALL}
         />
       </Link>
     );

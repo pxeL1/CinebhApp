@@ -1,6 +1,6 @@
 import SearchBar from "components/common/SearchBar/SearchBar";
 import Footer from "components/Footer/Footer";
-import DatePicker from "pages/CurrentlyShowing/DatePicker";
+import CurrentDatePicker from "pages/CurrentlyShowing/CurrentDatePicker";
 import { useEffect, useState } from "react";
 import moment, { Moment } from "moment";
 import { getFilteredMoviesRequest } from "services/fetching/API";
@@ -130,7 +130,7 @@ export default function CurrentlyShowing() {
             onToTimeChange={setToTime}
           />
         </div>
-        <DatePicker onDateChange={setDate} />
+        <CurrentDatePicker onDateChange={setDate} />
         <div className="w-full h-full flex flex-col gap-6 items-center mt-4">
           {!movies.length && emptyState}
           {movies.map((movie) => (
