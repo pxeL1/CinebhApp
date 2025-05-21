@@ -2,6 +2,7 @@ import moment, { Moment } from "moment";
 import { PropsWithChildren, useEffect, useState } from "react";
 import classNames from "classnames";
 import { dayNames, monthNames } from "utility/time-utils";
+import { isToday } from "utility/time-utils";
 
 export enum DatePickerSize {
   REGULAR,
@@ -41,9 +42,7 @@ export default function DatePicker({
   return (
     <>
       {displayDates.map((date, index) => {
-        const isToday =
-          moment(date).utc().startOf("day").format() ==
-          moment().utc().startOf("day").format();
+        const today = isToday(date);
 
         return (
           <DateButton
@@ -62,7 +61,7 @@ export default function DatePicker({
               <div>{monthNames[date.month()]}</div>
               <div>{date.date()}</div>
             </div>
-            <div>{isToday ? "Today" : dayNames[date.day()]}</div>
+            <div>{today ? "Today" : dayNames[date.day()]}</div>
           </DateButton>
         );
       })}
