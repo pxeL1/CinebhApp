@@ -34,10 +34,14 @@ export function getRegisterRequest() {
   return "/auth/register";
 }
 
-export function getValidateRequest() {
-  return "/auth/validate";
-}
-
 export function getLogoutRequest() {
   return "/auth/logout";
+}
+
+export function getMovieRequest(id: string) {
+  return "/movie/" + id;
+}
+
+export function getPersonnelByMovieRequest(movieId: string) {
+  return "/personnel/movie/" + movieId;
 }

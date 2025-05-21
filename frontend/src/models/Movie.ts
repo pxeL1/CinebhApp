@@ -12,6 +12,7 @@ export type Movie = {
   startDate: string;
   endDate: string;
   trailer: string;
+  tmdbId: string;
   synopsis: string;
   status: MovieStatus;
   genres: MovieGenre[];

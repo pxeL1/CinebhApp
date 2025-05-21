@@ -1,5 +1,6 @@
 package com.atlantbh.internship.cinebh_app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +18,7 @@ public class Personnel {
     @Column(nullable = false)
     private PersonnelRole role;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "movie_id")
     private Movie movie;
 }

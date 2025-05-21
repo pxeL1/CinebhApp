@@ -49,7 +49,10 @@ export default function Navbar() {
           >
             Upcoming Movies
           </Link>
-          <Link to="/" className="no-underline mr-6 hover:text-cinebhdarkred">
+          <Link
+            to="/"
+            className="no-underline mr-6 hover:text-cinebhdarkred invisible"
+          >
             Venues
           </Link>
         </div>

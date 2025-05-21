@@ -2,6 +2,7 @@ import { Page } from "models/Page";
 import { Movie } from "models/Movie";
 import { defaultImage } from "defaultValues";
 import Card from "components/common/Card/Card";
+import { Link } from "react-router-dom";
 
 export interface MovieCardsProps {
   page: Page<Movie>;
@@ -23,12 +24,17 @@ export default function MovieCards({ page }: MovieCardsProps) {
     }
 
     return (
-      <Card
+      <Link
+        to={`/details/${movie.id}`}
         key={movie.id}
-        imageUrl={coverImageUrl}
-        title={movie.name}
-        description={getCardDescription()}
-      />
+        className="hover:bg-cinebhshadow rounded-3xl"
+      >
+        <Card
+          imageUrl={coverImageUrl}
+          title={movie.name}
+          description={getCardDescription()}
+        />
+      </Link>
     );
   });
 }

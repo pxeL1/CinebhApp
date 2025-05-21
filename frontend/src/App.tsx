@@ -7,6 +7,7 @@ import Pricing from "./pages/Pricing/Pricing";
 import CurrentlyShowing from "pages/CurrentlyShowing/CurrentlyShowing";
 import Upcoming from "pages/Upcoming/Upcoming";
 import UserContextProvider from "contexts/UserContext/UserContextProvider";
+import MovieDetails from "pages/MovieDetails/MovieDetails";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/currently" element={<CurrentlyShowing />} />
           <Route path="/upcoming" element={<Upcoming />} />
+          <Route path="/details/:id" element={<MovieDetails />} />
         </Route>
       </Routes>
     </UserContextProvider>
