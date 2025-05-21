@@ -20,6 +20,7 @@ public class Movie {
     private String duration;
     private Instant startDate;
     private Instant endDate;
+    @Column(length = 1024)
     private String trailer;
     private String tmdbId;
     @Column(length = 1024)
