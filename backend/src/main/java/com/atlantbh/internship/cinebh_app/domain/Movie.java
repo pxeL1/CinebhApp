@@ -26,6 +26,7 @@ public class Movie {
     @Column(length = 1024)
     private String synopsis;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private MovieStatus status;
     @OneToMany(mappedBy = "movie")
     private List<MovieGenre> genres;

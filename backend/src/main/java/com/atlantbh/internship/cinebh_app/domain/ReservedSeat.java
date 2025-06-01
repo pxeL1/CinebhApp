@@ -7,6 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table (name = "reserved_seat",
+        indexes = {@Index(name = "idx_seat_reservation", columnList = "seat_id, reservation_id")})
 public class ReservedSeat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -16,6 +16,7 @@ public class Personnel {
     private String name;
     private String actorRoleName;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private PersonnelRole role;
     @ManyToOne
     @JsonIgnore
