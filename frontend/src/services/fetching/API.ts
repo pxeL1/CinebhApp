@@ -57,3 +57,7 @@ export function getProjectionSeatsRequest(id: string) {
 export function getSessionRequest() {
   return "/session/create";
 }
+
+export function getCreateReservationRequest() {
+  return "/reservation/create";
+}

@@ -3,9 +3,10 @@ import Footer from "components/Footer/Footer";
 import { useEffect, useState } from "react";
 import get from "services/fetching/Get";
 import {
+  getCreateReservationRequest,
   getProjectionRequest,
   getProjectionSeatsRequest,
-  getSessionRequest,
+  getSessionRequest
 } from "services/fetching/API";
 import { ProjectionDTO } from "models/ProjectionDTO";
 import { ProjectionSeat } from "models/ProjectionSeat";
@@ -19,6 +20,9 @@ import { getFormattedDate, getFormattedTime } from "utility/time-utils";
 import SeatSelect from "pages/Projection/SeatSelect";
 import Button, { ButtonType } from "components/common/Button/Button";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import { Seat } from "models/Seat";
+import post from "services/fetching/Post";
+import { Reservation } from "models/Reservation";
 
 const tooltipText =
   "Session will expire in 5 minutes and selected seats will be refreshed";
@@ -55,7 +59,26 @@ export default function Projection() {
   }
 
   function handlePayment() {
+    const seats: Array<Seat> = [];
 
+    selectedSeats.forEach((seat) => {
+      seats.push({
+        id: seat.id,
+        type: seat.type,
+        number: seat.number
+      });
+    })
+
+    const reservationRequest = {
+      price: getTotalPrice(selectedSeats),
+      date: date,
+      projection_id: projection?.id,
+      seats: seats
+    }
+
+    post<Reservation>(getCreateReservationRequest(), reservationRequest).then((data) => {
+      
+    })
   }
 
   function getTotalPrice(seats: Array<ProjectionSeat>) {

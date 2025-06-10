@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,4 +27,14 @@ public class Reservation {
     @OneToOne
     @JoinColumn(name = "payment_id")
     private Payment payment;
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
+    private List<ReservedSeat> seats;
+
+    public Reservation (double price, Instant date, User user, Projection projection, Payment payment) {
+        this.price = price;
+        this.date = date;
+        this.user = user;
+        this.projection = projection;
+        this.payment = payment;
+    }
 }

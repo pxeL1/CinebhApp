@@ -1,4 +1,4 @@
-export type SeatType = "REGULAR" | "VIP" | "LOVE"
+import { SeatType } from "models/Seat";
 
 export type ProjectionSeat = {
   id: number;
