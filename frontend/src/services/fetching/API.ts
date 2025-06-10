@@ -45,3 +45,15 @@ export function getMovieRequest(id: string) {
 export function getPersonnelByMovieRequest(movieId: string) {
   return "/personnel/movie/" + movieId;
 }
+
+export function getProjectionRequest(id: string) {
+  return "/projection/" + id;
+}
+
+export function getProjectionSeatsRequest(id: string) {
+  return "/seat/projection/" + id;
+}
+
+export function getSessionRequest() {
+  return "/session/create";
+}

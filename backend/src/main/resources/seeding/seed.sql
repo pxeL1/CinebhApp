@@ -411,9 +411,9 @@ INSERT INTO role (name) VALUES
     ('USER'), ('ADMIN');
 
 INSERT INTO reservation (price, payment_id, projection_id, cinebh_user_id, date) VALUES
-                                                                                     (25, null, 1, 1, '2025-05-29 00:00:00');
+                                                                                     (25, null, 10, 1, '2025-05-29 00:00:00');
 
 INSERT INTO reserved_seat (reservation_id, seat_id) VALUES
-                                                        (1, 327),
-                                                        (1, 328),
-                                                        (1, 329);
+                                                        (2, 1),
+                                                        (2, 2),
+                                                        (2, 3);

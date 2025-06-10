@@ -8,8 +8,8 @@ export function isTimeBeforeNow(time: string): boolean {
   return moment() > moment(time);
 }
 
-export function getFormattedDate(date: string): string {
-  return moment(date).format("DD/MM/yyyy");
+export function getFormattedDate(date?: string, type?: string): string {
+  return moment(date).format(type);
 }
 
 export const monthNames = [

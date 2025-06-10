@@ -1,13 +1,16 @@
 import CitySelect from "components/common/CitySelect/CitySelect";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CinemaSelect from "components/common/CinemaSelect/CinemaSelect";
 import { faBuilding, faLocationPin } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Projection } from "models/Projection";
 import ProjectionDatePicker from "pages/MovieDetails/ProjectionDatePicker";
-import { Moment } from "moment";
+import moment, { Moment } from "moment";
 import { getFormattedTime } from "utility/time-utils";
 import Button, { ButtonType } from "components/common/Button/Button";
+import { UserContext } from "contexts/UserContext/UserContext";
+import { AuthSidebarContext } from "contexts/AuthSidebarContext/AuthSidebarContext";
+import { useNavigate } from "react-router-dom";
 
 export interface ProjectionPickerProps {
   projections: Array<Projection>;
@@ -18,10 +21,13 @@ export default function ProjectionPicker({
 }: ProjectionPickerProps) {
   const [city, setCity] = useState<string>();
   const [cinema, setCinema] = useState<string>();
-  const [date, setDate] = useState<Moment>();
+  const [date, setDate] = useState<Moment>(moment());
   const [projection, setProjection] = useState<Projection>();
   const [filteredProjections, setFilteredProjections] =
     useState<Array<Projection>>(projections);
+  const userContext = useContext(UserContext);
+  const authSidebarContext = useContext(AuthSidebarContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let newProjections = projections;
@@ -39,6 +45,15 @@ export default function ProjectionPicker({
 
     setFilteredProjections(newProjections);
   }, [cinema, city, projections]);
+
+  function handleButtonClick() {
+    if(!userContext.user) {
+      authSidebarContext.openAuthSidebar(() => {});
+      return;
+    }
+
+    navigate(`/projection/${projection?.id}/${date?.toISOString()}`);
+  }
 
   return (
     <div className="border border-cinebhpale shadow-xl shadow-cinebhshadow rounded-2xl">
@@ -75,11 +90,8 @@ export default function ProjectionPicker({
         </div>
       </div>
       <div className="border-t border-cinebhpale px-6 pt-6 pb-8">
-        <div className="flex gap-4 invisible">
-          <Button variant={ButtonType.PRIMARY} onClick={() => {}}>
-            Reserve Ticket
-          </Button>
-          <Button variant={ButtonType.PRIMARY} onClick={() => {}}>
+        <div className="flex">
+          <Button variant={ButtonType.PRIMARY} onClick={handleButtonClick} disabled={!projection}>
             Buy Ticket
           </Button>
         </div>
