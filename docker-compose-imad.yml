@@ -1,0 +1,40 @@
+services:
+  imadbe:
+    container_name: imadbe
+    image: registry.praksa.abhapp.com/imad-be:${TAG}
+    ports:
+      - "127.0.0.1:8082:8080"
+    networks:
+      - imad-network
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_URL=${DB_URL}
+      - JWT_KEY=${JWT_KEY}
+    depends_on:
+      - postgres-imad
+  postgres-imad:
+    container_name: postgres-imad
+    image: postgres:latest
+    ports:
+      - "127.0.0.1:5434:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - imad-network
+    volumes:
+      - imad-data:/var/lib/postgresql/data
+  imadfe:
+    container_name: imadfe
+    image: registry.praksa.abhapp.com/imad-fe:${TAG}
+    ports:
+      - "127.0.0.1:3002:80"
+
+networks:
+  imad-network:
+    name: imad-network
+    driver: bridge
+volumes:
+  imad-data:
