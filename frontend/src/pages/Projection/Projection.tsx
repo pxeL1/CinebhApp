@@ -5,7 +5,7 @@ import get from "services/fetching/Get";
 import {
   getProjectionRequest,
   getProjectionSeatsRequest,
-  getSessionRequest
+  getSessionRequest,
 } from "services/fetching/API";
 import { ProjectionDTO } from "models/ProjectionDTO";
 import { ProjectionSeat } from "models/ProjectionSeat";
@@ -26,15 +26,18 @@ const separator = <div className="border-cinebhdarkred h-5 border-l w-1"></div>;
 
 function getTotalPrice(seats: Array<ProjectionSeat>) {
   let totalPrice = 0;
-  seats.forEach(seat => {
+  seats.forEach((seat) => {
     switch (seat.type) {
-      case "REGULAR": totalPrice = totalPrice + 7;
+      case "REGULAR":
+        totalPrice = totalPrice + 7;
         break;
 
-      case "VIP": totalPrice = totalPrice + 10;
+      case "VIP":
+        totalPrice = totalPrice + 10;
         break;
 
-      case "LOVE": totalPrice = totalPrice + 24;
+      case "LOVE":
+        totalPrice = totalPrice + 24;
     }
   });
 
@@ -71,9 +74,7 @@ export default function Projection() {
     toast.warn("Session expired. Please refresh the page");
   }
 
-  function handlePayment() {
-
-  }
+  function handlePayment() {}
 
   if (!projection) {
     return (
@@ -172,13 +173,20 @@ export default function Projection() {
             </div>
             <div className="flex justify-between h-full">
               <div className="text-xl font-bold text-cinebhdarkgray">
-                {selectedSeats.map(seat => seat.number).toString()}
+                {selectedSeats.map((seat) => seat.number).toString()}
               </div>
               <div className="text-xl font-bold text-cinebhdarkgray">
-                {selectedSeats.length != 0 && getTotalPrice(selectedSeats) + "KM"}
+                {selectedSeats.length != 0 &&
+                  getTotalPrice(selectedSeats) + "KM"}
               </div>
             </div>
-            <Button variant={ButtonType.PRIMARY} onClick={handlePayment} disabled={selectedSeats.length === 0 || sessionIsExpired}>Continue to Payment</Button>
+            <Button
+              variant={ButtonType.PRIMARY}
+              onClick={handlePayment}
+              disabled={selectedSeats.length === 0 || sessionIsExpired}
+            >
+              Continue to Payment
+            </Button>
           </div>
         </div>
       </div>

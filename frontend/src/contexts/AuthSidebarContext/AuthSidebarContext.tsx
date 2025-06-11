@@ -1,9 +1,11 @@
 import { createContext } from "react";
 
-export type  AuthSidebarContextValues = {
-  openAuthSidebar: (closeHandler: () => void) => void
-}
+export type AuthSidebarContextValues = {
+  openAuthSidebar: (closeHandler: () => void) => void;
+};
 
-const openAuthSidebar = (closeHandler: () => void) => {}
+const openAuthSidebar = (closeHandler: () => void) => {};
 
-export const AuthSidebarContext = createContext<AuthSidebarContextValues>({ openAuthSidebar });
+export const AuthSidebarContext = createContext<AuthSidebarContextValues>({
+  openAuthSidebar,
+});

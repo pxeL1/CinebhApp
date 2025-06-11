@@ -86,8 +86,11 @@ export default function MovieDetails() {
               {separator}
               {movie.duration}
               {separator}
-              Projection date: {getFormattedDate(movie.startDate, "DD/MM/yyyy")} -{" "}
-              {getFormattedDate(movie.endDate, "DD/MM/yyyy")}
+              Projection date: {getFormattedDate(
+                movie.startDate,
+                "DD/MM/yyyy",
+              )}{" "}
+              - {getFormattedDate(movie.endDate, "DD/MM/yyyy")}
             </div>
             <div className="flex gap-4">
               {movie.genres.map((movieGenre) => (

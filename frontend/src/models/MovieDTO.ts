@@ -16,4 +16,4 @@ export type MovieDTO = {
   status: MovieStatus;
   genres: MovieGenre[];
   images: MovieImage[];
-}
+};

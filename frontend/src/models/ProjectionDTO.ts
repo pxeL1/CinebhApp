@@ -6,4 +6,4 @@ export type ProjectionDTO = {
   time: string;
   hall: Hall;
   movie: MovieDTO;
-}
+};

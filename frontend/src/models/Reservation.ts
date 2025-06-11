@@ -11,5 +11,5 @@ export type Reservation = {
   user: User;
   projection: Projection;
   payment?: Payment;
-  seats: Array<ReservedSeat>
-}
+  seats: Array<ReservedSeat>;
+};

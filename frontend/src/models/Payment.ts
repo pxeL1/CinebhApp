@@ -7,4 +7,4 @@ export type Payment = {
   date: Moment;
   user: User;
   reservation: Reservation;
-}
+};

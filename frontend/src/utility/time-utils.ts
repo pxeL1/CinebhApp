@@ -29,5 +29,8 @@ export const monthNames = [
 export const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export function isToday(date: Moment): boolean {
-  return moment(date).utc().startOf("day").format() == moment().utc().startOf("day").format();
+  return (
+    moment(date).utc().startOf("day").format() ==
+    moment().utc().startOf("day").format()
+  );
 }

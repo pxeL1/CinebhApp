@@ -15,18 +15,19 @@ export default function SeatSelect({
   selectedSeats,
   onSeatSelect,
 }: SeatSelectProps) {
-
   function handleSelect(seat: ProjectionSeat) {
-    if(!selectedSeats.includes(seat)) {
+    if (!selectedSeats.includes(seat)) {
       onSeatSelect([...selectedSeats, seat]);
     } else {
-      const newSeats = selectedSeats.filter(newSeat => newSeat.id !== seat.id);
+      const newSeats = selectedSeats.filter(
+        (newSeat) => newSeat.id !== seat.id,
+      );
       onSeatSelect(newSeats);
     }
   }
 
   function getIsGap(index: number) {
-    return (index - 3) % 8 === 0 && index != seats.length - 1 || index === 65;
+    return ((index - 3) % 8 === 0 && index != seats.length - 1) || index === 65;
   }
 
   return (
@@ -40,7 +41,7 @@ export default function SeatSelect({
               <Seat key={seat.id} seat={seat} onClick={handleSelect} />
               {gap && <div key={index} className="w-14 h-10"></div>}
             </>
-          )
+          );
         })}
       </div>
     </div>
@@ -56,15 +57,27 @@ function Seat({ seat, onClick }: SeatProps) {
   const [isSelected, setIsSelected] = useState(false);
 
   return (
-    <button className={classNames(
-      "flex items-center justify-center text-sm rounded-lg border p-3 w-14 h-10 cursor-pointer disabled:cursor-default disabled:bg-cinebhpale",
-      {"w-32 col-span-2": seat.type === "LOVE"},
-      {"border-cinebhdarkred bg-cinebhdarkred hover:bg-cinebhlightred text-cinebhneutral": isSelected},
-      {"border-cinebhpale hover:bg-cinebhpale": !isSelected}
-    )}
-            onClick={() => {setIsSelected(!isSelected); onClick(seat);}}
-    disabled={seat.reserved}>
-      {seat.type === "VIP" && <span className="mr-1"><FontAwesomeIcon icon={faStar} /></span>}
+    <button
+      className={classNames(
+        "flex items-center justify-center text-sm rounded-lg border p-3 w-14 h-10 cursor-pointer disabled:cursor-default disabled:bg-cinebhpale",
+        { "w-32 col-span-2": seat.type === "LOVE" },
+        {
+          "border-cinebhdarkred bg-cinebhdarkred hover:bg-cinebhlightred text-cinebhneutral":
+            isSelected,
+        },
+        { "border-cinebhpale hover:bg-cinebhpale": !isSelected },
+      )}
+      onClick={() => {
+        setIsSelected(!isSelected);
+        onClick(seat);
+      }}
+      disabled={seat.reserved}
+    >
+      {seat.type === "VIP" && (
+        <span className="mr-1">
+          <FontAwesomeIcon icon={faStar} />
+        </span>
+      )}
       {seat.number}
     </button>
   );

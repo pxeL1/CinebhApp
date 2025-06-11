@@ -137,7 +137,7 @@ export default function AuthenticationSidebar({
   );
 }
 
-interface SuccessfulAuthProps{
+interface SuccessfulAuthProps {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
 }

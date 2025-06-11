@@ -53,7 +53,10 @@ interface RatingCardsProps {
 
 function RatingCards({ ratings }: RatingCardsProps) {
   return ratings.map((rating, index) => (
-    <div key={index} className="p-4 flex gap-2 items-center rounded-lg border border-cinebhpale">
+    <div
+      key={index}
+      className="p-4 flex gap-2 items-center rounded-lg border border-cinebhpale"
+    >
       <FontAwesomeIcon icon={faStar} className="text-cinebhdarkred" />
       <div>
         <div className="text-sm font-semibold text-cinebhdim">

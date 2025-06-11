@@ -4,7 +4,10 @@ export interface TooltipProps {
   text: string;
 }
 
-export default function Tooltip({ text, children }: PropsWithChildren<TooltipProps>) {
+export default function Tooltip({
+  text,
+  children,
+}: PropsWithChildren<TooltipProps>) {
   return (
     <div className="relative group">
       {children}
@@ -12,5 +15,5 @@ export default function Tooltip({ text, children }: PropsWithChildren<TooltipPro
         {text}
       </div>
     </div>
-  )
+  );
 }

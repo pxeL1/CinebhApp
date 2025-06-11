@@ -34,8 +34,8 @@ export default function Navbar() {
       setTimeout(() => {
         navigate("/");
       }, 1500);
-    }
-    authSidebarContext.openAuthSidebar(closeHandler)
+    };
+    authSidebarContext.openAuthSidebar(closeHandler);
   }
 
   return (

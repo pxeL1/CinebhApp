@@ -5,4 +5,4 @@ export type ProjectionSeat = {
   type: SeatType;
   number: string;
   reserved: boolean;
-}
+};
