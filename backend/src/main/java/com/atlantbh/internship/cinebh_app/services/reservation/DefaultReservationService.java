@@ -4,10 +4,10 @@ import com.atlantbh.internship.cinebh_app.domain.*;
 import com.atlantbh.internship.cinebh_app.dtos.ReservationDTO;
 import com.atlantbh.internship.cinebh_app.repositories.ProjectionRepository;
 import com.atlantbh.internship.cinebh_app.repositories.ReservationRepository;
-import com.atlantbh.internship.cinebh_app.repositories.SeatRepository;
 import com.atlantbh.internship.cinebh_app.services.user.DefaultUserService;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +16,11 @@ public class DefaultReservationService implements ReservationService {
     private final ReservationRepository reservationRepository;
     private final DefaultUserService userService;
     private final ProjectionRepository projectionRepository;
-    private final SeatRepository seatRepository;
 
-    public DefaultReservationService(ReservationRepository reservationRepository, DefaultUserService userService, ProjectionRepository projectionRepository, SeatRepository seatRepository) {
+    public DefaultReservationService(ReservationRepository reservationRepository, DefaultUserService userService, ProjectionRepository projectionRepository) {
         this.reservationRepository = reservationRepository;
         this.userService = userService;
         this.projectionRepository = projectionRepository;
-        this.seatRepository = seatRepository;
     }
 
     @Override
@@ -33,9 +31,9 @@ public class DefaultReservationService implements ReservationService {
         Reservation reservation = new Reservation(reservationDto.reservationRequest().price(),
                 reservationDto.reservationRequest().date(),
                 user,
-                projection,
-                null);
+                projection);
 
+        Payment payment = new Payment(Instant.now(), user, reservation);
         List<ReservedSeat> reservedSeats = new ArrayList<>();
 
         reservationDto.reservationRequest().seats().forEach(seat -> {
@@ -43,6 +41,7 @@ public class DefaultReservationService implements ReservationService {
         });
 
         reservation.setSeats(reservedSeats);
+        reservation.setPayment(payment);
 
         return reservationRepository.save(reservation);
     }

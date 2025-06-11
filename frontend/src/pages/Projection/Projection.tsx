@@ -3,7 +3,6 @@ import Footer from "components/Footer/Footer";
 import { useEffect, useState } from "react";
 import get from "services/fetching/Get";
 import {
-  getCreateReservationRequest,
   getProjectionRequest,
   getProjectionSeatsRequest,
   getSessionRequest
@@ -20,13 +19,27 @@ import { getFormattedDate, getFormattedTime } from "utility/time-utils";
 import SeatSelect from "pages/Projection/SeatSelect";
 import Button, { ButtonType } from "components/common/Button/Button";
 import { Bounce, toast, ToastContainer } from "react-toastify";
-import { Seat } from "models/Seat";
-import post from "services/fetching/Post";
-import { Reservation } from "models/Reservation";
 
 const tooltipText =
-  "Session will expire in 5 minutes and selected seats will be refreshed";
+  "Session will expire in 20 minutes and selected seats will be refreshed";
 const separator = <div className="border-cinebhdarkred h-5 border-l w-1"></div>;
+
+function getTotalPrice(seats: Array<ProjectionSeat>) {
+  let totalPrice = 0;
+  seats.forEach(seat => {
+    switch (seat.type) {
+      case "REGULAR": totalPrice = totalPrice + 7;
+        break;
+
+      case "VIP": totalPrice = totalPrice + 10;
+        break;
+
+      case "LOVE": totalPrice = totalPrice + 24;
+    }
+  });
+
+  return totalPrice;
+}
 
 export default function Projection() {
   const { id, date } = useParams();
@@ -35,7 +48,7 @@ export default function Projection() {
   const [sessionIsExpired, setSessionIsExpired] = useState(false);
   const [selectedSeats, setSelectedSeats] = useState<Array<ProjectionSeat>>([]);
   const expiryTimestamp = new Date();
-  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 300);
+  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 1200);
   const timer = useTimer({ expiryTimestamp, onExpire: onSessionExpiry });
   const coverImage = projection?.movie.images.find((image) => image.coverPhoto);
 
@@ -59,43 +72,7 @@ export default function Projection() {
   }
 
   function handlePayment() {
-    const seats: Array<Seat> = [];
 
-    selectedSeats.forEach((seat) => {
-      seats.push({
-        id: seat.id,
-        type: seat.type,
-        number: seat.number
-      });
-    })
-
-    const reservationRequest = {
-      price: getTotalPrice(selectedSeats),
-      date: date,
-      projection_id: projection?.id,
-      seats: seats
-    }
-
-    post<Reservation>(getCreateReservationRequest(), reservationRequest).then((data) => {
-      
-    })
-  }
-
-  function getTotalPrice(seats: Array<ProjectionSeat>) {
-    let totalPrice = 0;
-    seats.forEach(seat => {
-      switch (seat.type) {
-        case "REGULAR": totalPrice = totalPrice + 7;
-        break;
-
-        case "VIP": totalPrice = totalPrice + 10;
-        break;
-
-        case "LOVE": totalPrice = totalPrice + 24;
-      }
-    });
-
-    return totalPrice;
   }
 
   if (!projection) {

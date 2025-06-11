@@ -24,17 +24,16 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "projection_id")
     private Projection projection;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "payment_id")
     private Payment payment;
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
     private List<ReservedSeat> seats;
 
-    public Reservation (double price, Instant date, User user, Projection projection, Payment payment) {
+    public Reservation (double price, Instant date, User user, Projection projection) {
         this.price = price;
         this.date = date;
         this.user = user;
         this.projection = projection;
-        this.payment = payment;
     }
 }
