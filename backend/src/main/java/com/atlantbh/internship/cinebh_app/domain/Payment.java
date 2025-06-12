@@ -15,6 +15,8 @@ public class Payment {
     private Long id;
     @Column(nullable = false)
     private Instant date;
+    @Column(nullable = false)
+    private String stripeSessionId;
     @ManyToOne
     @JoinColumn(name = "cinebh_user_id")
     private User user;
