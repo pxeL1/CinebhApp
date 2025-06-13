@@ -11,14 +11,12 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
     @Query(value = """
 WITH reserved_info AS (
     SELECT reserved_seat.seat_id
-    FROM reserved_seat
-             JOIN reservation on reserved_seat.reservation_id = reservation.id
+    FROM reserved_seat JOIN reservation on reserved_seat.reservation_id = reservation.id
     WHERE reservation.projection_id = :projectionId
 )
 
-SELECT seat.id, seat.number, seat.type, EXISTS(select 1 from reserved_info ri where ri.seat_id = seat.id) AS reserved
-FROM seat
-    JOIN projection ON seat.hall_id = projection.hall_id
+SELECT seat.id, seat.number, seat.type, EXISTS(SELECT 1 FROM reserved_info ri WHERE ri.seat_id = seat.id) AS reserved
+FROM seat JOIN projection ON seat.hall_id = projection.hall_id
 WHERE projection.id = :projectionId;
 """,
             nativeQuery = true)

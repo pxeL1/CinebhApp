@@ -22,6 +22,12 @@ export default function MovieDetails() {
   const tmdbRatingSupplier = new TMDBRatingSupplier();
   const ratingSuppliers: Array<RatingSupplier> = [tmdbRatingSupplier];
 
+  const projectionDate =
+    "Projection date: " +
+    getFormattedDate(movie?.startDate, "DD/MM/yyyy") +
+    " - " +
+    getFormattedDate(movie?.endDate, "DD/MM/yyyy");
+
   useEffect(() => {
     if (!id) return;
 
@@ -86,11 +92,7 @@ export default function MovieDetails() {
               {separator}
               {movie.duration}
               {separator}
-              Projection date: {getFormattedDate(
-                movie.startDate,
-                "DD/MM/yyyy",
-              )}{" "}
-              - {getFormattedDate(movie.endDate, "DD/MM/yyyy")}
+              {projectionDate}
             </div>
             <div className="flex gap-4">
               {movie.genres.map((movieGenre) => (

@@ -50,23 +50,46 @@ export default function Projection() {
   const [seats, setSeats] = useState<Array<ProjectionSeat>>([]);
   const [sessionIsExpired, setSessionIsExpired] = useState(false);
   const [selectedSeats, setSelectedSeats] = useState<Array<ProjectionSeat>>([]);
+  const sessionDurationInSeconds = 1200;
   const expiryTimestamp = new Date();
-  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 1200);
+  expiryTimestamp.setSeconds(
+    expiryTimestamp.getSeconds() + sessionDurationInSeconds,
+  );
   const timer = useTimer({ expiryTimestamp, onExpire: onSessionExpiry });
   const coverImage = projection?.movie.images.find((image) => image.coverPhoto);
+
+  const sessionTime =
+    timer.minutes.toString().padStart(2, "0") +
+    ":" +
+    timer.seconds.toString().padStart(2, "0");
+
+  const bookingDate =
+    getFormattedDate(date, "dddd, MMM DD") +
+    " at " +
+    getFormattedTime(projection?.time ?? "");
+
+  const venueDetails =
+    projection?.hall.venue.name +
+    ", " +
+    projection?.hall.venue.streetAddress +
+    ", " +
+    projection?.hall.venue.city.name;
 
   useEffect(() => {
     if (!id) return;
 
-    get<ProjectionDTO>(getProjectionRequest(id)).then((data) => {
-      setProjection(data);
-    });
+    const projectionPromise = get<ProjectionDTO>(getProjectionRequest(id));
+    const seatPromise = get<Array<ProjectionSeat>>(
+      getProjectionSeatsRequest(id),
+    );
+    const sessionPromise = get<SessionResponse>(getSessionRequest());
 
-    get<Array<ProjectionSeat>>(getProjectionSeatsRequest(id)).then((data) => {
-      setSeats(data);
-    });
-
-    get<SessionResponse>(getSessionRequest());
+    Promise.all([projectionPromise, seatPromise, sessionPromise]).then(
+      (data) => {
+        setProjection(data[0]);
+        setSeats(data[1]);
+      },
+    );
   }, []);
 
   function onSessionExpiry() {
@@ -115,9 +138,7 @@ export default function Projection() {
               Session Duration
             </div>
             <div className="p-2.5 border border-cinebhpale rounded-lg text-cinebhdarkgray text-xl font-bold">
-              {timer.minutes.toString().padStart(2, "0") +
-                ":" +
-                timer.seconds.toString().padStart(2, "0")}
+              {sessionTime}
             </div>
           </div>
         </div>
@@ -142,15 +163,9 @@ export default function Projection() {
           <div className="w-full text-cinebhdarkgray">
             <div className="font-bold text-xl mb-4">Booking details</div>
             <div className="mb-4">
-              {getFormattedDate(date, "dddd, MMM DD") +
-                " at " +
-                getFormattedTime(projection.time)}
+              {bookingDate}
               <br />
-              {projection.hall.venue.name +
-                ", " +
-                projection.hall.venue.streetAddress +
-                ", " +
-                projection.hall.venue.city.name}
+              {venueDetails}
             </div>
             {projection.hall.name}
           </div>

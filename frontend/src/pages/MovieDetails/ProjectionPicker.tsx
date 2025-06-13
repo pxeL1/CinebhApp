@@ -46,7 +46,7 @@ export default function ProjectionPicker({
     setFilteredProjections(newProjections);
   }, [cinema, city, projections]);
 
-  function handleButtonClick() {
+  function onBuyTicket() {
     if (!userContext.user) {
       authSidebarContext.openAuthSidebar(() => {});
       return;
@@ -93,7 +93,7 @@ export default function ProjectionPicker({
         <div className="flex">
           <Button
             variant={ButtonType.PRIMARY}
-            onClick={handleButtonClick}
+            onClick={onBuyTicket}
             disabled={!projection}
           >
             Buy Ticket
