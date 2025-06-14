@@ -7,6 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table (name = "reservation",
+        indexes = {@Index(name = "idx_reservation_projection", columnList = "projection_id")})
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

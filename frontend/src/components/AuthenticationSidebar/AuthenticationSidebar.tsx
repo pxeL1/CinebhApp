@@ -17,13 +17,14 @@ import SignUp from "components/AuthenticationSidebar/SignUp";
 export interface AuthenticationSidebarProps {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
+  onLogin: () => void;
 }
 
 export default function AuthenticationSidebar({
   isOpen,
   setIsOpen,
+  onLogin,
 }: AuthenticationSidebarProps) {
-  const navigate = useNavigate();
   const userContext = useContext(UserContext);
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState(false);
@@ -47,10 +48,7 @@ export default function AuthenticationSidebar({
         localStorage.setItem("expiration", data.expiration);
         localStorage.setItem("user", JSON.stringify(data.user));
         setSuccessfulLogin(true);
-        setTimeout(() => {
-          setIsOpen(false);
-          navigate("/");
-        }, 1500);
+        onLogin();
       })
       .catch((error) => {
         console.error(error);
@@ -67,6 +65,7 @@ export default function AuthenticationSidebar({
         localStorage.setItem("expiration", data.expiration);
         localStorage.setItem("user", JSON.stringify(data.user));
         setSuccessfulRegister(true);
+        onLogin();
       })
       .catch((error) => {
         console.error(error);
@@ -138,7 +137,12 @@ export default function AuthenticationSidebar({
   );
 }
 
-function SuccessfulSignIn({ isOpen, setIsOpen }: AuthenticationSidebarProps) {
+interface SuccessfulAuthProps {
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
+}
+
+function SuccessfulSignIn({ isOpen, setIsOpen }: SuccessfulAuthProps) {
   return (
     <div className="w-full h-full flex flex-col p-16 bg-cinebhdarkgray items-center max-w-132">
       <img src={logo} alt="Logo" className="w-1/3 mt-4 mb-8" />
@@ -156,15 +160,14 @@ function SuccessfulSignIn({ isOpen, setIsOpen }: AuthenticationSidebarProps) {
         </div>
       </div>
       <div className="text-sm text-cinebhash mt-6 text-center mb-20">
-        Please, wait. You will be directed to the <br />
-        homepage.
+        Please, wait. You will be redirected.
       </div>
       <img src={cameraImg} alt="Camera" />
     </div>
   );
 }
 
-function SuccessfulSignUp({ isOpen, setIsOpen }: AuthenticationSidebarProps) {
+function SuccessfulSignUp({ isOpen, setIsOpen }: SuccessfulAuthProps) {
   const navigate = useNavigate();
 
   return (

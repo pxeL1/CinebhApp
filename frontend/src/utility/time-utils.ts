@@ -8,8 +8,8 @@ export function isTimeBeforeNow(time: string): boolean {
   return moment() > moment(time);
 }
 
-export function getFormattedDate(date: string): string {
-  return moment(date).format("DD/MM/yyyy");
+export function getFormattedDate(date?: string, type?: string): string {
+  return moment(date).format(type);
 }
 
 export const monthNames = [
@@ -29,5 +29,8 @@ export const monthNames = [
 export const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export function isToday(date: Moment): boolean {
-  return moment(date).utc().startOf("day").format() == moment().utc().startOf("day").format();
+  return (
+    moment(date).utc().startOf("day").format() ==
+    moment().utc().startOf("day").format()
+  );
 }

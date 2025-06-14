@@ -1,6 +1,5 @@
 import logo from "assets/images/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import AuthenticationSIdebar from "components/AuthenticationSidebar/AuthenticationSidebar";
 import { useContext, useState } from "react";
 import { UserContext } from "contexts/UserContext/UserContext";
 import { User } from "models/User";
@@ -10,16 +9,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button, { ButtonType } from "components/common/Button/Button";
 import get from "services/fetching/Get";
 import { getLogoutRequest } from "services/fetching/API";
+import { AuthSidebarContext } from "contexts/AuthSidebarContext/AuthSidebarContext";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
+  const authSidebarContext = useContext(AuthSidebarContext);
 
   function handleLogout() {
     try {
       get(getLogoutRequest()).then(() => {
-        setIsOpen(false);
         userContext.setUser(undefined);
         localStorage.removeItem("expiration");
         localStorage.removeItem("user");
@@ -30,9 +29,18 @@ export default function Navbar() {
     }
   }
 
+  function handleSignInClick() {
+    const closeHandler = () => () => {
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+    };
+    authSidebarContext.openAuthSidebar(closeHandler);
+  }
+
   return (
     <div>
-      <div className="w-full py-6 border-b border-cinebhlightgray bg-cinebhdarkgray flex items-center justify-between text-white">
+      <div className="min-w-360 w-full py-6 border-b border-cinebhlightgray bg-cinebhdarkgray flex items-center justify-between text-white">
         <Link to="/">
           <img className="h-8 w-32 ml-24" src={logo} alt="logo" />
         </Link>
@@ -61,13 +69,12 @@ export default function Navbar() {
         ) : (
           <button
             className="mr-24 px-5 py-3 bg-transparent border rounded-lg text-cinebhneutral hover:text-cinebhdarkred cursor-pointer font-semibold"
-            onClick={() => setIsOpen(true)}
+            onClick={handleSignInClick}
           >
             Sign In
           </button>
         )}
       </div>
-      <AuthenticationSIdebar isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 }
