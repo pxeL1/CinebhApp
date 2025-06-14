@@ -10,7 +10,7 @@ export default function Sidebar({
   children,
 }: PropsWithChildren<SidebarProps>) {
   return (
-    <div className={classNames({ "no-doc-scroll": isOpen })}>
+    <div className="z-10 sticky top-0">
       <div
         className={classNames(
           "w-full z-20 absolute bg-cinebhdim transition-all duration-500",
@@ -20,7 +20,7 @@ export default function Sidebar({
       ></div>
       <div
         className={classNames(
-          "w-full h-full z-30 absolute justify-end",
+          "min-h-360 w-full h-full z-30 absolute justify-end",
           { hidden: !isOpen },
           { flex: isOpen },
         )}

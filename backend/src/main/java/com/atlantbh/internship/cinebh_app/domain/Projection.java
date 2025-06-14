@@ -11,6 +11,8 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table (name = "projection",
+        indexes = {@Index(name = "idx_projection_hall", columnList = "hall_id")})
 public class Projection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -8,6 +8,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table (name = "reserved_seat",
+        indexes = {@Index(name = "idx_seat_reservation", columnList = "seat_id, reservation_id")})
 public class ReservedSeat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +21,9 @@ public class ReservedSeat {
     @JoinColumn(name = "reservation_id")
     @JsonIgnore
     private Reservation reservation;
+
+    public ReservedSeat(Reservation reservation, Seat seat) {
+        this.reservation = reservation;
+        this.seat = seat;
+    }
 }

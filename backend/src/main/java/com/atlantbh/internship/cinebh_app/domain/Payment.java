@@ -23,4 +23,10 @@ public class Payment {
     @OneToOne
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
+
+    public Payment(Instant date, User user, Reservation reservation) {
+        this.date = date;
+        this.user = user;
+        this.reservation = reservation;
+    }
 }

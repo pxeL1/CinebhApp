@@ -10,8 +10,15 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+  session:
+    jdbc:
+      initialize-schema: always
 server:
   port: 8080
+  servlet:
+    session:
+      timeout: 20m
+      tracking-modes: cookie
 springdoc:
   api-docs:
     path: /api-docs
