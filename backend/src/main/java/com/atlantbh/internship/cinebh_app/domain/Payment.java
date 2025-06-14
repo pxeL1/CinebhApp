@@ -24,8 +24,9 @@ public class Payment {
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
-    public Payment(Instant date, User user, Reservation reservation) {
+    public Payment(Instant date, String stripeSessionId, User user, Reservation reservation) {
         this.date = date;
+        this.stripeSessionId = stripeSessionId;
         this.user = user;
         this.reservation = reservation;
     }
