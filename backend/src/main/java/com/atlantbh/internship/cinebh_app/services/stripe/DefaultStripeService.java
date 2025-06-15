@@ -32,8 +32,8 @@ public class DefaultStripeService implements StripeService {
                 .builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
                 .setCustomer(customer.getId())
-                .setSuccessUrl(CLIENT_BASE_URL + "/checkout/success?session_id={CHECKOUT_SESSION_ID}")
-                .setCancelUrl(CLIENT_BASE_URL + "/checkout/failure");
+                .setSuccessUrl(CLIENT_BASE_URL + "checkout/success?session_id={CHECKOUT_SESSION_ID}")
+                .setCancelUrl(CLIENT_BASE_URL + "checkout/failure");
 
         for (Seat seat : checkoutRequest.seats()) {
             Product product = findOrCreateProduct(seat.getType().name());

@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 import Footer from "components/Footer/Footer";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import get from "services/fetching/Get";
 import {
   getProjectionRequest,
   getProjectionSeatsRequest,
-  getSessionRequest,
+  getSessionRequest, getStripeSessionRequest
 } from "services/fetching/API";
 import { ProjectionDTO } from "models/ProjectionDTO";
 import { ProjectionSeat } from "models/ProjectionSeat";
@@ -19,6 +19,10 @@ import { getFormattedDate, getFormattedTime } from "utility/time-utils";
 import SeatSelect from "pages/Projection/SeatSelect";
 import Button, { ButtonType } from "components/common/Button/Button";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import post from "services/fetching/Post";
+import moment from "moment";
+import { UserContext } from "contexts/UserContext/UserContext";
+import { Seat } from "models/Seat";
 
 const tooltipText =
   "Session will expire in 20 minutes and selected seats will be refreshed";
@@ -44,6 +48,10 @@ function getTotalPrice(seats: Array<ProjectionSeat>) {
   return totalPrice;
 }
 
+interface CheckoutResponse {
+  sessionUrl: string;
+}
+
 export default function Projection() {
   const { id, date } = useParams();
   const [projection, setProjection] = useState<ProjectionDTO>();
@@ -57,6 +65,7 @@ export default function Projection() {
   );
   const timer = useTimer({ expiryTimestamp, onExpire: onSessionExpiry });
   const coverImage = projection?.movie.images.find((image) => image.coverPhoto);
+  const userContext = useContext(UserContext);
 
   const sessionTime =
     timer.minutes.toString().padStart(2, "0") +
@@ -97,7 +106,27 @@ export default function Projection() {
     toast.warn("Session expired. Please refresh the page");
   }
 
-  function handlePayment() {}
+  function handlePayment() {
+    const seats: Array<Seat> = [];
+
+    selectedSeats.forEach((seat) => {
+      seats.push({id: seat.id, type: seat.type, number: seat.number});
+    })
+
+    const values = {
+      price: getTotalPrice(selectedSeats),
+      date: moment(date),
+      userEmail: userContext.user?.email ?? "",
+      projectionId: parseInt(id ?? ""),
+      seats: seats
+    }
+
+    localStorage.setItem("checkoutValues", JSON.stringify(values));
+
+    post<CheckoutResponse>(getStripeSessionRequest(), selectedSeats).then((data) => {
+      window.location.href = data.sessionUrl;
+    });
+  }
 
   if (!projection) {
     return (

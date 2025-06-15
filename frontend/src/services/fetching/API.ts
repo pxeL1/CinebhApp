@@ -58,6 +58,10 @@ export function getSessionRequest() {
   return "/session/create";
 }
 
-export function getCreateReservationRequest() {
-  return "/reservation/create";
+export function getCreateTicketRequest() {
+  return "/reservation/create/ticket";
+}
+
+export function getStripeSessionRequest() {
+  return "/stripe/checkout";
 }

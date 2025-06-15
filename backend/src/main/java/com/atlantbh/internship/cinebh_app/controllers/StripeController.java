@@ -26,7 +26,7 @@ public class StripeController {
 
     @PostMapping("/checkout")
     public ResponseEntity getCheckoutSession(@RequestBody List<Seat> seats, HttpSession session) {
-        String customerEmail = session.getAttribute("subject").toString();
+        String customerEmail = (String) session.getAttribute("subject");
 
         if (StringUtils.isNullOrEmpty(customerEmail)) {
             return ResponseEntity.status(401).body(new Error("Invalid session"));

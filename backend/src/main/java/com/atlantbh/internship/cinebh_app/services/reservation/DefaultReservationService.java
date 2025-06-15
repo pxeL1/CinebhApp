@@ -7,6 +7,7 @@ import com.atlantbh.internship.cinebh_app.repositories.ReservationRepository;
 import com.atlantbh.internship.cinebh_app.services.user.DefaultUserService;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class DefaultReservationService implements ReservationService {
 
         Reservation reservation = new Reservation(ticketRequest.price(), ticketRequest.date(), user, projection);
 
-        Payment payment = new Payment(ticketRequest.date(), ticketRequest.stripeSessionId(), user, reservation);
+        Payment payment = new Payment(Instant.now(), ticketRequest.stripeSessionId(), user, reservation);
         reservation.setPayment(payment);
 
         List<ReservedSeat> seats = new ArrayList<>();

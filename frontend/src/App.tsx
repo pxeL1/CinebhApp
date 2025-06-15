@@ -10,6 +10,8 @@ import UserContextProvider from "contexts/UserContext/UserContextProvider";
 import MovieDetails from "pages/MovieDetails/MovieDetails";
 import Projection from "pages/Projection/Projection";
 import AuthSidebarContextProvider from "contexts/AuthSidebarContext/AuthSidebarContextProvider";
+import SuccessfulCheckout from "pages/Checkout/SuccessfulCheckout";
+import FailedCheckout from "pages/Checkout/FailedCheckout";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
             <Route path="/upcoming" element={<Upcoming />} />
             <Route path="/details/:id" element={<MovieDetails />} />
             <Route path="/projection/:id/:date" element={<Projection />} />
+            <Route path="/checkout/success" element={<SuccessfulCheckout />} />
+            <Route path="/checkout/failure" element={<FailedCheckout />} />
           </Route>
         </Routes>
       </AuthSidebarContextProvider>
