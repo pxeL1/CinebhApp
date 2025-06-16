@@ -65,3 +65,7 @@ export function getCreateTicketRequest() {
 export function getStripeSessionRequest() {
   return "/stripe/checkout";
 }
+
+export function getCheckoutEmailRequest() {
+  return "/email/checkout";
+}

@@ -2,11 +2,12 @@ import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Reservation } from "models/Reservation";
 import post from "services/fetching/Post";
-import { getCreateTicketRequest } from "services/fetching/API";
+import { getCheckoutEmailRequest, getCreateTicketRequest } from "services/fetching/API";
 import backgroundImage from "assets/images/redseats.jpg"
 import Footer from "components/Footer/Footer";
 import { Moment } from "moment";
 import { Seat } from "models/Seat";
+import get from "services/fetching/Get";
 
 export interface CheckoutValues {
   price: number;
@@ -14,6 +15,10 @@ export interface CheckoutValues {
   userEmail: string;
   projectionId: number;
   seats: Array<Seat>;
+}
+
+interface EmailResponse {
+  message: string;
 }
 
 export default function SuccessfulCheckout() {
@@ -33,10 +38,15 @@ export default function SuccessfulCheckout() {
       seats: values.seats
     }
 
-    post<Reservation>(getCreateTicketRequest(), ticketRequest).then((response) => {
-      setTimeout(() => {
-        navigate("/");
-      }, 5000);
+    post<Reservation>(getCreateTicketRequest(), ticketRequest).then(() => {
+      const params = new URLSearchParams();
+      params.set("recipient", values.userEmail);
+
+      get<EmailResponse>(getCheckoutEmailRequest(), params).then(() => {
+        setTimeout(() => {
+          navigate("/");
+        }, 5000);
+      });
     });
   }, []);
 
