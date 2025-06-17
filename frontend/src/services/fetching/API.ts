@@ -65,4 +65,3 @@ export function getStripeSessionRequest() {
 export function getDeleteReservationRequest(id: string) {
   return "/reservation/delete/" + id;
 }
-
