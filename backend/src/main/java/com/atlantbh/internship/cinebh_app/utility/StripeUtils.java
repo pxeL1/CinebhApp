@@ -1,16 +1,21 @@
 package com.atlantbh.internship.cinebh_app.utility;
 
+import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
 import com.stripe.model.CustomerSearchResult;
 import com.stripe.model.Product;
 import com.stripe.model.ProductSearchResult;
+import com.stripe.model.checkout.Session;
 import com.stripe.param.CustomerCreateParams;
 import com.stripe.param.CustomerSearchParams;
 import com.stripe.param.ProductCreateParams;
 import com.stripe.param.ProductSearchParams;
+import org.springframework.beans.factory.annotation.Value;
 
 public class StripeUtils {
+    @Value("${stripe.api-key}")
+    private static String STRIPE_API_KEY;
 
     private StripeUtils() {}
 
@@ -51,5 +56,12 @@ public class StripeUtils {
         else {
             return searchResult.getData().getFirst();
         }
+    }
+
+    public static boolean validateCheckoutSessionId(String sessionId) throws StripeException {
+        Stripe.apiKey = STRIPE_API_KEY;
+        Session session = Session.retrieve(sessionId);
+
+        return session != null;
     }
 }

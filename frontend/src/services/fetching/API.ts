@@ -50,22 +50,19 @@ export function getProjectionRequest(id: string) {
   return "/projection/" + id;
 }
 
-export function getProjectionSeatsRequest(id: string) {
-  return "/seat/projection/" + id;
+export function getProjectionSeatsRequest(id: string, date: string) {
+  return "/seat/projection/" + id + "/" + date;
 }
 
 export function getSessionRequest() {
   return "/session/create";
 }
 
-export function getCreateTicketRequest() {
-  return "/reservation/create/ticket";
-}
-
 export function getStripeSessionRequest() {
   return "/stripe/checkout";
 }
 
-export function getCheckoutEmailRequest() {
-  return "/email/checkout";
+export function getDeleteReservationRequest(id: string) {
+  return "/reservation/delete/" + id;
 }
+

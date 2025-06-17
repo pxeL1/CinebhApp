@@ -20,9 +20,7 @@ import SeatSelect from "pages/Projection/SeatSelect";
 import Button, { ButtonType } from "components/common/Button/Button";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import post from "services/fetching/Post";
-import moment from "moment";
-import { UserContext } from "contexts/UserContext/UserContext";
-import { Seat } from "models/Seat";
+import moment, { Moment } from "moment";
 
 const tooltipText =
   "Session will expire in 20 minutes and selected seats will be refreshed";
@@ -52,6 +50,12 @@ interface CheckoutResponse {
   sessionUrl: string;
 }
 
+interface CheckoutRequest {
+  date: Moment;
+  projectionId: number;
+  seats: Array<ProjectionSeat>;
+}
+
 export default function Projection() {
   const { id, date } = useParams();
   const [projection, setProjection] = useState<ProjectionDTO>();
@@ -65,7 +69,6 @@ export default function Projection() {
   );
   const timer = useTimer({ expiryTimestamp, onExpire: onSessionExpiry });
   const coverImage = projection?.movie.images.find((image) => image.coverPhoto);
-  const userContext = useContext(UserContext);
 
   const sessionTime =
     timer.minutes.toString().padStart(2, "0") +
@@ -89,7 +92,7 @@ export default function Projection() {
 
     const projectionPromise = get<ProjectionDTO>(getProjectionRequest(id));
     const seatPromise = get<Array<ProjectionSeat>>(
-      getProjectionSeatsRequest(id),
+      getProjectionSeatsRequest(id, moment(date).utc().startOf("day").format()),
     );
     const sessionPromise = get<SessionResponse>(getSessionRequest());
 
@@ -107,23 +110,13 @@ export default function Projection() {
   }
 
   function handlePayment() {
-    const seats: Array<Seat> = [];
-
-    selectedSeats.forEach((seat) => {
-      seats.push({id: seat.id, type: seat.type, number: seat.number});
-    })
-
-    const values = {
-      price: getTotalPrice(selectedSeats),
-      date: moment(date),
-      userEmail: userContext.user?.email ?? "",
+    const checkoutRequest: CheckoutRequest = {
+      date: moment(date).utc().startOf("day"),
       projectionId: parseInt(id ?? ""),
-      seats: seats
+      seats: selectedSeats
     }
 
-    localStorage.setItem("checkoutValues", JSON.stringify(values));
-
-    post<CheckoutResponse>(getStripeSessionRequest(), selectedSeats).then((data) => {
+    post<CheckoutResponse>(getStripeSessionRequest(), checkoutRequest).then((data) => {
       window.location.href = data.sessionUrl;
     });
   }

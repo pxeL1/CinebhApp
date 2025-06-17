@@ -1,15 +1,26 @@
 import backgroundImage from "assets/images/redseats.jpg";
 import Footer from "components/Footer/Footer";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { getDeleteReservationRequest } from "services/fetching/API";
+import getCompleteUrl from "services/fetching/getCompleteUrl";
 
 export default function FailedCheckout() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setTimeout(() => {
-      navigate("/");
-    }, 5000);
+    const reservationId = searchParams.get("reservation_id") ?? "";
+    const url = getCompleteUrl(getDeleteReservationRequest(reservationId));
+
+    fetch(url, {
+      method: "DELETE",
+    }).then((res) => {
+      console.log(res);
+      setTimeout(() => {
+        navigate("/");
+      }, 5000);
+    });
   })
 
   return (

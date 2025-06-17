@@ -1,7 +1,5 @@
 package com.atlantbh.internship.cinebh_app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,7 +24,7 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "projection_id")
     private Projection projection;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     @JoinColumn(name = "payment_id")
     private Payment payment;
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)

@@ -34,3 +34,7 @@ springdoc:
     path: /api-docs
 config:
   secret-key: ${JWT_KEY}
+stripe:
+  api-key: ${STRIPE_API_KEY}
+  client-base-url: ${CLIENT_BASE_URL}
+  webhook-key: ${STRIPE_WEBHOOK_KEY}

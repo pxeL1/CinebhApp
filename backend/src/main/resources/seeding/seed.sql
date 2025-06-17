@@ -409,11 +409,3 @@ INSERT INTO personnel (role, actor_role_name, name, movie_id) VALUES
 
 INSERT INTO role (name) VALUES
     ('USER'), ('ADMIN');
-
-INSERT INTO reservation (price, payment_id, projection_id, cinebh_user_id, date) VALUES
-                                                                                     (25, null, 10, 1, '2025-05-29 00:00:00');
-
-INSERT INTO reserved_seat (reservation_id, seat_id) VALUES
-                                                        (2, 1),
-                                                        (2, 2),
-                                                        (2, 3);

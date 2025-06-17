@@ -5,5 +5,5 @@ import com.atlantbh.internship.cinebh_app.domain.Seat;
 import java.time.Instant;
 import java.util.List;
 
-public record TicketRequest(double price, Instant date, String userEmail, Long projectionId, String stripeSessionId, List<Seat> seats) {
+public record PaymentRequest(Instant date, Long projectionId, List<Seat> seats) {
 }
