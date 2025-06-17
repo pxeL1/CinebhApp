@@ -1,5 +1,7 @@
 package com.atlantbh.internship.cinebh_app.services.stripe;
 
+import com.atlantbh.internship.cinebh_app.domain.Payment;
+import com.atlantbh.internship.cinebh_app.services.email.EmailService;
 import com.atlantbh.internship.cinebh_app.services.payment.PaymentService;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.model.PaymentIntent;
@@ -13,9 +15,11 @@ public class DefaultStripeService implements StripeService {
     @Value("${stripe.webhook-key}")
     private String webhookKey;
     private final PaymentService paymentService;
+    private final EmailService emailService;
 
-    public DefaultStripeService(PaymentService paymentService) {
+    public DefaultStripeService(PaymentService paymentService, EmailService emailService) {
         this.paymentService = paymentService;
+        this.emailService = emailService;
     }
 
     @Override
@@ -29,7 +33,11 @@ public class DefaultStripeService implements StripeService {
 
         if (event.getType().equals("payment_intent.succeeded")) {
             PaymentIntent paymentIntent = (PaymentIntent) event.getDataObjectDeserializer().getObject().orElseThrow();
-            paymentService.createPayment(paymentIntent.getMetadata().get("reservation_id"));
+            Payment payment = paymentService.createPayment(paymentIntent.getMetadata().get("reservation_id"));
+
+            String subject = "Checkout confirmation";
+            String emailBody = "Your payment has been processed successfully";
+            emailService.sendEmail(payment.getUser().getEmail(), subject, emailBody);
         }
     }
 }
