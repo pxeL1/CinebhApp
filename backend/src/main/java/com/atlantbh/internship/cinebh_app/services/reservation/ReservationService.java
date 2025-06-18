@@ -5,5 +5,5 @@ import com.atlantbh.internship.cinebh_app.dtos.ReservationRequest;
 
 public interface ReservationService {
     Reservation createReservation(ReservationRequest reservationRequest);
-    void deleteReservation(Long id);
+    void deleteReservation(Long id, String userEmail);
 }

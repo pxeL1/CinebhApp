@@ -5,6 +5,7 @@ import com.atlantbh.internship.cinebh_app.dtos.ReservationRequest;
 import com.atlantbh.internship.cinebh_app.services.reservation.ReservationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,19 +17,16 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @PostMapping(value = "/create")
+    @DeleteMapping(value = "/delete/{id}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity createReservation(@RequestBody ReservationRequest reservationRequest) {
+    public ResponseEntity deleteReservation(@PathVariable Long id) {
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
         try {
-            return ResponseEntity.ok(reservationService.createReservation(reservationRequest));
+            reservationService.deleteReservation(id, userEmail);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new Error(e.getMessage()));
         }
-    }
-
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity deleteReservation(@PathVariable Long id) {
-        reservationService.deleteReservation(id);
-        return ResponseEntity.ok().build();
     }
 }

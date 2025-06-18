@@ -7,5 +7,4 @@ import com.stripe.exception.StripeException;
 
 public interface PaymentService {
     CheckoutResponse getCheckoutSession(String customerEmail, PaymentRequest paymentRequest) throws StripeException;
-    Payment createPayment(String reservationId);
 }

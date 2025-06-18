@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
 import Footer from "components/Footer/Footer";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import get from "services/fetching/Get";
 import {
+  getPaymentSessionRequest,
   getProjectionRequest,
   getProjectionSeatsRequest,
-  getSessionRequest, getStripeSessionRequest
+  getSessionRequest,
 } from "services/fetching/API";
 import { ProjectionDTO } from "models/ProjectionDTO";
 import { ProjectionSeat } from "models/ProjectionSeat";
@@ -110,15 +111,19 @@ export default function Projection() {
   }
 
   function handlePayment() {
+    if (!id) return;
+
     const checkoutRequest: CheckoutRequest = {
       date: moment(date).utc().startOf("day"),
-      projectionId: parseInt(id ?? ""),
-      seats: selectedSeats
-    }
+      projectionId: parseInt(id),
+      seats: selectedSeats,
+    };
 
-    post<CheckoutResponse>(getStripeSessionRequest(), checkoutRequest).then((data) => {
-      window.location.href = data.sessionUrl;
-    });
+    post<CheckoutResponse>(getPaymentSessionRequest(), checkoutRequest).then(
+      (data) => {
+        window.location.href = data.sessionUrl;
+      },
+    );
   }
 
   if (!projection) {

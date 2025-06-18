@@ -8,6 +8,7 @@ import com.atlantbh.internship.cinebh_app.services.user.DefaultUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -39,6 +40,7 @@ public class DefaultReservationService implements ReservationService {
 
         Reservation savedReservation = reservationRepository.save(reservation);
 
+        //Scheduled task deletes Reservation if payment isn't completed to free up seats after session expires
         scheduler.schedule(() -> {
             Reservation r = reservationRepository.findById(savedReservation.getId()).orElse(null);
             if (r != null && r.getPayment() == null) {
@@ -52,8 +54,12 @@ public class DefaultReservationService implements ReservationService {
     }
 
     @Override
-    public void deleteReservation(Long id) {
-        reservationRepository.deleteById(id);
+    public void deleteReservation(Long id, String userEmail) {
+        Reservation reservation = reservationRepository.findById(id).orElseThrow();
+
+        if(Objects.equals(reservation.getUser().getUsername(), userEmail)) {
+            reservationRepository.deleteById(id);
+        }
     }
 
     private double getTotalPrice(List<Seat> seats) {
