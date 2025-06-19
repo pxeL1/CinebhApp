@@ -29,11 +29,11 @@ public class Movie {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MovieStatus status;
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<MovieGenre> genres;
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<MovieImage> images;
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<Projection> projections;
 
     public Movie(MovieRequest movieRequest) {

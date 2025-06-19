@@ -19,4 +19,9 @@ public class MovieGenre {
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
+
+    public MovieGenre(Movie movie, Genre genre) {
+        this.movie = movie;
+        this.genre = genre;
+    }
 }

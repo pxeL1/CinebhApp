@@ -1,7 +1,6 @@
 package com.atlantbh.internship.cinebh_app.services.movie;
 
-import com.atlantbh.internship.cinebh_app.domain.Movie;
-import com.atlantbh.internship.cinebh_app.domain.MovieFilterParameters;
+import com.atlantbh.internship.cinebh_app.domain.*;
 import com.atlantbh.internship.cinebh_app.dtos.MovieRequest;
 import com.atlantbh.internship.cinebh_app.repositories.MovieRepository;
 import com.atlantbh.internship.cinebh_app.utility.StringUtils;
@@ -97,7 +96,22 @@ public class DefaultMovieService implements MovieService {
 
     @Override
     public Movie createMovie(MovieRequest movieRequest) {
-        Movie movie = new Movie();
-        return null;
+        Movie movie = new Movie(movieRequest);
+
+        List<MovieGenre> genres = movieRequest.genres().stream()
+                .map(genre -> new MovieGenre(movie, genre))
+                .toList();
+        List<MovieImage> images = movieRequest.images().stream()
+                .map(image -> new MovieImage(image.url(), image.isCoverPhoto(), movie))
+                .toList();
+        List<Projection> projections = movieRequest.projections().stream()
+                .map(projection -> new Projection(projection.time(), movie, projection.hall()))
+                .toList();
+
+        movie.setGenres(genres);
+        movie.setImages(images);
+        movie.setProjections(projections);
+
+        return movieRepository.save(movie);
     }
 }

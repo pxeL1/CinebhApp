@@ -26,4 +26,10 @@ public class Projection {
     @ManyToOne
     @JoinColumn(name = "hall_id")
     private Hall hall;
+
+    public Projection(LocalTime time, Movie movie, Hall hall) {
+        this.time = time;
+        this.movie = movie;
+        this.hall = hall;
+    }
 }

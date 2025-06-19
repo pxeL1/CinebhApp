@@ -19,4 +19,10 @@ public class MovieImage {
     @JoinColumn(name = "movie_id")
     @JsonIgnore
     private Movie movie;
+
+    public MovieImage(String url, boolean isCoverPhoto, Movie movie) {
+        this.url = url;
+        this.isCoverPhoto = isCoverPhoto;
+        this.movie = movie;
+    }
 }
