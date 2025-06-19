@@ -2,6 +2,7 @@ package com.atlantbh.internship.cinebh_app.services.movie;
 
 import com.atlantbh.internship.cinebh_app.domain.Movie;
 import com.atlantbh.internship.cinebh_app.domain.MovieFilterParameters;
+import com.atlantbh.internship.cinebh_app.dtos.MovieRequest;
 import com.atlantbh.internship.cinebh_app.repositories.MovieRepository;
 import com.atlantbh.internship.cinebh_app.utility.StringUtils;
 import org.springframework.data.domain.Page;
@@ -79,6 +80,10 @@ public class DefaultMovieService implements MovieService {
             specifications.add(startDateLessThanOrEqualTo(movieFilterParameters.getEndDate()));
         }
 
+        if(!StringUtils.isNullOrEmpty(movieFilterParameters.getStatus())) {
+            specifications.add(movieStatusEquals(movieFilterParameters.getStatus()));
+        }
+
         return movieRepository.findAll(
                 Specification.allOf(specifications),
                 pageable
@@ -88,5 +93,11 @@ public class DefaultMovieService implements MovieService {
     @Override
     public Movie getMovie(Long id) {
         return movieRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public Movie createMovie(MovieRequest movieRequest) {
+        Movie movie = new Movie();
+        return null;
     }
 }

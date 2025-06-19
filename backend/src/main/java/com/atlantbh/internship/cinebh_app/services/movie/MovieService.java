@@ -2,6 +2,7 @@ package com.atlantbh.internship.cinebh_app.services.movie;
 
 import com.atlantbh.internship.cinebh_app.domain.Movie;
 import com.atlantbh.internship.cinebh_app.domain.MovieFilterParameters;
+import com.atlantbh.internship.cinebh_app.dtos.MovieRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,4 +11,5 @@ public interface MovieService {
     Page<Movie> getAllUpcomingMovies(Pageable pageable);
     Page<Movie> getFilteredMovies(Pageable pageable, MovieFilterParameters movieFilterParameters);
     Movie getMovie(Long id);
+    Movie createMovie(MovieRequest movieRequest);
 }

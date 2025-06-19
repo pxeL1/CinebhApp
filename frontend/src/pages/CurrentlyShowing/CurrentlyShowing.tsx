@@ -69,6 +69,7 @@ export default function CurrentlyShowing() {
     newQueryParams.set("genres", genres?.toString() ?? "");
     newQueryParams.set("fromTime", fromTime ?? "");
     newQueryParams.set("toTime", toTime ?? "");
+    newQueryParams.set("status", "PUBLISHED");
 
     setQueryParams(newQueryParams);
 

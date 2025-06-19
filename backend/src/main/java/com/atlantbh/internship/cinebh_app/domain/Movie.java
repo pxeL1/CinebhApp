@@ -1,5 +1,6 @@
 package com.atlantbh.internship.cinebh_app.domain;
 
+import com.atlantbh.internship.cinebh_app.dtos.MovieRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,4 +35,18 @@ public class Movie {
     private List<MovieImage> images;
     @OneToMany(mappedBy = "movie")
     private List<Projection> projections;
+
+    public Movie(MovieRequest movieRequest) {
+        this.id = movieRequest.id();
+        this.name = movieRequest.name();
+        this.pgRating = movieRequest.pgRating();
+        this.language = movieRequest.language();
+        this.duration = movieRequest.duration();
+        this.startDate = movieRequest.startDate();
+        this.endDate = movieRequest.endDate();
+        this.trailer = movieRequest.trailer();
+        this.tmdbId = movieRequest.tmdbId();
+        this.synopsis = movieRequest.synopsis();
+        this.status = movieRequest.status();
+    }
 }

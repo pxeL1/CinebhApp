@@ -66,6 +66,8 @@ export default function Upcoming() {
     newQueryParams.set("genres", genres?.toString() ?? "");
     newQueryParams.set("endDate", endDate ?? "");
     newQueryParams.set("startDate", startDate);
+    newQueryParams.set("status", "PUBLISHED");
+
 
     setQueryParams(newQueryParams);
 
