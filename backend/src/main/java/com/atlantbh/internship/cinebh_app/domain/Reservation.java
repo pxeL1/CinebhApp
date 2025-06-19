@@ -27,7 +27,7 @@ public class Reservation {
     @OneToOne
     @JoinColumn(name = "payment_id")
     private Payment payment;
-    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReservedSeat> seats;
 
     public Reservation(double price, Instant date, User user, Projection projection) {

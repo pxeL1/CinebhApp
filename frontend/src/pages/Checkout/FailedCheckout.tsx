@@ -14,11 +14,10 @@ export default function FailedCheckout() {
 
     if (!reservationId) return;
 
-    Delete(getDeleteReservationRequest(reservationId)).then(() => {
-      setTimeout(() => {
-        navigate("/");
-      }, 5000);
-    });
+    Delete(getDeleteReservationRequest(reservationId));
+    setTimeout(() => {
+      navigate("/");
+    }, 5000);
   }, [navigate, searchParams]);
 
   return (
