@@ -12,4 +12,5 @@ public interface MovieService {
     Page<Movie> getFilteredMovies(Pageable pageable, MovieFilterParameters movieFilterParameters);
     Movie getMovie(Long id);
     Movie createMovie(MovieRequest movieRequest);
+    Movie updateMovie(Long id, MovieRequest movieRequest);
 }

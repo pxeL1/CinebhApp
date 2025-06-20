@@ -29,15 +29,14 @@ public class Movie {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MovieStatus status;
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MovieGenre> genres;
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MovieImage> images;
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Projection> projections;
 
     public Movie(MovieRequest movieRequest) {
-        this.id = movieRequest.id();
         this.name = movieRequest.name();
         this.pgRating = movieRequest.pgRating();
         this.language = movieRequest.language();

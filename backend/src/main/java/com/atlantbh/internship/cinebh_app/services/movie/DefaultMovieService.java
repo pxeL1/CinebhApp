@@ -101,16 +101,50 @@ public class DefaultMovieService implements MovieService {
         List<MovieGenre> genres = movieRequest.genres().stream()
                 .map(genre -> new MovieGenre(movie, genre))
                 .toList();
+        movie.setGenres(genres);
+
         List<MovieImage> images = movieRequest.images().stream()
                 .map(image -> new MovieImage(image.url(), image.isCoverPhoto(), movie))
                 .toList();
+        movie.setImages(images);
+
         List<Projection> projections = movieRequest.projections().stream()
                 .map(projection -> new Projection(projection.time(), movie, projection.hall()))
                 .toList();
-
-        movie.setGenres(genres);
-        movie.setImages(images);
         movie.setProjections(projections);
+
+        return movieRepository.save(movie);
+    }
+
+    @Override
+    public Movie updateMovie(Long id, MovieRequest movieRequest) {
+        Movie movie = movieRepository.findById(id).orElseThrow();
+
+        movie.setName(movieRequest.name());
+        movie.setPgRating(movieRequest.pgRating());
+        movie.setLanguage(movieRequest.language());
+        movie.setDuration(movieRequest.duration());
+        movie.setStartDate(movieRequest.startDate());
+        movie.setEndDate(movieRequest.endDate());
+        movie.setTrailer(movieRequest.trailer());
+        movie.setTmdbId(movieRequest.tmdbId());
+        movie.setSynopsis(movieRequest.synopsis());
+        movie.setStatus(movieRequest.status());
+
+        movie.getGenres().clear();
+        movieRequest.genres().stream()
+                .map(genre -> new MovieGenre(movie, genre))
+                .forEach(movie.getGenres()::add);
+
+        movie.getImages().clear();
+        movieRequest.images().stream()
+                .map(image -> new MovieImage(image.url(), image.isCoverPhoto(), movie))
+                .forEach(movie.getImages()::add);
+
+        movie.getProjections().clear();
+        movieRequest.projections().stream()
+                .map(projection -> new Projection(projection.time(), movie, projection.hall()))
+                .forEach(movie.getProjections()::add);
 
         return movieRepository.save(movie);
     }
