@@ -3,6 +3,9 @@ package com.atlantbh.internship.cinebh_app.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.Instant;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,6 +17,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double price;
+    private Instant date;
     @ManyToOne
     @JoinColumn(name = "cinebh_user_id")
     private User user;
@@ -23,4 +27,13 @@ public class Reservation {
     @OneToOne
     @JoinColumn(name = "payment_id")
     private Payment payment;
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReservedSeat> seats;
+
+    public Reservation(double price, Instant date, User user, Projection projection) {
+        this.price = price;
+        this.date = date;
+        this.user = user;
+        this.projection = projection;
+    }
 }

@@ -3,6 +3,7 @@ import Footer from "components/Footer/Footer";
 import { useEffect, useState } from "react";
 import get from "services/fetching/Get";
 import {
+  getPaymentSessionRequest,
   getProjectionRequest,
   getProjectionSeatsRequest,
   getSessionRequest,
@@ -19,6 +20,8 @@ import { getFormattedDate, getFormattedTime } from "utility/time-utils";
 import SeatSelect from "pages/Projection/SeatSelect";
 import Button, { ButtonType } from "components/common/Button/Button";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import post from "services/fetching/Post";
+import moment, { Moment } from "moment";
 
 const tooltipText =
   "Session will expire in 20 minutes and selected seats will be refreshed";
@@ -42,6 +45,16 @@ function getTotalPrice(seats: Array<ProjectionSeat>) {
   });
 
   return totalPrice;
+}
+
+interface CheckoutResponse {
+  sessionUrl: string;
+}
+
+interface CheckoutRequest {
+  date: Moment;
+  projectionId: number;
+  seats: Array<ProjectionSeat>;
 }
 
 export default function Projection() {
@@ -80,7 +93,7 @@ export default function Projection() {
 
     const projectionPromise = get<ProjectionDTO>(getProjectionRequest(id));
     const seatPromise = get<Array<ProjectionSeat>>(
-      getProjectionSeatsRequest(id),
+      getProjectionSeatsRequest(id, moment(date).utc().startOf("day").format()),
     );
     const sessionPromise = get<SessionResponse>(getSessionRequest());
 
@@ -97,7 +110,21 @@ export default function Projection() {
     toast.warn("Session expired. Please refresh the page");
   }
 
-  function handlePayment() {}
+  function handlePayment() {
+    if (!id) return;
+
+    const checkoutRequest: CheckoutRequest = {
+      date: moment(date).utc().startOf("day"),
+      projectionId: parseInt(id),
+      seats: selectedSeats,
+    };
+
+    post<CheckoutResponse>(getPaymentSessionRequest(), checkoutRequest).then(
+      (data) => {
+        window.location.href = data.sessionUrl;
+      },
+    );
+  }
 
   if (!projection) {
     return (

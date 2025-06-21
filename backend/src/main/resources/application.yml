@@ -13,6 +13,17 @@ spring:
   session:
     jdbc:
       initialize-schema: always
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USER}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 server:
   port: 8080
   servlet:
@@ -24,3 +35,7 @@ springdoc:
     path: /api-docs
 config:
   secret-key: ${JWT_KEY}
+stripe:
+  api-key: ${STRIPE_API_KEY}
+  client-base-url: ${CLIENT_BASE_URL}
+  webhook-key: ${STRIPE_WEBHOOK_KEY}

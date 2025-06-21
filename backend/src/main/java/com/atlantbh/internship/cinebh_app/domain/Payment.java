@@ -1,11 +1,13 @@
 package com.atlantbh.internship.cinebh_app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
 
 @Data
+@EqualsAndHashCode(exclude="reservation")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -20,6 +22,7 @@ public class Payment {
     private User user;
     @OneToOne
     @JoinColumn(name = "reservation_id")
+    @JsonIgnore
     private Reservation reservation;
 
     public Payment(Instant date, User user, Reservation reservation) {

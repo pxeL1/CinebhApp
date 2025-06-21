@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
+
 @RestController
 @RequestMapping("api/v1/seat")
 public class SeatController {
@@ -16,10 +18,10 @@ public class SeatController {
         this.seatService = seatService;
     }
 
-    @GetMapping(value = "/projection/{id}")
-    public ResponseEntity getSeatsForProjection(@PathVariable Long id) {
+    @GetMapping(value = "/projection/{id}/{date}")
+    public ResponseEntity getSeatsForProjection(@PathVariable Long id, @PathVariable Instant date) {
         try{
-            return ResponseEntity.ok(seatService.getSeatsForProjection(id));
+            return ResponseEntity.ok(seatService.getSeatsForProjection(id, date));
         }
         catch(Exception e){
             System.out.println(e.getMessage());

@@ -21,7 +21,7 @@ export default function ProjectionPicker({
 }: ProjectionPickerProps) {
   const [city, setCity] = useState<string>();
   const [cinema, setCinema] = useState<string>();
-  const [date, setDate] = useState<Moment>(moment());
+  const [date, setDate] = useState<Moment>(moment().utc().startOf("day"));
   const [projection, setProjection] = useState<Projection>();
   const [filteredProjections, setFilteredProjections] =
     useState<Array<Projection>>(projections);
