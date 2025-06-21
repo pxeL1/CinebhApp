@@ -39,25 +39,29 @@ export function getLogoutRequest() {
 }
 
 export function getMovieRequest(id: string) {
-  return "/movie/" + id;
+  return `/movie/${id}`;
 }
 
-export function getPersonnelByMovieRequest(movieId: string) {
-  return "/personnel/movie/" + movieId;
+export function getPersonnelByMovieRequest(id: string) {
+  return `/personnel/movie/${id}`;
 }
 
 export function getProjectionRequest(id: string) {
-  return "/projection/" + id;
+  return `/projection/${id}`;
 }
 
-export function getProjectionSeatsRequest(id: string) {
-  return "/seat/projection/" + id;
+export function getProjectionSeatsRequest(id: string, date: string) {
+  return `/seat/projection/${id}/${date}`;
 }
 
 export function getSessionRequest() {
   return "/session/create";
 }
 
-export function getCreateReservationRequest() {
-  return "/reservation/create";
+export function getPaymentSessionRequest() {
+  return "/payment/checkout";
+}
+
+export function getDeleteReservationRequest(id: string) {
+  return `/reservation/delete/${id}`;
 }

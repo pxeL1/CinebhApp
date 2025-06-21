@@ -15,10 +15,15 @@ export default function ProjectionDatePicker({
   onDateChange,
 }: ProjectionDatePickerProps) {
   const [page, setPage] = useState(0);
-  const [startDate, setStartDate] = useState<Moment>(moment());
+  const [startDate, setStartDate] = useState<Moment>(
+    moment().utc().startOf("day"),
+  );
 
   useEffect(() => {
-    const newStartDate = moment().add(7 * page, "days");
+    const newStartDate = moment()
+      .utc()
+      .startOf("day")
+      .add(7 * page, "days");
     setStartDate(newStartDate);
   }, [page]);
 
