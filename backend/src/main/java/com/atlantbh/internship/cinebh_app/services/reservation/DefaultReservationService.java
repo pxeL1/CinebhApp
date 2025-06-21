@@ -54,12 +54,14 @@ public class DefaultReservationService implements ReservationService {
     }
 
     @Override
-    public void deleteReservation(Long id, String userEmail) {
+    public void deleteReservation(Long id, String userEmail) throws IllegalAccessException {
         Reservation reservation = reservationRepository.findById(id).orElseThrow();
 
-        if(Objects.equals(reservation.getUser().getUsername(), userEmail)) {
-            reservationRepository.deleteById(id);
+        if(!Objects.equals(reservation.getUser().getUsername(), userEmail)) {
+            throw new IllegalAccessException("Unauthorized deletion request");
         }
+
+        reservationRepository.deleteById(id);
     }
 
     private double getTotalPrice(List<Seat> seats) {
