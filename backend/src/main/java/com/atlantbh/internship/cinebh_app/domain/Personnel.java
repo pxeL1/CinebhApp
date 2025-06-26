@@ -22,4 +22,11 @@ public class Personnel {
     @JsonIgnore
     @JoinColumn(name = "movie_id")
     private Movie movie;
+
+    public Personnel(String name, String actorRoleName, PersonnelRole role, Movie movie) {
+        this.name = name;
+        this.actorRoleName = actorRoleName;
+        this.role = role;
+        this.movie = movie;
+    }
 }

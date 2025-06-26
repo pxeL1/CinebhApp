@@ -6,14 +6,18 @@ import { JSX } from "react";
 
 export interface GenresSelectProps {
   icon?: JSX.Element;
+  placeholder?: string;
   selectedGenres: string[] | undefined;
   onGenresChange: (genres: string[]) => void;
+  shadow?: boolean;
 }
 
 export default function GenresSelect({
   icon,
+  placeholder,
   selectedGenres,
   onGenresChange,
+  shadow,
 }: GenresSelectProps) {
   const { data, loading, error } = useFetchData<Array<Genre>>(
     getAllGenresRequest(),
@@ -40,10 +44,11 @@ export default function GenresSelect({
     <div className="h-full w-full">
       <MultiSelect
         icon={icon}
-        placeholder={"All Genres"}
+        placeholder={placeholder ?? "All Genres"}
         items={items}
         onItemChange={onGenresChange}
         selectedItems={selectedGenres ?? []}
+        shadow={shadow ?? true}
       />
     </div>
   );

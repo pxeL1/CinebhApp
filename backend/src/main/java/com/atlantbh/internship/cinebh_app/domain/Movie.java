@@ -35,6 +35,8 @@ public class Movie {
     private List<MovieImage> images;
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Projection> projections;
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Personnel> personnel;
 
     public Movie(MovieRequest movieRequest) {
         this.name = movieRequest.name();

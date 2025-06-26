@@ -8,12 +8,16 @@ export interface CurrentCitySelectProps {
   icon?: JSX.Element;
   selectedCity: string | undefined;
   onCityChange: (city: string) => void;
+  shadow?: boolean;
+  placeholder?: string;
 }
 
 export default function CitySelect({
   icon,
   selectedCity,
   onCityChange,
+  shadow,
+  placeholder,
 }: CurrentCitySelectProps) {
   const { data, loading, error } =
     useFetchData<Array<City>>(getCititesRequest());
@@ -39,10 +43,11 @@ export default function CitySelect({
     <div className="h-full w-full">
       <Select
         icon={icon}
-        placeholder={"All Cities"}
+        placeholder={placeholder ?? "All Cities"}
         selected={selectedCity}
         items={items}
         onItemChange={onCityChange}
+        shadow={shadow ?? true}
       />
     </div>
   );

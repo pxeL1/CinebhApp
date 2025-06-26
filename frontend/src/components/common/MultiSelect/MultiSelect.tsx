@@ -9,6 +9,7 @@ export interface MultiSelectProps {
   items: Array<string>;
   onItemChange: (item: Array<string>) => void;
   selectedItems: Array<string>;
+  shadow: boolean;
 }
 
 export default function MultiSelect({
@@ -17,6 +18,7 @@ export default function MultiSelect({
   items,
   onItemChange,
   selectedItems,
+  shadow,
 }: MultiSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,7 +35,7 @@ export default function MultiSelect({
     <div className="w-full h-full relative">
       <div
         className={classNames(
-          "w-full h-full py-3 border flex items-center rounded-lg shadow-md hover:bg-cinebhpale cursor-pointer",
+          "w-full h-full py-3 border flex items-center rounded-lg hover:bg-cinebhpale cursor-pointer",
           {
             "border-cinebhdarkred shadow-cinebhlightred text-cinebhdarkred":
               isOpen,
@@ -42,6 +44,7 @@ export default function MultiSelect({
             "border-cinebhpale shadow-cinebhshadow text-cinebhlightgray":
               !isOpen,
           },
+          { "shadow-md": shadow },
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -78,6 +81,7 @@ export default function MultiSelect({
                 id={`${index}`}
                 className="mr-2 p-4 ml-4 cursor-pointer accent-cinebhdarkred"
                 onChange={() => handleChange(item)}
+                checked={selectedItems.includes(item)}
               />
               <label
                 htmlFor={`${index}`}

@@ -68,7 +68,6 @@ export default function Upcoming() {
     newQueryParams.set("startDate", startDate);
     newQueryParams.set("status", "PUBLISHED");
 
-
     setQueryParams(newQueryParams);
 
     fetchPage<Movie>(

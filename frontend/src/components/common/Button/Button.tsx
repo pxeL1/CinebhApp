@@ -9,6 +9,7 @@ export enum ButtonType {
   PRIMARY,
   SECONDARY,
   TERTIARY,
+  QUATERNARY,
 }
 
 const buttonVariant: Record<ButtonType, string> = {
@@ -18,6 +19,8 @@ const buttonVariant: Record<ButtonType, string> = {
     "cursor-pointer flex items-center justify-center bg-white border border-cinebhpale rounded-lg hover:bg-cinebhpale disabled:cursor-default disabled:text-cinebhpale disabled:hover:bg-white p-4",
   [ButtonType.TERTIARY]:
     "w-full flex items-center justify-center bg-cinebhdark text-cinebhpale p-2 rounded cursor-pointer hover:bg-cinebhash",
+  [ButtonType.QUATERNARY]:
+    "w-full rounded-lg text-cinebhdarkred cursor-pointer hover:bg-cinebhdarkred hover:text-cinebhneutral font-semibold border border-cinebhdarkred flex justify-center items-center py-3 px-5 disabled:cursor-default disabled:bg-cinebhdust disabled:hover:bg-cinebhdust",
 };
 
 export default function Button({

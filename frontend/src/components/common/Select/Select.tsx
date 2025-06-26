@@ -9,6 +9,7 @@ export interface SelectProps {
   selected?: string;
   items: Array<string>;
   onItemChange: (item: string) => void;
+  shadow: boolean;
 }
 
 export default function Select({
@@ -17,6 +18,7 @@ export default function Select({
   selected,
   items,
   onItemChange,
+  shadow,
 }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -24,7 +26,7 @@ export default function Select({
     <div className="w-full h-full relative">
       <div
         className={classNames(
-          "w-full h-full py-3 border flex items-center rounded-lg shadow-md hover:bg-cinebhpale cursor-pointer",
+          "w-full h-full py-3 border flex items-center rounded-lg hover:bg-cinebhpale cursor-pointer",
           {
             "border-cinebhdarkred shadow-cinebhlightred text-cinebhdarkred":
               isOpen,
@@ -33,6 +35,7 @@ export default function Select({
             "border-cinebhpale shadow-cinebhshadow text-cinebhlightgray":
               !isOpen,
           },
+          { "shadow-md": shadow },
         )}
         onClick={() => setIsOpen(!isOpen)}
       >

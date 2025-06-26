@@ -63,7 +63,7 @@ export default function Projection() {
   const [seats, setSeats] = useState<Array<ProjectionSeat>>([]);
   const [sessionIsExpired, setSessionIsExpired] = useState(false);
   const [selectedSeats, setSelectedSeats] = useState<Array<ProjectionSeat>>([]);
-  const sessionDurationInSeconds = 1200;
+  const sessionDurationInSeconds = 200;
   const expiryTimestamp = new Date();
   expiryTimestamp.setSeconds(
     expiryTimestamp.getSeconds() + sessionDurationInSeconds,

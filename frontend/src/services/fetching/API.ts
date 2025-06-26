@@ -65,3 +65,11 @@ export function getPaymentSessionRequest() {
 export function getDeleteReservationRequest(id: string) {
   return `/reservation/delete/${id}`;
 }
+
+export function getMovieUpdateRequest(id: string) {
+  return `/movie/update/${id}`;
+}
+
+export function getMovieCreateRequest() {
+  return "/movie/create";
+}

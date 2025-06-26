@@ -1,10 +1,10 @@
-import { ChangeEvent, HTMLProps, ReactNode, useState } from "react";
+import { ChangeEvent, HTMLProps, JSX, useState } from "react";
 import classNames from "classnames";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export interface InputProps extends HTMLProps<HTMLInputElement> {
-  icon?: ReactNode;
+  icon?: JSX.Element;
   label?: string;
   dark: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;

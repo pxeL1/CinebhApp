@@ -8,12 +8,16 @@ export interface CinemaSelectProps {
   icon?: JSX.Element;
   selectedCinema: string | undefined;
   onCinemaChange: (cinema: string) => void;
+  placeholder?: string;
+  shadow?: boolean;
 }
 
 export default function CinemaSelect({
   icon,
   selectedCinema,
   onCinemaChange,
+  shadow,
+  placeholder,
 }: CinemaSelectProps) {
   const { data, loading, error } = useFetchData<Array<Venue>>(
     getAllVenuesRequest(),
@@ -40,10 +44,11 @@ export default function CinemaSelect({
     <div className="h-full w-full">
       <Select
         icon={icon}
-        placeholder="All Cinemas"
+        placeholder={placeholder ?? "All Cinemas"}
         selected={selectedCinema}
         items={items}
         onItemChange={onCinemaChange}
+        shadow={shadow ?? true}
       />
     </div>
   );

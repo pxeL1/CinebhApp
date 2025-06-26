@@ -2,6 +2,7 @@ package com.atlantbh.internship.cinebh_app.services.movie;
 
 import com.atlantbh.internship.cinebh_app.domain.*;
 import com.atlantbh.internship.cinebh_app.dtos.MovieRequest;
+import com.atlantbh.internship.cinebh_app.repositories.GenreRepository;
 import com.atlantbh.internship.cinebh_app.repositories.MovieRepository;
 import com.atlantbh.internship.cinebh_app.utility.StringUtils;
 import org.springframework.data.domain.Page;
@@ -17,9 +18,11 @@ import static com.atlantbh.internship.cinebh_app.specifications.MovieSpecificati
 @Service
 public class DefaultMovieService implements MovieService {
     private final MovieRepository movieRepository;
+    private final GenreRepository genreRepository;
 
-    public DefaultMovieService(MovieRepository movieRepository) {
+    public DefaultMovieService(MovieRepository movieRepository, GenreRepository genreRepository) {
         this.movieRepository = movieRepository;
+        this.genreRepository = genreRepository;
     }
 
     @Override
@@ -97,11 +100,12 @@ public class DefaultMovieService implements MovieService {
     @Override
     public Movie createMovie(MovieRequest movieRequest) {
         Movie movie = new Movie(movieRequest);
+        List<Genre> genres = getGenresByNames(movieRequest.genres());
 
-        List<MovieGenre> genres = movieRequest.genres().stream()
+        List<MovieGenre> movieGenres = genres.stream()
                 .map(genre -> new MovieGenre(movie, genre))
                 .toList();
-        movie.setGenres(genres);
+        movie.setGenres(movieGenres);
 
         List<MovieImage> images = movieRequest.images().stream()
                 .map(image -> new MovieImage(image.url(), image.isCoverPhoto(), movie))
@@ -113,12 +117,18 @@ public class DefaultMovieService implements MovieService {
                 .toList();
         movie.setProjections(projections);
 
+        List<Personnel> personnel = movieRequest.personnel().stream()
+                .map(person -> new Personnel(person.name(), person.actorRoleName(), person.role(), movie))
+                .toList();
+        movie.setPersonnel(personnel);
+
         return movieRepository.save(movie);
     }
 
     @Override
     public Movie updateMovie(Long id, MovieRequest movieRequest) {
         Movie movie = movieRepository.findById(id).orElseThrow();
+        List<Genre> genres = getGenresByNames(movieRequest.genres());
 
         movie.setName(movieRequest.name());
         movie.setPgRating(movieRequest.pgRating());
@@ -132,7 +142,7 @@ public class DefaultMovieService implements MovieService {
         movie.setStatus(movieRequest.status());
 
         movie.getGenres().clear();
-        movieRequest.genres().stream()
+        genres.stream()
                 .map(genre -> new MovieGenre(movie, genre))
                 .forEach(movie.getGenres()::add);
 
@@ -146,6 +156,17 @@ public class DefaultMovieService implements MovieService {
                 .map(projection -> new Projection(projection.time(), movie, projection.hall()))
                 .forEach(movie.getProjections()::add);
 
+        movie.getPersonnel().clear();
+        movieRequest.personnel().stream()
+                .map(person -> new Personnel(person.name(), person.actorRoleName(), person.role(), movie))
+                .forEach(movie.getPersonnel()::add);
+
         return movieRepository.save(movie);
+    }
+
+    private List<Genre> getGenresByNames(List<String> genreNames) {
+        List<Genre> genres = genreRepository.findAll();
+
+        return genres.stream().filter(genre -> genreNames.contains(genre.getName())).toList();
     }
 }

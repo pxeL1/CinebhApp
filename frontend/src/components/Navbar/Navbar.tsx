@@ -40,7 +40,7 @@ export default function Navbar() {
 
   return (
     <div>
-      <div className="min-w-360 w-full py-6 border-b border-cinebhlightgray bg-cinebhdarkgray flex items-center justify-between text-white">
+      <div className="min-w-screen w-full py-6 border-b border-cinebhlightgray bg-cinebhdarkgray flex items-center justify-between text-white">
         <Link to="/">
           <img className="h-8 w-32 ml-24" src={logo} alt="logo" />
         </Link>
@@ -87,6 +87,12 @@ interface UserMenuProps {
 function UserMenu({ user, handleLogout }: UserMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const username = user.email.substring(0, user.email.indexOf("@"));
+  const isAdmin =
+    user.roles
+      .map((userRole) => userRole.role)
+      .find((role) => role.name === "ADMIN") !== undefined;
+  const navigate = useNavigate();
+
   return (
     <div className="relative">
       <button
@@ -105,13 +111,24 @@ function UserMenu({ user, handleLogout }: UserMenuProps) {
       </button>
       <div
         className={classNames(
-          "z-10 flex max-h-0 border-cinebhpale shadow-md shadow-cinebhshadow rounded-lg bg-cinebhneutral overflow-y-auto mt-2 absolute offset transition-all duration-500 flex-col p-0",
-          { "flex max-h-60 border p-2": isOpen },
+          "z-10 flex max-h-0 border-cinebhpale shadow-md shadow-cinebhshadow rounded-lg bg-cinebhneutral overflow-y-auto mt-2 absolute offset transition-all duration-500 flex-col p-0 min-w-60",
+          { "max-h-60 border p-2": isOpen },
         )}
       >
-        <Button variant={ButtonType.PRIMARY} onClick={handleLogout}>
-          Log out
-        </Button>
+        {isAdmin && (
+          <button
+            className="py-3 px-2 text-cinebhdim hover:bg-cinebhpale rounded-lg cursor-pointer flex justify-start"
+            onClick={() => navigate("/admin/movie")}
+          >
+            Admin
+          </button>
+        )}
+        <button
+          className="py-3 px-2 text-cinebhdarkred hover:bg-cinebhpale rounded-lg cursor-pointer flex justify-start"
+          onClick={handleLogout}
+        >
+          Log Out
+        </button>
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ export interface DateRangeSelectProps {
   selected?: string;
   onStartDateChange: (date: string) => void;
   onEndDateChange: (date: string) => void;
+  shadow?: boolean;
 }
 
 export default function DateRangeSelect({
@@ -21,6 +22,7 @@ export default function DateRangeSelect({
   selected,
   onStartDateChange,
   onEndDateChange,
+  shadow,
 }: DateRangeSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState({
@@ -30,16 +32,18 @@ export default function DateRangeSelect({
 
   function handleSubmit() {
     onStartDateChange(
-      moment(value.start.toDate("UTC").toString()).toISOString(),
+      moment(value.start.toDate("UTC").toString()).startOf("day").toISOString(),
     );
-    onEndDateChange(moment(value.end.toDate("UTC").toString()).toISOString());
+    onEndDateChange(
+      moment(value.end.toDate("UTC").toString()).startOf("day").toISOString(),
+    );
   }
 
   return (
     <div className="w-full h-full relative">
       <div
         className={classNames(
-          "w-full h-full py-3 border flex items-center rounded-lg shadow-md hover:bg-cinebhpale cursor-pointer",
+          "w-full h-full py-3 border flex items-center rounded-lg hover:bg-cinebhpale cursor-pointer",
           {
             "border-cinebhdarkred shadow-cinebhlightred text-cinebhdarkred":
               isOpen,
@@ -48,6 +52,7 @@ export default function DateRangeSelect({
             "border-cinebhpale shadow-cinebhshadow text-cinebhlightgray":
               !isOpen,
           },
+          { "shadow-md": shadow ?? true },
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -67,8 +72,8 @@ export default function DateRangeSelect({
       </div>
       <div
         className={classNames(
-          "z-20 max-h-0 min-w-80 w-full border-cinebhpale shadow-md shadow-cinebhshadow rounded-lg bg-cinebhneutral overflow-y-auto mt-2 absolute offset transition-all duration-500 flex flex-col p-0",
-          { "max-h-360 border p-4": isOpen },
+          "z-20 max-h-0 min-w-80 max-w-80 w-full border-cinebhpale shadow-md shadow-cinebhshadow rounded-lg bg-cinebhneutral overflow-y-auto mt-2 absolute offset transition-all duration-500 flex flex-col p-0",
+          { "max-h-132 border p-4": isOpen },
         )}
       >
         <div className="flex gap-4 mb-4">
