@@ -149,7 +149,11 @@ pipeline {
                                 string(credentialsId: 'postgres-password-imad', variable: 'DB_PASSWORD'),
                                 string(credentialsId: 'postgres-url-imad', variable: 'DB_URL'),
                                 string(credentialsId: 'jwt-key-imad', variable: 'JWT_KEY'),
-
+                                string(credentialsId: 'email-user-imad', variable: 'EMAIL_USER'),
+                                string(credentialsId: 'email-password-imad', variable: 'EMAIL_PASSWORD'),
+                                string(credentialsId: 'stripe-api-key-imad', variable: 'STRIPE_API_KEY'),
+                                string(credentialsId: 'stripe-webhook-key-imad', variable: 'STRIPE_WEBHOOK_KEY'),
+                                string(credentialsId: 'client-base-url-imad', variable: 'CLIENT_BASE_URL')
                             ]) {
                                 writeFile file: '.env', text: """\
                                     TAG=${shortCommit}
@@ -160,6 +164,11 @@ pipeline {
                                     DB_PASSWORD=${DB_PASSWORD}
                                     DB_URL=${DB_URL}
                                     JWT_KEY=${JWT_KEY}
+                                    EMAIL_USER=${EMAIL_USER}
+                                    EMAIL_PASSWORD=${EMAIL_PASSWORD}
+                                    STRIPE_API_KEY=${STRIPE_API_KEY}
+                                    STRIPE_WEBHOOK_KEY=${STRIPE_WEBHOOK_KEY}
+                                    CLIENT_BASE_URL=${CLIENT_BASE_URL}
                                 """.stripIndent()
 
                                 sh """
