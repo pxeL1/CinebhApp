@@ -53,7 +53,7 @@ export default function Details({ setFormStep }: DetailsProps) {
   return (
     <>
       <div className="p-8 w-full min-h-screen">
-        <ProgressBar step={"SECOND"} />
+        <ProgressBar step="SECOND" />
         <div className="flex gap-4 mt-8 mb-3">
           <PersonnelUploadInput
             personnel={writers}
@@ -188,29 +188,6 @@ interface ImageModel {
 }
 
 function ImagesUploadInput({ images, setImages }: ImagesUploadInputProps) {
-  const uploadButton = (
-    <div className="w-full flex flex-col justify-center items-center">
-      <input
-        type="file"
-        id="imageInput"
-        hidden={true}
-        multiple={true}
-      />
-      <label
-        htmlFor="imageInput"
-        className="text-cinebhdarkred flex items-center gap-2 cursor-pointer"
-      >
-        <span>
-          <FontAwesomeIcon icon={faPlus} />
-        </span>
-        <div className="font-semibold underline">Upload Photos</div>
-      </label>
-      <div className="mt-3 text-cinebhlightgray text-sm">
-        or just drag and drop
-      </div>
-      <div className="mt-4 text-cinebhlightgray text-xs">* Add 4 photos</div>
-    </div>
-  );
 
   return (
     <div className="w-full h-full">

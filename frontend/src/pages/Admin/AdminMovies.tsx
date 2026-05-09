@@ -10,7 +10,7 @@ type MovieType = "DRAFTS" | "CURRENT" | "UPCOMING" | "ARCHIVED";
 
 export default function AdminMovies() {
   const [movieType, setMovieType] = useState<MovieType>("DRAFTS");
-  const movieCount = new Map<string, number>([
+  const movieCount = new Map<MovieType, number>([
     ["DRAFTS", 0],
     ["CURRENT", 0],
     ["UPCOMING", 0],
@@ -49,7 +49,7 @@ export default function AdminMovies() {
 interface FilterBarProps {
   selectedMovieType: MovieType;
   onMovieTypeSelect(movieType: MovieType): void;
-  moviesCount: Map<string, number>;
+  moviesCount: Map<MovieType, number>;
 }
 
 function FilterBar({

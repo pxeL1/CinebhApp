@@ -1,7 +1,7 @@
 import ProgressBar from "pages/Admin/ProgressBar";
 import Button, { ButtonType } from "components/common/Button/Button";
 import { Step } from "pages/Admin/AddMovie";
-import { JSX, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CinemaSelect from "components/common/CinemaSelect/CinemaSelect";
 import ProjectionTimeSelect from "components/common/ProjectionTimeSelect/ProjectionTimeSelect";
 import {
@@ -15,7 +15,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Venue } from "models/Venue";
 import get from "services/fetching/Get";
 import { getAllVenuesRequest } from "services/fetching/API";
-import { Projection } from "models/Projection";
 import { MovieContext } from "contexts/MovieContext/MovieContext";
 import { ProjectionRequest } from "models/ProjectionRequest";
 
@@ -23,51 +22,28 @@ export interface VenuesProps {
   setFormStep: (step: Step) => void;
 }
 
-interface ProjectionModel {
-  element: JSX.Element;
-  projection: ProjectionRequest;
-}
-
 export default function Venues({ setFormStep }: VenuesProps) {
   const movieContext = useContext(MovieContext);
   const [isAddable, setIsAddable] = useState<boolean>(false);
-  const firstProjection: ProjectionRequest = { time: undefined, venue: undefined };
-  const [projectionComponents, setProjectionComponents] = useState<
-    Array<ProjectionModel>
-  >([]);
+  const [projections, setProjections] = useState<
+    Array<ProjectionRequest>
+  >([{id: crypto.randomUUID(), time: undefined, venue: undefined }]);
 
-  useEffect(() => {
-    setProjectionComponents([{element: <ProjectionComponent
-        index={0}
-        projection={firstProjection}
-        onProjectionComplete={setIsAddable}
-        projectionComponents={projectionComponents}
-        setProjectionComponents={setProjectionComponents}
-      />, projection: firstProjection}])
-  }, []);
+  function onProjectionDelete(index: number) {
+    const newProjections = projections.filter((_, i) => i !== index);
+    setProjections(newProjections);
+  }
 
   function addProjection() {
-    const projection: ProjectionRequest = { time: undefined, venue: undefined };
-    const projectionComponent = (
-      <ProjectionComponent
-        index={projectionComponents.length}
-        projection={projection}
-        onProjectionComplete={setIsAddable}
-        projectionComponents={projectionComponents}
-        setProjectionComponents={setProjectionComponents}
-      />
-    );
-
-    const newProjectionComponent: ProjectionModel = {
-      element: projectionComponent,
-      projection: projection,
-    };
+    const projection: ProjectionRequest = { id: crypto.randomUUID(), time: undefined, venue: undefined };
+    setProjections(prev => [...prev, projection]);
     setIsAddable(false);
-    const newProjectionComponents = [
-      ...projectionComponents,
-      newProjectionComponent,
-    ];
-    setProjectionComponents(newProjectionComponents);
+  }
+
+  function onProjectionChange(index: number, updated: Partial<ProjectionRequest>) {
+    setProjections(prev =>
+      prev.map((p, i) => i === index ? { ...p, ...updated } : p)
+    );
   }
 
   function handleSaveToDrafts() {
@@ -77,8 +53,10 @@ export default function Venues({ setFormStep }: VenuesProps) {
   return (
     <>
       <div className="p-8 w-full min-h-screen">
-        <ProgressBar step={"THIRD"} />
-        {projectionComponents.map((component) => component.element)}
+        <ProgressBar step="THIRD" />
+        {projections.map((projection, index) => (
+          <ProjectionComponent key={projection.id} index={index} onProjectionChange={onProjectionChange} onProjectionComplete={setIsAddable} onProjectionDelete={() => onProjectionDelete(index)} />
+        ))}
         <div className="w-full flex justify-center">
           <button
             className="text-cinebhdarkred cursor-pointer flex gap-2 items-center disabled:text-cinebhdust disabled:cursor-default"
@@ -114,18 +92,16 @@ export default function Venues({ setFormStep }: VenuesProps) {
 
 interface ProjectionProps {
   index: number;
-  projection: ProjectionRequest;
-  projectionComponents: Array<ProjectionModel>;
-  setProjectionComponents: (newProjectionComponents: Array<ProjectionModel>) => void;
+  onProjectionChange: (index: number, updated: Partial<ProjectionRequest>) => void;
   onProjectionComplete: (status: boolean) => void;
+  onProjectionDelete: () => void;
 }
 
 function ProjectionComponent({
   index,
-  projection,
-  projectionComponents,
-  setProjectionComponents,
+  onProjectionChange,
   onProjectionComplete,
+  onProjectionDelete,
 }: ProjectionProps) {
   const [city, setCity] = useState<string>("Choose city");
   const [venue, setVenue] = useState<string>();
@@ -139,21 +115,14 @@ function ProjectionComponent({
   }, []);
 
   useEffect(() => {
-    projection.venue = venues
-      .filter((ven) => ven.name === venue)
-      .at(0);
-    projection.time = time + ":00";
     if (venue && time) {
+      onProjectionChange(index, {
+        venue: venues.filter((ven) => ven.name === venue).at(0),
+        time: time + ":00",
+      });
       onProjectionComplete(true);
     }
   }, [venue, time, venues]);
-
-  function onProjectionDelete(index: number) {
-    const newProjectionComponents = projectionComponents.filter(
-      (component, componentIndex) => componentIndex !== index,
-    );
-    setProjectionComponents(newProjectionComponents);
-  }
 
   function onVenueChange(venue: string) {
     setVenue(venue);
@@ -195,7 +164,7 @@ function ProjectionComponent({
       </div>
       <div className="h-full pt-8 ml-2">
         <button
-          onClick={() => onProjectionDelete(index)}
+          onClick={onProjectionDelete}
           className="flex justify-center items-center p-4 text-cinebhdarkred cursor-pointer bg-cinebhrosered rounded-lg disabled:text-cinebhdust disabled:bg-cinebhneutral disabled:cursor-default"
         >
           <FontAwesomeIcon icon={faTrash} />

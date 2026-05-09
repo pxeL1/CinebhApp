@@ -14,7 +14,7 @@ import ProgressBar from "pages/Admin/ProgressBar";
 import Input from "components/common/Input/Input";
 import DateRangeSelect from "components/common/DateRangeSelect/DateRangeSelect";
 import GenresSelect from "components/common/GenreSelect/GenresSelect";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button, { ButtonType } from "components/common/Button/Button";
 import { MovieContext } from "contexts/MovieContext/MovieContext";
 import { Step } from "pages/Admin/AddMovie";
@@ -32,6 +32,7 @@ export default function General({ setFormStep }: GeneralProps) {
       ? selectedStartDate + " - " + selectedEndDate
       : undefined;
   const [director, setDirector] = useState<string>();
+  const [isValid, setIsValid] = useState<boolean>(false);
 
   function handleSaveToDrafts() {
     if (director) {
@@ -47,10 +48,26 @@ export default function General({ setFormStep }: GeneralProps) {
     movieContext.handleSubmit();
   }
 
+  useEffect(() => {
+    if(movieContext.name &&
+    movieContext.pgRating &&
+    movieContext.language &&
+    movieContext.duration &&
+    movieContext.startDate &&
+    movieContext.endDate &&
+    movieContext.genres.length > 0 &&
+    director &&
+    movieContext.tmdbId &&
+    movieContext.trailer &&
+    movieContext.synopsis) {
+      setIsValid(true);
+    }
+  }, [movieContext]);
+
   return (
     <>
       <div className="p-8 w-full">
-        <ProgressBar step={"FIRST"} />
+        <ProgressBar step="FIRST" />
         <div className="grid grid-cols-2 grid-rows-4 mt-8 gap-x-4 gap-y-6">
           <Input
             dark={false}
@@ -177,7 +194,7 @@ export default function General({ setFormStep }: GeneralProps) {
           <Button
             variant={ButtonType.PRIMARY}
             onClick={() => setFormStep("SECOND")}
-            disabled={!movieContext.name}
+            disabled={!isValid}
           >
             Continue
           </Button>

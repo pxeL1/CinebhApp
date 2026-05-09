@@ -1,6 +1,7 @@
 import { Venue } from "models/Venue";
 
 export type ProjectionRequest = {
-  time?: string;
-  venue?: Venue;
+  id: string;
+  time: string | undefined;
+  venue: Venue | undefined;
 }

@@ -1,6 +1,5 @@
 package com.atlantbh.internship.cinebh_app.services.auth;
 
-import io.jsonwebtoken.JwtException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
